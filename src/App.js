@@ -6,6 +6,7 @@ import { nodes as nodeData } from './data/nodes';
 import Sidebar from './components/Sidebar';
 import Lesson from './components/Lesson';
 import Quiz from './components/Quiz';
+import LessonResult from './components/LessonResult'
 
 export default function App() {
   const [nodes, setNodes] = useState(nodeData);
@@ -28,6 +29,7 @@ export default function App() {
       setLastActive(today); localStorage.setItem('lastActive', today);
     }
   }, []);
+  
 
   const addOverallXp = (amount) => {
     setOverallXp(prev => { const newXp = prev + amount; localStorage.setItem('overallXp', newXp); return newXp; });
@@ -37,48 +39,129 @@ export default function App() {
     setLessonXp(prev => Math.min(prev + amount, 100)); // cap at 100% mastery
   };
 
-  const handleSelectNode = (node) => { setCurrentNode(node); setShowLesson(true); setShowQuiz(false); setLessonXp(0); };
+ const handleSelectNode = (node) => {
+  if (!node.unlocked) return; // Prevent clicking locked nodes
+
+  setCurrentNode(node);
+  setShowLesson(true);   // Show the lesson text
+  setShowQuiz(false);    // Hide the quiz
+  setShowResult(false);  // THIS FIXES THE OVERLAP - hides the results
+};
   const handleStartQuiz = () => { setShowLesson(false); setShowQuiz(true); };
 
-  // App.js
+// Add these to your App.js state
+const [showResult, setShowResult] = useState(false);
+const [lastResult, setLastResult] = useState({ success: false, before: 0, after: 0 });
+
 const handleQuizComplete = (earnedMastery, totalQuestions, isSuccess) => {
-  let reachedFullMastery = false;
+  if (isSuccess) {
+    // 1. Calculate the values manually
+    const currentMastery = currentNode.mastery || 0;
+    const newMastery = Math.min(100, currentMastery + earnedMastery);
 
-  const updatedNodes = nodes.map(n => {
-    if (n.id === currentNode.id) {
-      // Add the new mastery to existing mastery, maxing at 100
-      const newMastery = Math.min(100, (n.mastery || 0) + earnedMastery);
-      if (newMastery === 100) reachedFullMastery = true;
-      return { ...n, mastery: newMastery };
-    }
-    return n;
-  });
+    // 2. Create the updated node object
+    const updatedCurrentNode = { ...currentNode, mastery: newMastery };
 
-  // Only unlock children if this specific node just hit 100%
-  const finalNodes = updatedNodes.map(n => {
-    if (currentNode.children.includes(n.id) && reachedFullMastery) {
-      return { ...n, unlocked: true };
-    }
-    return n;
-  });
+    // 3. Update the full nodes list
+    const updatedNodes = nodes.map(n => {
+      if (n.id === currentNode.id) {
+        return updatedCurrentNode;
+      }
+      // Unlock logic for children
+      if (currentNode.children?.includes(n.id) && newMastery === 100) {
+        return { ...n, unlocked: true };
+      }
+      return n;
+    });
 
-  setNodes(finalNodes);
-  
-  // Logic to show LessonResult.js should go here 
-  // For now, we reset the view:
+    // 4. Update ALL states simultaneously
+    setNodes(updatedNodes);
+    setCurrentNode(updatedCurrentNode); // <--- THIS FIXES THE SIDEBAR
+    setLastResult({ 
+      success: true, 
+      before: currentMastery, 
+      after: newMastery 
+    });
+
+    localStorage.setItem('mpt_progress', JSON.stringify(updatedNodes));
+  } else {
+    setLastResult({ 
+      success: false, 
+      before: currentNode.mastery, 
+      after: currentNode.mastery 
+    });
+  }
+
   setShowQuiz(false);
-  setCurrentNode(null);
+  setShowResult(true);
 };
-	
+
+// Button handlers
+const handleReplay = () => {
+  setShowResult(false);
+  setShowQuiz(true); // Jumps straight back into the 5 random questions
+};
+
+const handleContinue = () => {
+  // 1. Find the ID of the child (next lesson)
+  const nextNodeId = currentNode.children?.[0]; 
+  
+  // 2. Find that actual node object in your list
+  const nextNode = nodes.find(n => n.id === nextNodeId);
+
+  if (nextNode && nextNode.unlocked) {
+    // If it exists and is unlocked, go to it
+    handleSelectNode(nextNode); 
+  } else {
+    // If there is no next lesson, just go back to the main map
+    setShowResult(false);
+    setCurrentNode(null);
+  }
+};
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <Sidebar nodes={nodes} onSelect={handleSelectNode} currentNode={currentNode} xp={overallXp} streak={streak} lessonXp={lessonXp} />
-      <div style={{ flex: 1, padding: '24px' }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '16px' }}>MPT Duolingo-Style Prototype</h1>
-        {currentNode && showLesson && <Lesson node={currentNode} onNext={handleStartQuiz} />}
-        {currentNode && showQuiz && <Quiz node={currentNode} onComplete={handleQuizComplete} addXp={addOverallXp} addLessonXp={addLessonXp} />}
-        {!currentNode && <p>Select a node from the sidebar to start a lesson.</p>}
-      </div>
-    </div>
-  );
+  <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <Sidebar 
+      nodes={nodes} 
+      onSelect={handleSelectNode} 
+      currentNode={currentNode} 
+      xp={overallXp} 
+      streak={streak} 
+      lessonXp={lessonXp} 
+    />
+    <div style={{ flex: 1, padding: '24px' }}>
+  <h1 style={{ fontSize: '2rem', marginBottom: '16px' }}>MPT Prep</h1>
+
+  {/* PRIORITY 1: Result Screen */}
+  {showResult ? (
+    <LessonResult 
+      success={lastResult.success}
+      lessonXpBefore={lastResult.before}
+      lessonXpAfter={lastResult.after}
+      isNextLocked={lastResult.after < 100}
+      onReplay={handleReplay}
+      onContinue={handleContinue}
+    />
+  ) : (
+    /* PRIORITY 2: Quiz or Lesson (Only show if not showing result) */
+    <>
+      {currentNode && showQuiz ? (
+        <Quiz 
+          node={currentNode} 
+          onComplete={handleQuizComplete} 
+          addXp={addOverallXp} 
+        />
+      ) : currentNode && showLesson ? (
+        <Lesson node={currentNode} onNext={handleStartQuiz} />
+      ) : (
+        /* PRIORITY 3: Welcome Message */
+        <div className="welcome-area">
+          <p>Select a node from the sidebar to start a lesson.</p>
+        </div>
+      )}
+    </>
+  )}
+</div>
+  </div>
+);
+  
 }

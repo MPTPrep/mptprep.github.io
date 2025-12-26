@@ -304,3 +304,45 @@ button {
 .xp-popup {
   display: none;
 }
+.result-container {
+  text-align: center;
+}
+
+.result-emoji {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.large-bar {
+  height: 20px !important;
+  margin: 15px 0;
+}
+
+.mastery-fill {
+  background: #58cc02; /* Green for mastery */
+}
+
+.result-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.replay-button {
+  background: white;
+  color: #1cb0f6;
+  border: 2px solid #e5e5e5 !important;
+}
+
+.button-locked {
+  background: #e5e5e5 !important;
+  color: #afafaf !important;
+  border-color: #d1d1d1 !important;
+  cursor: not-allowed;
+}
+
+.unlock-msg {
+  color: #ffc107;
+  font-weight: bold;
+  margin-top: 10px;
+}

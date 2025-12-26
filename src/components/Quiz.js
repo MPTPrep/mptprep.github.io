@@ -41,7 +41,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp }) {
           // Mastery logic: 33% base, reduced by 5% for every lost heart
           const penalty = (3 - hearts) * 5;
           const earnedMastery = Math.max(0, 34 - penalty);
-          addLessonXp(earnedMastery);
+          //addLessonXp(earnedMastery);
           onComplete(earnedMastery, totalQuestions, true);
           return;
         }
