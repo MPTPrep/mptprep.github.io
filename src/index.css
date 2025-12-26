@@ -1,13 +1,306 @@
+/* ===== Base ===== */
 body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2 {
+  color: #333;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ===== Layout ===== */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 280px;
+  border-right: 1px solid #ccc;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.tree-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 16px;
+}
+
+/* ===== Skill Nodes ===== */
+.tree-node {
+  position: relative;
+  padding: 10px 12px 10px 28px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.tree-node.unlocked {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.tree-node.locked {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.tree-node.current {
+  background-color: #e0f7fa;
+  border-color: #4caf50;
+}
+
+/* subtle vertical connector */
+.tree-node::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 14px;
+  width: 2px;
+  height: 100%;
+  background: #ccc;
+}
+
+.tree-node:first-child::before {
+  display: none;
+}
+
+/* ===== Mastery Bar (per node) ===== */
+.mastery-bar {
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  margin-top: 6px;
+}
+
+.mastery-bar-fill {
+  height: 100%;
+  background: #4caf50;
+  border-radius: 3px;
+}
+
+/* ===== Dashboard ===== */
+.sidebar-dashboard {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #ccc;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.level-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.level-circle {
+  width: 48px;
+  height: 48px;
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  font-size: 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xp-bar {
+  flex: 1;
+  height: 12px;
+  background-color: #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.5s ease;
+}
+
+.streak-display {
+  font-weight: bold;
+  color: #333;
+}
+
+/* ===== Quiz ===== */
+.quiz-container {
+  max-width: 600px;
+  padding: 24px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+}
+
+.lesson-progress-container {
+  margin-bottom: 16px;
+}
+
+.lesson-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.lesson-progress {
+  height: 8px;
+  background: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.lesson-progress-bar {
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.hearts {
+  font-size: 1.2rem;
+}
+
+/* ===== Quiz Options ===== */
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.option {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.option:hover {
+  transform: scale(1.03);
+}
+
+.option.correct {
+  background: #4caf50;
+  color: white;
+}
+
+.option.wrong {
+  background: #f44336;
+  color: white;
+}
+
+/* ===== XP Popup ===== */
+.xp-popup {
+  margin-top: 12px;
+  font-weight: bold;
+  color: #2196f3;
+  animation: floatUp 0.8s ease-out;
+}
+
+@keyframes floatUp {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+/* Lesson Screen */
+.lesson-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.lesson-title {
+  font-size: 2rem;
+  color: #1cb0f6; /* Duolingo Blue */
+  margin-bottom: 20px;
+}
+
+.lesson-content {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #4b4b4b;
+  margin-bottom: 30px;
+}
+
+.start-quiz-button {
+  background-color: #58cc02; /* Duolingo Green */
+  color: white;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-bottom: 4px solid #46a302;
+  transition: filter 0.2s;
+}
+
+.start-quiz-button:active {
+  border-bottom: 0;
+  transform: translateY(4px);
+}
+/* Styling for the Lesson Content inside the Quiz Container */
+.lesson-title {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.lesson-content-body {
+  margin: 20px 0;
+  line-height: 1.6;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+/* Standardized Primary Button Style */
+.primary-button {
+  width: 100%;
+  background-color: #1cb0f6;
+  color: white;
+  border: 1px solid #1899d6 !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.primary-button:hover {
+  background-color: #1ea4e3;
+}
+
+/* Remove the floating XP animation styles */
+.xp-popup {
+  display: none;
 }
