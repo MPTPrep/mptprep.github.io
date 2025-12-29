@@ -13,26 +13,45 @@ export default function App() {
   const [currentNode, setCurrentNode] = useState(null);
   const [showLesson, setShowLesson] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
-  const [overallXp, setOverallXp] = useState(parseInt(localStorage.getItem('overallXp') || '0'));
+
   const [lessonXp, setLessonXp] = useState(0);
-  const [streak, setStreak] = useState(parseInt(localStorage.getItem('streak') || '0'));
-  const [lastActive, setLastActive] = useState(localStorage.getItem('lastActive'));
 
-  useEffect(() => {
-    const today = new Date().toDateString();
-    if (lastActive !== today) {
-      if (lastActive === new Date(Date.now() - 86400000).toDateString()) {
-        setStreak(prev => { localStorage.setItem('streak', prev + 1); return prev + 1; });
-      } else {
-        setStreak(1); localStorage.setItem('streak', 1);
-      }
-      setLastActive(today); localStorage.setItem('lastActive', today);
-    }
-  }, []);
+  const [xp, setXp] = useState(() => Number(localStorage.getItem('mpt_xp')) || 0);
+const [streak, setStreak] = useState(() => Number(localStorage.getItem('mpt_streak')) || 0);
+const [lastActiveDate, setLastActiveDate] = useState(() => localStorage.getItem('mpt_last_date') || "");
+
+// This "Watcher" saves data to the browser's memory automatically
+useEffect(() => {
+  localStorage.setItem('mpt_xp', xp);
+  localStorage.setItem('mpt_streak', streak);
+  localStorage.setItem('mpt_last_date', lastActiveDate);
+}, [xp, streak, lastActiveDate]);
   
+const handleWin = () => {
+  // 1. Award 100 XP
+  setXp(prev => prev + 100);
 
+  // 2. Handle Streak
+  const today = new Date().toLocaleDateString();
+  
+  if (lastActiveDate === today) {
+    return; // Already did a lesson today, don't increase streak
+  }
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toLocaleDateString();
+
+  if (lastActiveDate === yesterdayStr || lastActiveDate === "") {
+    setStreak(prev => prev + 1); // Yesterday was active, or first time
+  } else {
+    setStreak(1); // Missed a day, reset to 1
+  }
+  
+  setLastActiveDate(today);
+};
   const addOverallXp = (amount) => {
-    setOverallXp(prev => { const newXp = prev + amount; localStorage.setItem('overallXp', newXp); return newXp; });
+    setXp(prev => { const newXp = prev + amount; localStorage.setItem('xp', newXp); return newXp; });
   };
 
   const addLessonXp = (amount) => {
@@ -118,13 +137,16 @@ const handleContinue = () => {
     setCurrentNode(null);
   }
 };
+const currentLevel = Math.floor(xp / 500) + 1;
+const xpProgress = ((xp % 500) / 500) * 100;
+
   return (
   <div style={{ display: 'flex', minHeight: '100vh' }}>
     <Sidebar 
       nodes={nodes} 
       onSelect={handleSelectNode} 
       currentNode={currentNode} 
-      xp={overallXp} 
+      xp={xp} 
       streak={streak} 
       lessonXp={lessonXp} 
     />
@@ -149,6 +171,7 @@ const handleContinue = () => {
           node={currentNode} 
           onComplete={handleQuizComplete} 
           addXp={addOverallXp} 
+		  onWin={handleWin}
         />
       ) : currentNode && showLesson ? (
         <Lesson node={currentNode} onNext={handleStartQuiz} />

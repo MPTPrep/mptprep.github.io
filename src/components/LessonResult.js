@@ -38,7 +38,7 @@ export default function LessonResult({
       
       <div className="result-buttons">
         <button onClick={onReplay} className="option replay-button">
-          Try Again
+          Play Again
         </button>
         
         <button 

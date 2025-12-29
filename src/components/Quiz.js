@@ -6,7 +6,7 @@ const shuffleArray = (arr) =>
     .sort((a, b) => a.r - b.r)
     .map(o => o.v);
 
-export default function Quiz({ node, onComplete, addXp, addLessonXp }) {
+export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
   // 1. Shuffle and pick only 5 questions at the start
   const [remaining, setRemaining] = useState(() => {
     const shuffled = shuffleArray(node.questions);
@@ -43,6 +43,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp }) {
           const earnedMastery = Math.max(0, 34 - penalty);
           //addLessonXp(earnedMastery);
           onComplete(earnedMastery, totalQuestions, true);
+		  onWin();
           return;
         }
         setRemaining(newRemaining);
