@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 
 export default function LandingPage({ onNavigate, streak, xp, user, darkMode, setDarkMode, onBackHome }) {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
-
+  
   const modules = [
     {
       id: 'learning-path',

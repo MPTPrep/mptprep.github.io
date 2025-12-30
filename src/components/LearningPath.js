@@ -29,6 +29,8 @@ export default function LearningPath({
   setShowAccountMenu,
   onBackHome // <--- Added this prop for navigation
 }) {
+	
+  
   return (
     <div className="app-container" style={{ display: 'flex', minHeight: '100vh', width: '100vw', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
       

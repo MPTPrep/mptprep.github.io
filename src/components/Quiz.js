@@ -13,11 +13,11 @@ const audio = {
   lose: new Audio('/audio/level_failure.mp3')
 };
 
-// Force the browser to start downloading immediately
 Object.values(audio).forEach(s => {
   s.load(); 
   s.volume = 0.5; // Adjust volume here
 });
+
 
 export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
   // 1. Shuffle and pick only 5 questions at the start
@@ -26,6 +26,23 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
     return shuffled.slice(0, 5); 
   });
   
+  const handleFirstInteraction = () => {
+  const context = new (window.AudioContext || window.webkitAudioContext)();
+  if (context.state === 'suspended') {
+    context.resume();
+  }
+  
+  
+  Object.values(audio).forEach(s => {
+    s.muted = true;
+    s.play().then(() => {
+      s.pause();
+      s.currentTime = 0;
+      s.muted = false; 
+    });
+  });
+};
+
   const playSound = (type) => {
     const s = audio[type];
     if (s) {
@@ -35,7 +52,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
     }
   };
   
-  const totalQuestions = 5; // Hardcoded to 5 as per your requirement
+  const totalQuestions = 5; 
   const [current, setCurrent] = useState(remaining[0]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [selected, setSelected] = useState(null);
