@@ -26,17 +26,24 @@ export default function App() {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   
   // --- 2. EFFECTS ---
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => {
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (u) => {
+    // Check if user exists AND if they have verified their email
+    if (u && u.emailVerified) {
       setUser(u);
-      if (u) {
-        loadUserData(u.uid);
-      } else {
-        setLoading(false);
+      loadUserData(u.uid);
+    } else {
+      // If they exist but aren't verified, we sign them out 
+      // so the app stays on the Login screen
+      if (u && !u.emailVerified) {
+        auth.signOut(); 
       }
-    });
-    return () => unsubscribe();
-  }, []);
+      setUser(null);
+      setLoading(false);
+    }
+  });
+  return () => unsubscribe();
+}, []);
 
   // --- 3. FUNCTIONS ---
   const loadUserData = async (uid) => {
