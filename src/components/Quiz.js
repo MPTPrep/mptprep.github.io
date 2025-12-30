@@ -6,6 +6,19 @@ const shuffleArray = (arr) =>
     .sort((a, b) => a.r - b.r)
     .map(o => o.v);
 
+const audio = {
+  correct: new Audio('/audio/correct_chime.mp3'),
+  wrong: new Audio('/audio/incorrect_chime.mp3'),
+  win: new Audio('/audio/level_success.mp3'),
+  lose: new Audio('/audio/level_failure.mp3')
+};
+
+// Force the browser to start downloading immediately
+Object.values(audio).forEach(s => {
+  s.load(); 
+  s.volume = 0.5; // Adjust volume here
+});
+
 export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
   // 1. Shuffle and pick only 5 questions at the start
   const [remaining, setRemaining] = useState(() => {
@@ -13,12 +26,22 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
     return shuffled.slice(0, 5); 
   });
   
+  const playSound = (type) => {
+    const s = audio[type];
+    if (s) {
+      s.currentTime = 0; 
+      s.play().catch(() => {
+      });
+    }
+  };
+  
   const totalQuestions = 5; // Hardcoded to 5 as per your requirement
   const [current, setCurrent] = useState(remaining[0]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [selected, setSelected] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [hearts, setHearts] = useState(3);
+  
 
   useEffect(() => {
     if (current) {
@@ -33,6 +56,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
 
     if (isCorrect) {
       setFeedback('correct');
+	  playSound("correct");
       addXp(5);
 
       const newRemaining = remaining.filter(q => q !== current);
@@ -44,6 +68,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
           //addLessonXp(earnedMastery);
           onComplete(earnedMastery, totalQuestions, true);
 		  onWin();
+		  playSound("win");
           return;
         }
         setRemaining(newRemaining);
@@ -52,15 +77,15 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
       }, 700);
     } else {
       setFeedback('wrong');
+	  playSound("wrong");
       setHearts(h => h - 1);
 
       setTimeout(() => {
         if (hearts - 1 <= 0) {
+		  playSound("lose");
           onComplete(0, totalQuestions, false);
           return;
         }
-        // If they get it wrong, we reshuffle the remaining pool
-        // but keep the current question in it so they have to try again
         const reshuffled = shuffleArray(remaining);
         setRemaining(reshuffled);
         setCurrent(reshuffled[0]);
