@@ -1,5 +1,6 @@
 /* ===== Base ===== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css');
 
 /* Apply it to everything */
 * {
@@ -44,7 +45,7 @@ h1, h2, h3 {
 
 /* ===== Sidebar ===== */
 .sidebar {
-  width: 280px;
+  width: 300px;
   height: 100vh;
   border-right: 1px solid #ccc;
   padding: 16px;
@@ -389,4 +390,18 @@ h1, h2, h3 {
   font-weight: bold;
   margin-top: 10px;
 }
+
+.sidebar-wrapper {
+  background: white;
+  border-right: 1px solid #e5e5e5;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    position: fixed;
+    height: 100vh;
+  }
+}
+
 

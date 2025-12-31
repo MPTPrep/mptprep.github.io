@@ -27,6 +27,8 @@ export default function App() {
   const [streak, setStreak] = useState(0);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [view, setView] = useState('landing'); // 'landing', 'learning-path', 'practice-tests', 'test-info'
+
+
   
   
   // --- 2. EFFECTS ---
@@ -51,26 +53,43 @@ useEffect(() => {
 
   // --- 3. FUNCTIONS ---
   const loadUserData = async (uid) => {
-    const docRef = doc(db, "users", uid);
-    const docSnap = await getDoc(docRef);
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      setXp(data.xp || 0);
-      setStreak(data.streak || 0);
-      setLastActiveDate(data.lastActiveDate || "");
-      if (data.nodes) setNodes(data.nodes);
-    } else {
-      // New User: Use 'nodeData' here because that is what you imported at the top
-      await setDoc(docRef, { 
-        xp: 0, 
-        streak: 0, 
-        lastActiveDate: "",
-        nodes: nodeData 
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    setXp(data.xp || 0);
+    setStreak(data.streak || 0);
+    setLastActiveDate(data.lastActiveDate || "");
+
+    // MERGE LOGIC:
+    // If we have saved nodes in Firebase, we take the Mastery/Unlocked status,
+    // but we use the Questions/Lesson text from our local nodeData file.
+    if (data.nodes) {
+      const mergedNodes = nodeData.map(localNode => {
+        const firebaseNode = data.nodes.find(n => n.id === localNode.id);
+        if (firebaseNode) {
+          return {
+            ...localNode, // Fresh questions/latex from nodes.js
+            mastery: firebaseNode.mastery, // Progress from Firebase
+            unlocked: firebaseNode.unlocked // Unlock status from Firebase
+          };
+        }
+        return localNode;
       });
+      setNodes(mergedNodes);
     }
-    setLoading(false);
-  };
+  } else {
+    // New User logic stays the same
+    await setDoc(docRef, { 
+      xp: 0, 
+      streak: 0, 
+      lastActiveDate: "",
+      nodes: nodeData 
+    });
+  }
+  setLoading(false);
+};
   
   const [darkMode, setDarkMode] = useState(() => {
   return localStorage.getItem('mpt_dark_mode') === 'true';
@@ -84,6 +103,8 @@ useEffect(() => {
     document.body.classList.remove('dark-theme');
   }
 }, [darkMode]);
+
+
 
   const handleWin = async () => {
     const today = new Date().toLocaleDateString();
@@ -182,10 +203,12 @@ useEffect(() => {
   if (!user) return <Login />;
 
   // --- 5. RENDER ---
-  return (<div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
+  return (
+  
+  
+  <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
       
-      {/* GLOBAL HEADER (Optional: keep this consistent across all pages) */}
-      {/* You can move your account menu / logout button here */}
+      
 
       {view === 'landing' && (
   <LandingPage 
@@ -223,6 +246,7 @@ useEffect(() => {
     showAccountMenu={showAccountMenu}
     setShowAccountMenu={setShowAccountMenu}
 	onBackHome={() => setView('landing')}
+
           />
         </div>
       )}

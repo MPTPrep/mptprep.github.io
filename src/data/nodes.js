@@ -30,16 +30,16 @@ export const nodes = [
     lesson: "Exponents are repeated multiplication. Square roots find the original factor.",
     children: [3],
     questions: [
-      { question: "Value of 5^3?", options: ["15", "25", "125", "75"], answer: "125" },
-      { question: "Evaluate: sqrt(81) + sqrt(16)", options: ["13", "97", "12", "sqrt(97)"], answer: "13" },
-      { question: "Value of 2^4 - sqrt(25)?", options: ["11", "3", "16", "21"], answer: "11" },
-      { question: "What is 10^0?", options: ["0", "1", "10", "100"], answer: "1" },
-      { question: "Evaluate: sqrt(100) - 2^3", options: ["8", "2", "4", "0"], answer: "2" },
-      { question: "Which is larger: 3^2 or 2^3?", options: ["3^2", "2^3", "Equal", "Cannot tell"], answer: "3^2" },
-      { question: "Calculate: sqrt(144) / 3", options: ["4", "12", "3", "36"], answer: "4" },
-      { question: "Value of (1/2)^2?", options: ["1", "1/4", "1/2", "0.5"], answer: "1/4" },
-      { question: "Evaluate: 4^2 + 3^2", options: ["14", "25", "49", "7"], answer: "25" },
-      { question: "If x^2 = 49, what is x?", options: ["7", "14", "24.5", "9"], answer: "7" }
+      { question: "Value of $5^3$?", options: ["15", "25", "125", "75"], answer: "125" },
+      { question: "Evaluate: $\\sqrt{81} + \\sqrt{16}$", options: ["13", "97", "12", "$\\sqrt{97}$"], answer: "13" },
+      { question: "Value of $2^4 - \\sqrt{25}$?", options: ["11", "3", "16", "21"], answer: "11" },
+      { question: "What is $10^0$?", options: ["0", "1", "10", "100"], answer: "1" },
+      { question: "Evaluate: $\\sqrt{100} - 2^3$", options: ["8", "2", "4", "0"], answer: "2" },
+      { question: "Which is larger: $3^2$ or $2^3$?", options: ["$3^2$", "$2^3$", "Equal", "Cannot tell"], answer: "$3^2$" },
+      { question: "Calculate: $\\frac{\\sqrt{144}}{3}$", options: ["4", "12", "3", "36"], answer: "4" },
+      { question: "Value of $\\left(\\frac{1}{2}\\right)^2$?", options: ["1", "$\\frac{1}{4}$", "$\\frac{1}{2}$", "0.5"], answer: "$\\frac{1}{4}$" },
+      { question: "Evaluate: $4^2 + 3^2$", options: ["14", "25", "49", "7"], answer: "25" },
+      { question: "If $x^2 = 49$, what is $x$?", options: ["7", "14", "24.5", "9"], answer: "7" }
     ]
   },
   {

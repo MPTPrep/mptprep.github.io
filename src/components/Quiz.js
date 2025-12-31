@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+import 'katex/dist/katex.min.css';
+
+import Latex from 'react-latex-next';
+
 const shuffleArray = (arr) =>
   [...arr]
     .map(v => ({ v, r: Math.random() }))
@@ -138,7 +142,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
         </div>
       </div>
 
-      <h2>{current.question}</h2>
+      <h2><Latex>{current.question}</Latex></h2>
 
       <div className="options">
         {shuffledOptions.map((opt, i) => (
@@ -149,7 +153,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
               ${selected === opt && feedback === 'correct' ? 'correct' : ''}
               ${selected === opt && feedback === 'wrong' ? 'wrong' : ''}`}
           >
-            {opt}
+            <Latex>{opt}</Latex>
           </button>
         ))}
       </div>
