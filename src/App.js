@@ -107,23 +107,27 @@ useEffect(() => {
 
 
   const handleWin = async () => {
-    const today = new Date().toLocaleDateString();
-    let newXP = xp + 100;
-    let newStreak = streak;
-    let newLastActiveDate = lastActiveDate;
+  const today = new Date().toISOString().split('T')[0];
+  
+  let newXP = xp + 100;
+  let newStreak = streak;
+  let newLastActiveDate = lastActiveDate;
 
-    if (lastActiveDate !== today) {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toLocaleDateString();
+  if (lastActiveDate !== today) {
+    // Calculate what yesterday was
+    const yesterdayDate = new Date();
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+    const yesterday = yesterdayDate.toISOString().split('T')[0];
 
-      if (lastActiveDate === yesterdayStr || lastActiveDate === "") {
-        newStreak += 1;
-      } else {
-        newStreak = 1;
-      }
-      newLastActiveDate = today;
+    // If they practiced yesterday, increment. 
+    // If they haven't practiced in a while, reset to 1.
+    if (lastActiveDate === yesterday || lastActiveDate === "") {
+      newStreak += 1;
+    } else {
+      newStreak = 1;
     }
+    newLastActiveDate = today;
+  }
 
     setXp(newXP);
     setStreak(newStreak);

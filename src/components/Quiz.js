@@ -24,6 +24,29 @@ Object.values(audio).forEach(s => {
 
 
 export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
+  useEffect(() => {
+  const renderMath = () => {
+    if (window.renderMathInElement) {
+      window.renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false,
+      });
+    }
+  };
+
+  // Run immediately
+  renderMath();
+  
+  // Optional: Run again after a tiny delay to ensure React finished the DOM update
+  const timer = setTimeout(renderMath, 100);
+  return () => clearTimeout(timer);
+}, [node]);
+	
   // 1. Shuffle and pick only 5 questions at the start
   const [remaining, setRemaining] = useState(() => {
     const shuffled = shuffleArray(node.questions);
