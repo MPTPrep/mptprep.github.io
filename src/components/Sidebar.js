@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 
 export default function Sidebar({ nodes, onSelect, currentNode, xp, streak }) {
-  // 1. Add state to track which tab is active
+  
   const [activeTab, setActiveTab] = useState('math');
 
   const level = Math.floor(xp / 500) + 1;
   const xpPercent = Math.min(100, (xp % 500) / 500 * 100);
-
-  // 2. Filter nodes based on the active tab
-  // (Make sure your nodes in nodes.js have category: 'math' or category: 'pedagogy')
   const filteredNodes = nodes.filter(node => node.category === activeTab);
 
   return (

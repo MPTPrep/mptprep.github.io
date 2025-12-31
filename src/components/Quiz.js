@@ -19,7 +19,7 @@ const audio = {
 
 Object.values(audio).forEach(s => {
   s.load(); 
-  s.volume = 0.5; // Adjust volume here
+  s.volume = 0.5; 
 });
 
 
@@ -39,10 +39,10 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
     }
   };
 
-  // Run immediately
+  
   renderMath();
   
-  // Optional: Run again after a tiny delay to ensure React finished the DOM update
+  
   const timer = setTimeout(renderMath, 100);
   return () => clearTimeout(timer);
 }, [node]);
@@ -109,7 +109,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
           // Mastery logic: 33% base, reduced by 5% for every lost heart
           const penalty = (3 - hearts) * 5;
           const earnedMastery = Math.max(0, 34 - penalty);
-          //addLessonXp(earnedMastery);
+          
           onComplete(earnedMastery, totalQuestions, true);
 		  onWin();
 		  playSound("win");
@@ -143,10 +143,10 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
     setFeedback(null);
   };
 
-  // Calculate progress based on the 5-question limit
+  
   const progressPercent = Math.round(((totalQuestions - remaining.length) / totalQuestions) * 100);
 
-  // Fallback for empty state
+  
   if (!current) return null;
 
   return (

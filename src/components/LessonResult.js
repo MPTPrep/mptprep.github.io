@@ -11,11 +11,11 @@ export default function LessonResult({
   const [lessonFill, setLessonFill] = useState(lessonXpBefore);
 
   useEffect(() => {
-  // Reset the bar to "before" immediately, then animate to "after"
+  
   setLessonFill(lessonXpBefore); 
   const timer = setTimeout(() => setLessonFill(lessonXpAfter), 100);
   return () => clearTimeout(timer);
-}, [lessonXpAfter, lessonXpBefore]); // Add both as dependencies
+}, [lessonXpAfter, lessonXpBefore]); 
   return (
     <div className="quiz-container result-container">
       <div className="result-emoji">{success ? '🎉' : '💔'}</div>

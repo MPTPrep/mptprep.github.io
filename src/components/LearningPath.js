@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Added useState
+import React, { useState } from 'react'; 
 import Sidebar from './Sidebar';
 import Lesson from './Lesson';
 import Quiz from './Quiz';
@@ -29,10 +29,10 @@ export default function LearningPath({
   setShowAccountMenu,
   onBackHome
 }) {
-  // New state to handle the manual toggle
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  // Auto-hide sidebar logic: If we are in a quiz or lesson, we can default it to closed
+  
   const isFocusMode = showLesson || showQuiz || showResult;
 
   return (
@@ -45,7 +45,7 @@ export default function LearningPath({
         className="sidebar-toggle"
         style={{
           position: 'fixed',
-          left: isSidebarOpen ? '300px' : '0px', // Moves with the sidebar
+          left: isSidebarOpen ? '300px' : '0px', 
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 2000,
@@ -72,7 +72,7 @@ export default function LearningPath({
         width: '300px', 
         flexShrink: 0,
         transition: 'margin-left 0.3s ease',
-        marginLeft: isSidebarOpen ? '0' : '-300px' // Slides it out of view
+        marginLeft: isSidebarOpen ? '0' : '-300px' 
       }}>
         <Sidebar 
           nodes={nodes} 

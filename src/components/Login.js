@@ -19,29 +19,29 @@ export default function Login() {
   setError('');
   try {
     if (isSignUp) {
-      // --- SIGN UP FLOW ---
+      
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await sendEmailVerification(userCredential.user);
       
-      // We sign them out immediately so they HAVE to verify before their first login
+      
       await auth.signOut();
       setError("Verification email sent! Please verify your email before logging in.");
-      setIsSignUp(false); // Switch them to login view automatically
+      setIsSignUp(false); 
     } else {
-      // --- LOGIN FLOW ---
+      
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       
-      // Check if they are verified
+      
       if (!userCredential.user.emailVerified) {
         setError("Please verify your email first. We sent a link to " + email);
-        await auth.signOut(); // Kick them out if not verified
+        await auth.signOut(); 
         return;
       }
       
-      // If we get here, they are verified and App.js takes over!
+      
     }
   } catch (err) {
-    // Better error handling so you know exactly what's failing
+    
     if (err.code === 'auth/email-already-in-use') {
       setError("This email is already registered. Please login instead.");
     } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { nodes as nodeData } from './data/nodes'; // We are using 'nodeData'
+import { nodes as nodeData } from './data/nodes'; 
 import Sidebar from './components/Sidebar';
 import Lesson from './components/Lesson';
 import Quiz from './components/Quiz';
@@ -12,13 +12,13 @@ import LandingPage from './components/LandingPage';
 import LearningPath from './components/LearningPath';
 
 export default function App() {
-  // --- 1. ALL HOOKS MUST BE AT THE TOP ---
+  
   const [nodes, setNodes] = useState(nodeData);
   const [currentNode, setCurrentNode] = useState(null);
   const [showLesson, setShowLesson] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
-  const [showResult, setShowResult] = useState(false); // Moved up
-  const [lastResult, setLastResult] = useState({ success: false, before: 0, after: 0 }); // Moved up
+  const [showResult, setShowResult] = useState(false); 
+  const [lastResult, setLastResult] = useState({ success: false, before: 0, after: 0 }); 
   const [lessonXp, setLessonXp] = useState(0);
   const [lastActiveDate, setLastActiveDate] = useState("");
   const [user, setUser] = useState(null);
@@ -26,21 +26,21 @@ export default function App() {
   const [xp, setXp] = useState(0);
   const [streak, setStreak] = useState(0);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
-  const [view, setView] = useState('landing'); // 'landing', 'learning-path', 'practice-tests', 'test-info'
+  const [view, setView] = useState('landing'); 
 
 
   
   
-  // --- 2. EFFECTS ---
+  
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (u) => {
-    // Check if user exists AND if they have verified their email
+    
     if (u && u.emailVerified) {
       setUser(u);
       loadUserData(u.uid);
     } else {
-      // If they exist but aren't verified, we sign them out 
-      // so the app stays on the Login screen
+      
+      
       if (u && !u.emailVerified) {
         auth.signOut(); 
       }
@@ -51,7 +51,7 @@ useEffect(() => {
   return () => unsubscribe();
 }, []);
 
-  // --- 3. FUNCTIONS ---
+  
   const loadUserData = async (uid) => {
   const docRef = doc(db, "users", uid);
   const docSnap = await getDoc(docRef);
@@ -62,17 +62,17 @@ useEffect(() => {
     setStreak(data.streak || 0);
     setLastActiveDate(data.lastActiveDate || "");
 
-    // MERGE LOGIC:
-    // If we have saved nodes in Firebase, we take the Mastery/Unlocked status,
-    // but we use the Questions/Lesson text from our local nodeData file.
+    
+    
+    
     if (data.nodes) {
       const mergedNodes = nodeData.map(localNode => {
         const firebaseNode = data.nodes.find(n => n.id === localNode.id);
         if (firebaseNode) {
           return {
-            ...localNode, // Fresh questions/latex from nodes.js
-            mastery: firebaseNode.mastery, // Progress from Firebase
-            unlocked: firebaseNode.unlocked // Unlock status from Firebase
+            ...localNode, 
+            mastery: firebaseNode.mastery, 
+            unlocked: firebaseNode.unlocked 
           };
         }
         return localNode;
@@ -80,7 +80,7 @@ useEffect(() => {
       setNodes(mergedNodes);
     }
   } else {
-    // New User logic stays the same
+    
     await setDoc(docRef, { 
       xp: 0, 
       streak: 0, 
@@ -114,13 +114,13 @@ useEffect(() => {
   let newLastActiveDate = lastActiveDate;
 
   if (lastActiveDate !== today) {
-    // Calculate what yesterday was
+    
     const yesterdayDate = new Date();
     yesterdayDate.setDate(yesterdayDate.getDate() - 1);
     const yesterday = yesterdayDate.toISOString().split('T')[0];
 
-    // If they practiced yesterday, increment. 
-    // If they haven't practiced in a while, reset to 1.
+    
+    
     if (lastActiveDate === yesterday || lastActiveDate === "") {
       newStreak += 1;
     } else {
@@ -202,11 +202,11 @@ useEffect(() => {
   const currentLevel = Math.floor(xp / 500) + 1;
   const xpProgress = ((xp % 500) / 500) * 100;
 
-  // --- 4. CONDITIONAL RETURNS (Must stay below all Hooks) ---
+  
   if (loading) return <div className="loading">Loading MPT Prep...</div>;
   if (!user) return <Login />;
 
-  // --- 5. RENDER ---
+  
   return (
   
   

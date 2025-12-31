@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css');
 
-/* Apply it to everything */
+
 * {
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Ensure buttons and inputs (which often ignore parent fonts) also change */
+
 button, input, select, textarea {
   font-family: 'Montserrat', sans-serif !important;
 }
@@ -23,12 +23,12 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #3c3c3c; /* A soft dark grey that looks better with Montserrat */
+  color: #3c3c3c; 
 }
 
 
 h1, h2, h3 {
-  font-weight: 500; /* Bold for headings */
+  font-weight: 500; 
   letter-spacing: -0.5px;
 }
 
@@ -67,22 +67,22 @@ h1, h2, h3 {
   scrollbar-color: #e5e5e5 transparent;
 }
 .tree-container::-webkit-scrollbar {
-  width: 5px; /* Very thin */
+  width: 5px; 
 }
 
-/* The track (background) */
+
 .tree-container::-webkit-scrollbar-track {
-  background: transparent; /* Makes it look invisible when not scrolling */
+  background: transparent; 
 }
 
-/* The thumb (the part that moves) */
+
 .tree-container::-webkit-scrollbar-thumb {
-  background-color: #e5e5e5; /* Light grey */
-  border-radius: 20px;       /* Rounded ends */
-  border: 1px solid transparent; /* Gives it a bit of breathing room */
+  background-color: #e5e5e5; 
+  border-radius: 20px;       
+  border: 1px solid transparent; 
 }
 
-/* Hover effect so it's only visible when needed */
+
 .tree-container:hover::-webkit-scrollbar-thumb {
   background-color: #d1d1d1; 
 }
@@ -112,7 +112,7 @@ h1, h2, h3 {
   border-color: #4caf50;
 }
 
-/* subtle vertical connector */
+
 .tree-node::before {
   content: '';
   position: absolute;
@@ -277,7 +277,7 @@ h1, h2, h3 {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(-12px); }
 }
-/* Lesson Screen */
+
 .lesson-container {
   max-width: 800px;
   margin: 0 auto;
@@ -289,7 +289,7 @@ h1, h2, h3 {
 
 .lesson-title {
   font-size: 2rem;
-  color: #1cb0f6; /* Duolingo Blue */
+  color: #1cb0f6; 
   margin-bottom: 20px;
 }
 
@@ -301,7 +301,7 @@ h1, h2, h3 {
 }
 
 .start-quiz-button {
-  background-color: #58cc02; /* Duolingo Green */
+  background-color: #58cc02; 
   color: white;
   padding: 16px 32px;
   border-radius: 12px;
@@ -315,7 +315,7 @@ h1, h2, h3 {
   border-bottom: 0;
   transform: translateY(4px);
 }
-/* Styling for the Lesson Content inside the Quiz Container */
+
 .lesson-title {
   margin-top: 0;
   color: #333;
@@ -329,7 +329,7 @@ h1, h2, h3 {
   font-size: 1.1rem;
 }
 
-/* Standardized Primary Button Style */
+
 .primary-button {
   width: 100%;
   background-color: #1cb0f6;
@@ -344,7 +344,7 @@ h1, h2, h3 {
   background-color: #1ea4e3;
 }
 
-/* Remove the floating XP animation styles */
+
 .xp-popup {
   display: none;
 }
@@ -363,7 +363,7 @@ h1, h2, h3 {
 }
 
 .mastery-fill {
-  background: #58cc02; /* Green for mastery */
+  background: #58cc02; 
 }
 
 .result-buttons {
