@@ -51,6 +51,7 @@ export default function LearningPath({
           zIndex: 2000,
           width: '30px',
           height: '60px',
+          backgroundColor: '#1cb0f6',
           color: 'white',
           border: 'none',
           borderRadius: '0 8px 8px 0',

@@ -376,6 +376,7 @@ h1, h2, h3 {
   background: white;
   color: #1cb0f6;
   border: 2px solid #e5e5e5 !important;
+  margin-top: 10px;
 }
 
 .button-locked {
