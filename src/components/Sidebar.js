@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 
-export default function Sidebar({ nodes, onSelect, currentNode, xp, streak }) {
+// 1. Added darkMode to the props list
+export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, darkMode }) {
   
   const [activeTab, setActiveTab] = useState('math');
 
@@ -11,15 +12,16 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak }) {
 
   return (
     <div className="sidebar">
-      <h2>Knowledge Map</h2>
+      <h2 style={{ color: darkMode ? '#fff' : '#3c3c3c' }}>Knowledge Map</h2>
 
-      {/* 3. The Tab Toggle Buttons */}
+      {/* Tab Toggle Buttons */}
       <div style={{ 
         display: 'flex', 
         padding: '0 16px', 
         gap: '8px', 
         marginBottom: '16px' 
       }}>
+        {/* MATH BUTTON */}
         <button 
           onClick={() => setActiveTab('math')}
           style={{
@@ -30,13 +32,20 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak }) {
             cursor: 'pointer',
             fontFamily: 'Montserrat',
             fontWeight: 'bold',
-            backgroundColor: activeTab === 'math' ? '#1cb0f6' : '#f1f1f1',
-            color: activeTab === 'math' ? 'white' : '#afafaf',
+            // DYNAMIC COLORS BASED ON DARK MODE
+            backgroundColor: activeTab === 'math' 
+              ? '#1cb0f6' 
+              : (darkMode ? '#3d3d3d' : '#f1f1f1'),
+            color: activeTab === 'math' 
+              ? 'white' 
+              : (darkMode ? '#888' : '#afafaf'),
             transition: 'all 0.2s'
           }}
         >
           Math
         </button>
+
+        {/* PEDAGOGY BUTTON */}
         <button 
           onClick={() => setActiveTab('pedagogy')}
           style={{
@@ -47,8 +56,13 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak }) {
             cursor: 'pointer',
             fontFamily: 'Montserrat',
             fontWeight: 'bold',
-            backgroundColor: activeTab === 'pedagogy' ? '#1cb0f6' : '#f1f1f1',
-            color: activeTab === 'pedagogy' ? 'white' : '#afafaf',
+            // DYNAMIC COLORS BASED ON DARK MODE
+            backgroundColor: activeTab === 'pedagogy' 
+              ? '#1cb0f6' 
+              : (darkMode ? '#3d3d3d' : '#f1f1f1'),
+            color: activeTab === 'pedagogy' 
+              ? 'white' 
+              : (darkMode ? '#888' : '#afafaf'),
             transition: 'all 0.2s'
           }}
         >
@@ -63,7 +77,7 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak }) {
             className={`tree-node ${node.unlocked ? 'unlocked' : 'locked'} ${currentNode?.id === node.id ? 'current' : ''}`}
             onClick={() => node.unlocked && onSelect(node)}
           >
-            <strong>
+            <strong style={{ color: 'inherit' }}>
               {node.title} {!node.unlocked && '🔒'}
             </strong>
 
@@ -82,6 +96,7 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak }) {
           streak={streak}
           level={level}
           xpPercent={xpPercent}
+          darkMode={darkMode} // Pass it down to Dashboard too!
         />
       </div>
     </div>

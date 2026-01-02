@@ -36,6 +36,14 @@ export default function LearningPath({
   const isFocusMode = showLesson || showQuiz || showResult;
 
   return (
+  <div className={`app-container ${isSidebarOpen ? 'sidebar-expanded' : 'sidebar-collapsed'} ${darkMode ? 'dark-theme' : ''}`} 
+       style={{ 
+         display: 'flex', 
+         minHeight: '100vh', 
+         width: '100vw', 
+         backgroundColor: darkMode ? '#1a1a1a' : '#fff', 
+         position: 'relative' 
+       }}>
     <div className={`app-container ${isSidebarOpen ? 'sidebar-expanded' : 'sidebar-collapsed'}`} 
          style={{ display: 'flex', minHeight: '100vh', width: '100vw', backgroundColor: darkMode ? '#1a1a1a' : '#fff', position: 'relative' }}>
       
@@ -81,6 +89,7 @@ export default function LearningPath({
           xp={xp} 
           streak={streak} 
           lessonXp={lessonXp} 
+		  darkMode={darkMode}
         />
       </div>
 
@@ -114,7 +123,6 @@ export default function LearningPath({
               <button onClick={onBackHome} style={headerButtonStyle(darkMode)}>Home</button>
               <button onClick={() => auth.signOut()} style={headerButtonStyle(darkMode)}>Logout</button>
 
-              {/* Account Menu Logic remains exactly the same... */}
               <div style={{ position: 'relative' }}>
                 <div onClick={(e) => { e.stopPropagation(); setShowAccountMenu(!showAccountMenu); }} style={{ cursor: 'pointer' }}>
                   <div style={avatarStyle}>{user?.email?.charAt(0).toUpperCase()}</div>
@@ -125,14 +133,19 @@ export default function LearningPath({
                     <div onClick={() => setDarkMode(!darkMode)} style={dropdownItemStyle}>
                       <span>Dark Mode</span> <span>{darkMode ? '🌙' : '☀️'}</span>
                     </div>
+					<div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Language</span>
+                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>
+                    EN (FR soon)
+                  </span>
+                </div>
                     <div onClick={() => auth.signOut()} style={{ ...dropdownItemStyle, color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee' }}>Logout</div>
                   </div>
                 )}
               </div>
             </div>
           </div>
-          
-          {/* Content area logic remains same... */}
+		  
           {showResult ? (
             <LessonResult 
               success={lastResult.success}
@@ -159,6 +172,7 @@ export default function LearningPath({
         </div>
       </div>
     </div>
+	</div>
   );
 }
 

@@ -70,3 +70,18 @@
   background: #4caf50;
   transition: width 0.5s ease;
 }
+.dark-theme .sidebar {
+  background-color: #262626 !important;
+  border-right: 1px solid #444 !important;
+}
+
+.dark-theme .tree-node.unlocked {
+  background-color: #333 !important;
+  border-color: #444 !important;
+  color: #fff !important;
+}
+
+.dark-theme .tree-node.locked {
+  background-color: #1a1a1a !important;
+  color: #555 !important;
+}

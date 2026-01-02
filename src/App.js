@@ -10,6 +10,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import Login from './components/Login';
 import LandingPage from './components/LandingPage';
 import LearningPath from './components/LearningPath';
+import TestInfo from './components/TestInfo';
 
 export default function App() {
   
@@ -264,11 +265,12 @@ useEffect(() => {
       )}
 
       {view === 'test-info' && (
-        <div style={{ padding: '40px' }}>
-          <button onClick={() => setView('landing')}>← Back</button>
-          <h1>Test Information</h1>
-          <p>Everything you need to know about the MPT.</p>
-        </div>
-      )}
+  <TestInfo 
+    user={user}                 // Needed for email and first letter
+    darkMode={darkMode}         // Needed for styling
+    setDarkMode={setDarkMode}   // Needed for the toggle switch
+    onBackHome={() => setView('landing')} // THIS fixes the home button
+  />
+)}
     </div>);
 }
