@@ -31,8 +31,6 @@ export default function App() {
 
 
   
-  
-  
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (u) => {
     
@@ -59,10 +57,28 @@ useEffect(() => {
 
   if (docSnap.exists()) {
     const data = docSnap.data();
-    setXp(data.xp || 0);
-    setStreak(data.streak || 0);
-    setLastActiveDate(data.lastActiveDate || "");
 
+	let currentStreak = data.streak || 0;
+    const lastDate = data.lastActiveDate || "";
+    const today = new Date().toISOString().split('T')[0];
+
+    
+    if (lastDate !== "" && lastDate !== today) {
+      const yesterdayDate = new Date();
+      yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+      const yesterday = yesterdayDate.toISOString().split('T')[0];
+
+      
+      if (lastDate !== yesterday) {
+        currentStreak = 0;
+        
+        await setDoc(docRef, { streak: 0 }, { merge: true });
+      }
+    }
+
+    setXp(data.xp || 0);
+    setStreak(currentStreak); // This updates the UI to 0
+    setLastActiveDate(lastDate);
     
     
     
@@ -266,7 +282,7 @@ useEffect(() => {
 
       {view === 'test-info' && (
   <TestInfo 
-    user={user}                 // Needed for email and first letter
+    user={user}                 
     darkMode={darkMode}         // Needed for styling
     setDarkMode={setDarkMode}   // Needed for the toggle switch
     onBackHome={() => setView('landing')} // THIS fixes the home button

@@ -492,7 +492,7 @@ export const nodes = [
     { question: "Teacher 'Duty of Care' refers to:", options: ["Marking tests", "Ensuring student safety and well-being", "Following the dress code", "Leaving on time"], answer: "Ensuring student safety and well-being" },
     { question: "Planning for $ELL$ students involves:", options: ["Using visuals and simpler language", "Asking them not to speak", "Using a lower-grade curriculum", "Removing all math"], answer: "Using visuals and simpler language" },
     { question: "A 'Rich Task' in math is:", options: ["One that costs money", "One with multiple entry points and solutions", "A multiple-choice quiz", "A textbook definition"], answer: "One with multiple entry points and solutions" },
-    { question: "Interdisciplinary learning means:", options: ["Punishing students", "Connecting math to other subjects", "Studying only math", "Learning in silence"], answer: "Connecting math to other subjects" }
+    { question: "Interdisciplinary learning in math means:", options: ["Punishing students", "Connecting math to other subjects", "Studying only math", "Learning in silence"], answer: "Connecting math to other subjects" }
   ]
   },
   {
