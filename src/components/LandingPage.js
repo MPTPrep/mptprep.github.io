@@ -197,6 +197,21 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
           ))}
         </div>
       </div>
+	  
+	  <div>
+	  <h1>About</h1>
+	  <p>This site was originally created by me, Liam Salt, in December of 2025 while I was in my second year of teacher's college at the University of Ottawa.
+	  While preparing for the MPT, I noticed that the existing preparation resources did not really work for me. Something which many teacher education students do not seem
+	  to be aware of is the <a href="https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/MPT_Framework_August_2025_EN_-s/MPT_Framework_August_2025_EN_-s.pdf" >MPT Framework </a> 
+	   document, provided by the ministry. This document outlines exactly what content is to be tested on any instance of the 
+	  test, including specific topics, number of questions, etc. My initial idea for this site was to make the information contained in that document more easily 
+	  accessible and also more digestible. This original idea is what is found under the "Test Info" tab on this site. </p>
+	  <p>While I was back for winter break, waiting for the continuation of my last practicum, I noticed that many members of my family were playing Duolingo. I wondered if 
+	  I could somehow involve Duolingo-style gamification to make preparation for the Math Proficiency Test more engaging. Finding myself with a bounty of free time, I started
+	  to slowly building up the site. Eventually, I got it to a presentable state, implementing Duolingo-inspired features like XP, streaks, and iconic sounds (musical credit
+      goes to Damara). I'm always working on improving the site, I plan on implementing support for graphs and tables sometime soon. If you want to see what's going on under
+	  the hood, feel free to check out this project on <a href="https://github.com/MPTPrep/mptprep.github.io">Github</a>.</p>
+	  </div>
     </div>
   );
 }

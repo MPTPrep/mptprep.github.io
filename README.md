@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# MPT Prep
+### Gamified Learning for the Ontario Math Proficiency Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[**Visit the Live Site**](https://mptprep.github.io/)
 
-## Available Scripts
+**MPT Prep** is a web-based educational platform designed to help teacher education students master the Math Proficiency Test. By utilizing a structured learning path and gamification principles, the app provides a clear, engaging roadmap for students to build mathematical confidence and track their progress.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Structured Learning Path
+The curriculum is organized into a series of learning nodes. Students unlock new mathematical concepts only after demonstrating mastery of prerequisites, ensuring a solid foundation before advancing to complex topics.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Progress Tracking
+* **Daily Streaks:** Encourages consistent practice by tracking consecutive days of learning. The system resets the streak to zero if a day is missed to encourage accountability.
+* **XP System:** Students earn Experience Points (XP) for completing lessons and quizzes, contributing to an overall level.
+* **Mastery Levels:** Each topic features a mastery percentage based on quiz performance, allowing students to visualize their proficiency.
 
-### `npm test`
+### Interactive Quizzes
+* **Lesson Modules:** Direct instruction on specific math concepts.
+* **Assessment:** Immediate feedback on quiz results to identify strengths and weaknesses.
+* **Performance History:** Tracks progress across different attempts to show improvement over time.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### User Experience
+* **Authentication:** Secure user accounts via Firebase to save progress across devices.
+* **Theme Support:** Includes both Light and Dark modes to accommodate user preference.
+* **Responsive Design:** Optimized for study sessions on various screen sizes.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technical Overview
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The application is built using a modern frontend stack to ensure performance and reliability:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* **Framework:** React.js
+* **Database & Auth:** Firebase (Firestore and Authentication)
+* **Deployment:** GitHub Pages
+* **State Management:** React Hooks (useState, useEffect)
