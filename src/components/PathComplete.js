@@ -51,7 +51,7 @@ export default function PathComplete({ totalXp, streak, darkMode, user, onReview
     doc.text('has mastered the comprehensive curriculum of the', 421, 295, { align: 'center' });
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(26);
-    doc.text('MPT PREP TRAINING FRAMEWORK', 421, 335, { align: 'center' });
+    doc.text('MPT PREP DUOLINGO', 421, 335, { align: 'center' });
 
     // 5. THE SEAL WITH A VECTOR STAR
     const cx = 421;
