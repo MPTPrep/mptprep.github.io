@@ -66,7 +66,7 @@ const loadUserData = async (uid) => {
   const docSnap = await getDoc(docRef);
   const data = docSnap.exists() ? docSnap.data() : null;
 
-  // CHECK: If doc doesn't exist OR it's missing the 'role' field
+
   if (!data || !data.role) {
     console.log("Initializing new profile fields...");
     const initialName = `Student_${Math.random().toString(36).substring(7)}`;
@@ -77,14 +77,14 @@ const loadUserData = async (uid) => {
       nodes: data?.nodes || nodeData,
       testHistory: data?.testHistory || [],
       displayName: data?.displayName || initialName,
-      role: 'student' // This ensures the field is created
+      role: 'student' 
     };
 
     await setDoc(docRef, initialData, { merge: true });
     setProfileName(initialData.displayName);
     setIsAdmin(false);
   } else {
-    // Existing user with a proper profile
+	  
     setXp(data.xp || 0);
     setStreak(data.streak || 0);
     setLastActiveDate(data.lastActiveDate || "");
@@ -249,16 +249,109 @@ const updateProfileName = async (newName) => {
       )}
 
       {view === 'practice-tests' && (
-  <div style={{ padding: '20px', minHeight: '100vh', color: darkMode ? '#fff' : '#000' }}>
+  <div style={{ padding: '20px', minHeight: '100vh', color: darkMode ? '#fff' : '#000' }} > 
     
 	
 	
     {!activeTest && !reviewTest ? (
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        <button onClick={() => setView('landing')} style={{ marginBottom: '20px', cursor: 'pointer', background: 'none', border: 'none', color: '#1cb0f6', fontWeight: 'bold' }}>
-          ← Back to Home
-        </button>
-        <h1>Practice Exams</h1>
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }} >
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '40px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          
+          <button 
+            onClick={() => setView('landing')}
+            style={{ 
+              padding: '8px 16px',
+              borderRadius: '12px',
+              border: '1px solid #e5e5e5',
+              backgroundColor: darkMode ? '#2c2c2c' : '#fff',
+              cursor: 'pointer',
+              fontFamily: 'Montserrat',
+              fontWeight: '600',
+              fontSize: '0.85rem',
+              color: darkMode ? '#fff' : '#777'
+            }}
+          >
+            Home
+          </button>
+		  
+		        <button 
+            onClick={() => auth.signOut()} 
+            style={{ 
+              padding: '8px 16px',
+              borderRadius: '12px',
+              border: '1px solid #e5e5e5',
+              backgroundColor: darkMode ? '#2c2c2c' : '#fff',
+              cursor: 'pointer',
+              fontFamily: 'Montserrat',
+              fontWeight: '600',
+              fontSize: '0.85rem',
+              color: darkMode ? '#fff' : '#777',
+              transition: '0.2s'
+            }}
+          >
+            Logout
+          </button>
+
+
+          <div style={{ position: 'relative' }}>
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowAccountMenu(!showAccountMenu);
+              }}
+              style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+            >
+              <div style={{
+                width: '40px', height: '40px', borderRadius: '50%',
+                backgroundColor: '#1cb0f6', display: 'flex', alignItems: 'center',
+                justifyContent: 'center', color: 'white', fontWeight: 'bold',
+                fontFamily: 'Montserrat', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+              }}>
+                {
+				user?.email ? user.email.charAt(0).toUpperCase() : '?'}
+              </div>
+            </div>
+
+            {/* DROPDOWN MENU */}
+            {showAccountMenu && (
+              <div style={{
+                position: 'absolute', top: '50px', right: '0', width: '220px',
+                backgroundColor: darkMode ? '#2c2c2c' : '#fff',
+                border: '1px solid #e5e5e5', borderRadius: '12px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 1000,
+                padding: '10px', color: darkMode ? '#fff' : '#000'
+              }}>
+                <div style={{ padding: '10px', fontSize: '0.8rem', color: '#888', borderBottom: '1px solid #eee' }}>
+                  {user?.email || "Not logged in"}
+                </div>
+                
+                <div 
+                  onClick={() => setDarkMode(!darkMode)}
+                  style={{ padding: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}
+                >
+                  <span>Dark Mode</span>
+                  <span>{darkMode ? '🌙' : '☀️'}</span>
+                </div>
+
+                <div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Language</span>
+                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>
+                    EN (FR soon)
+                  </span>
+                </div>
+
+                <div 
+                  onClick={() => auth.signOut()}
+                  style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
+                >
+                  Logout
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', marginBottom: '40px' }}>
           {Object.values(MOCK_TESTS).map((test) => {
@@ -293,13 +386,13 @@ const updateProfileName = async (newName) => {
         </div>
 		<button 
     onClick={(e) => {
-      e.stopPropagation(); // Prevent triggering the test start
-      setOpenComments(test.id); // New state to track which test's comments are open
+      e.stopPropagation(); 
+      setOpenComments(test.id); 
     }}
     style={{
       position: 'absolute',
       top: '15px',
-      left: '15px', // Top left corner
+      left: '15px', 
       background: 'none',
       border: 'none',
       cursor: 'pointer',
@@ -311,7 +404,6 @@ const updateProfileName = async (newName) => {
   >
     💬 
     <span style={{ fontSize: '0.7rem', color: '#888' }}>
-      {/* Optional: You could fetch the comment count here later */}
     </span>
   </button>
 				<h3 style={{ marginBottom: '5px' }}>{testTitle}</h3>
@@ -384,9 +476,7 @@ const updateProfileName = async (newName) => {
         </div>
       </div>
     ) : (
-  /* This section triggers if either activeTest OR reviewTest is truthy */
   <>
-    {/* CASE 1: Reviewing an old test (Skip briefing) */}
     {reviewTest && (
       <PracticeTest 
         key={reviewTest.id}
@@ -398,7 +488,6 @@ const updateProfileName = async (newName) => {
       />
     )}
 
-    {/* CASE 2: Active Test - Show Briefing first */}
     {activeTest && !testStarted && (
       <TestBriefing 
         test={MOCK_TESTS[activeTest.id]}
@@ -408,7 +497,6 @@ const updateProfileName = async (newName) => {
       />
     )}
 
-    {/* CASE 3: Active Test - Start the actual test */}
     {activeTest && testStarted && (
       <PracticeTest 
         key={activeTest.instanceId}
@@ -417,7 +505,7 @@ const updateProfileName = async (newName) => {
         reviewData={null} 
         onComplete={(results) => {
           saveTestResult(results);
-          setTestStarted(false); // Reset state for next time
+		   
         }} 
         onExit={() => { 
           setActiveTest(null); 
@@ -430,14 +518,13 @@ const updateProfileName = async (newName) => {
   </div>
 )}
 
-      {view === 'test-info' && <TestInfo user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={() => setView('landing')} />}
+      {view === 'test-info' && <TestInfo user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
     {openComments && (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     zIndex: 1000
   }}>
-    {/* Backdrop - Click to close */}
     <div 
       onClick={() => setOpenComments(null)}
       style={{
@@ -446,7 +533,6 @@ const updateProfileName = async (newName) => {
       }}
     />
     
-    {/* Modal Box */}
     <div style={{
       position: 'relative',
       width: 'min(600px, 95%)',
@@ -457,10 +543,9 @@ const updateProfileName = async (newName) => {
       flexDirection: 'column',
       boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
       color: darkMode ? '#fff' : '#000',
-      overflow: 'hidden', // Keeps corners rounded
+      overflow: 'hidden', 
       border: darkMode ? '1px solid #333' : '1px solid #eee'
     }}>
-      {/* Header */}
       <div style={{ 
         padding: '20px 25px', 
         borderBottom: `1px solid ${darkMode ? '#333' : '#eee'}`, 
@@ -480,13 +565,12 @@ const updateProfileName = async (newName) => {
         </button>
       </div>
 
-      {/* Scrollable Content */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '25px' }}>
        <TestComments 
   testId={openComments} 
   user={user} 
   profileName={profileName} 
-  isAdmin={isAdmin}         // Pass admin status
+  isAdmin={isAdmin}         
   userHistory={userHistory} 
   darkMode={darkMode} 
 />
