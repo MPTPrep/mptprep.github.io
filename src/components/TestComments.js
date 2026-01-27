@@ -80,9 +80,11 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
 
   
   const isUsingLatex = newComment.includes('$') || newComment.includes('*');
+  
+  const specificTestHistory = userHistory.filter(h => h.testId === testId);
 
-  const bestScore = userHistory.length > 0 
-    ? Math.max(...userHistory.map(h => h.totalScore)) 
+  const bestScore = specificTestHistory.length > 0 
+    ? Math.max(...specificTestHistory.map(h => h.totalScore)) 
     : 0;
   const hasPassed = bestScore >= 70;
 

@@ -408,8 +408,8 @@ const updateProfileName = async (newName) => {
   </button>
 				<h3 style={{ marginBottom: '5px' }}>{testTitle}</h3>
                 
-                <div style={{ fontSize: '0.85rem', color: '#1cb0f6', fontWeight: 'bold', height: '20px', marginBottom: '15px' }}>
                   {highScore !== null ? `High Score: ${highScore}%` : 'No attempts yet'}
+                <div style={{ fontSize: '0.85rem', color: '#1cb0f6', fontWeight: 'bold', height: '20px', marginBottom: '15px' }}>
                 </div>
 
                 <button 
@@ -419,12 +419,12 @@ const updateProfileName = async (newName) => {
 					if (!test.requiresBriefing) {
 					  setTestStarted(true);
 					} else {
-					  setTestStarted(false);
 					}
+					  setTestStarted(false);
                   }} 
                   style={{ width: '100%', padding: '12px', backgroundColor: '#1cb0f6', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}
                 >
-                  {highScore !== null ? 'Retake Exam' : 'Start Exam'}
+                  {'Start Exam'}
                 </button>
               </div>
             );
