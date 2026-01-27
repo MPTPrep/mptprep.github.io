@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 
-// 1. Added darkMode to the props list
 export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, darkMode }) {
   
   const [activeTab, setActiveTab] = useState('math');
@@ -74,11 +73,11 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
         {filteredNodes.map(node => (
           <div
             key={node.id}
-            className={`tree-node ${node.unlocked ? 'unlocked' : 'locked'} ${currentNode?.id === node.id ? 'current' : ''}`}
+            className={`tree-node ${node.unlocked ? 'unlocked' : 'locked'} ${node.mastery >= 100 ? 'mastered' : ''} ${currentNode?.id === node.id ? 'current' : ''}`}
             onClick={() => node.unlocked && onSelect(node)}
           >
             <strong style={{ color: 'inherit' }}>
-              {node.title} {!node.unlocked && '🔒'}
+              {node.title} {node.mastery >= 100 ? '🌟' : (!node.unlocked && '🔒')}
             </strong>
 
             <div className="mastery-bar">
@@ -96,7 +95,7 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
           streak={streak}
           level={level}
           xpPercent={xpPercent}
-          darkMode={darkMode} // Pass it down to Dashboard too!
+          darkMode={darkMode} 
         />
       </div>
     </div>

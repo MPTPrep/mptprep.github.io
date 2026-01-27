@@ -29,6 +29,7 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
       description: 'Scoring rubrics, dates, and what to bring.',
       color: '#ffc107'
     }
+	
   ];
 
   return (

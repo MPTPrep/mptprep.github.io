@@ -3,12 +3,10 @@ import { auth } from '../firebase';
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 
-// Ensure all these props are listed in the { } below
 export default function TestInfo({ user, darkMode, setDarkMode, onBackHome }) {
   const [activeTab, setActiveTab] = useState('math');
   const [showAccountMenu, setShowAccountMenu] = useState(false);
 
-  // Helper to get the first letter of the email
   const userInitial = user?.email ? user.email.charAt(0).toUpperCase() : '?';
 
   return (
@@ -28,7 +26,7 @@ export default function TestInfo({ user, darkMode, setDarkMode, onBackHome }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           
           <button 
-            onClick={onBackHome} // This triggers the setView('landing') from App.js
+            onClick={onBackHome} 
             style={{ 
               padding: '8px 16px',
               borderRadius: '12px',
@@ -337,5 +335,3 @@ export default function TestInfo({ user, darkMode, setDarkMode, onBackHome }) {
   );
   
 };
-
-//export default TestInfo;

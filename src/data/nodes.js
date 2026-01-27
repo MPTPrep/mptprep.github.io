@@ -38,7 +38,7 @@ export const nodes = [
     { question: "Order from greatest to least: $-1, 0, 1$", options: ["$1, 0, -1$", "$-1, 0, 1$", "$0, 1, -1$", "$1, -1, 0$"], answer: "$1, 0, -1$" },
     { question: "What is the value of $9$ in $0.192$?", options: ["$9$ tenths", "$9$ hundredths", "$9$ ones", "$9$ thousandths$"], answer: "$9$ hundredths" },
     { question: "What is the difference between $10$ and $-10$?", options: ["$0$", "$10$", "$20$", "$-20$"], answer: "$20$" },
-    { question: "Which o is between $0.1$ and $0.2$?", options: ["$0.05$", "$0.15$", "$0.25$", "$1.5$"], answer: "$0.15$" }
+    { question: "Which number is between $0.1$ and $0.2$?", options: ["$0.05$", "$0.15$", "$0.25$", "$1.5$"], answer: "$0.15$" }
   ]
   },
   {

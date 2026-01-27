@@ -47,7 +47,6 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
   return () => clearTimeout(timer);
 }, [node]);
 	
-  // 1. Shuffle and pick only 5 questions at the start
   const [remaining, setRemaining] = useState(() => {
     const shuffled = shuffleArray(node.questions);
     return shuffled.slice(0, 5); 

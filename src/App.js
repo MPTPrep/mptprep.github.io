@@ -11,117 +11,115 @@ import Login from './components/Login';
 import LandingPage from './components/LandingPage';
 import LearningPath from './components/LearningPath';
 import TestInfo from './components/TestInfo';
+import PracticeTest from './components/PracticeTest';
+import TestBriefing from './components/TestBriefing';
+import TestComments from './components/TestComments';
+import { MOCK_TESTS } from './data/tests';
 
 export default function App() {
-  
   const [nodes, setNodes] = useState(nodeData);
   const [currentNode, setCurrentNode] = useState(null);
   const [showLesson, setShowLesson] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResult, setShowResult] = useState(false); 
   const [lastResult, setLastResult] = useState({ success: false, before: 0, after: 0 }); 
-  const [lessonXp, setLessonXp] = useState(0);
-  const [lastActiveDate, setLastActiveDate] = useState("");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [xp, setXp] = useState(0);
+   const [lessonXp, setLessonXp] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [lastActiveDate, setLastActiveDate] = useState("");
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [view, setView] = useState('landing'); 
+  const [activeTest, setActiveTest] = useState(null); 
+  const [userHistory, setUserHistory] = useState([]); 
+  const [reviewTest, setReviewTest] = useState(null);
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('mpt_dark_mode') === 'true');
+  const [testStarted, setTestStarted] = useState(false);
+  const [openComments, setOpenComments] = useState(null);
+  const [profileName, setProfileName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
-
-  
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (u) => {
-    
-    if (u && u.emailVerified) {
-      setUser(u);
-      loadUserData(u.uid);
-    } else {
-      
-      
-      if (u && !u.emailVerified) {
-        auth.signOut(); 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      if (u && u.emailVerified) {
+        setUser(u);
+        loadUserData(u.uid);
+      } else {
+        if (u && !u.emailVerified) auth.signOut(); 
+        setUser(null);
+        setProfileName("");
+        setIsAdmin(false);
+        setLoading(false);
       }
-      setUser(null);
-      setLoading(false);
-    }
-  });
-  return () => unsubscribe();
-}, []);
+    });
+    return () => unsubscribe();
+  }, []);
 
-  
-  const loadUserData = async (uid) => {
+  useEffect(() => {
+    localStorage.setItem('mpt_dark_mode', darkMode);
+    document.body.classList.toggle('dark-theme', darkMode);
+  }, [darkMode]);
+
+const loadUserData = async (uid) => {
   const docRef = doc(db, "users", uid);
   const docSnap = await getDoc(docRef);
+  const data = docSnap.exists() ? docSnap.data() : null;
 
-  if (docSnap.exists()) {
-    const data = docSnap.data();
+  // CHECK: If doc doesn't exist OR it's missing the 'role' field
+  if (!data || !data.role) {
+    console.log("Initializing new profile fields...");
+    const initialName = `Student_${Math.random().toString(36).substring(7)}`;
+    const initialData = {
+      xp: data?.xp || 0,
+      streak: data?.streak || 0,
+      lastActiveDate: data?.lastActiveDate || "",
+      nodes: data?.nodes || nodeData,
+      testHistory: data?.testHistory || [],
+      displayName: data?.displayName || initialName,
+      role: 'student' // This ensures the field is created
+    };
 
-	let currentStreak = data.streak || 0;
-    const lastDate = data.lastActiveDate || "";
-    const today = new Date().toISOString().split('T')[0];
-
-    
-    if (lastDate !== "" && lastDate !== today) {
-      const yesterdayDate = new Date();
-      yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-      const yesterday = yesterdayDate.toISOString().split('T')[0];
-
-      
-      if (lastDate !== yesterday) {
-        currentStreak = 0;
-        
-        await setDoc(docRef, { streak: 0 }, { merge: true });
-      }
-    }
-
+    await setDoc(docRef, initialData, { merge: true });
+    setProfileName(initialData.displayName);
+    setIsAdmin(false);
+  } else {
+    // Existing user with a proper profile
     setXp(data.xp || 0);
-    setStreak(currentStreak); // This updates the UI to 0
-    setLastActiveDate(lastDate);
-    
-    
+    setStreak(data.streak || 0);
+    setLastActiveDate(data.lastActiveDate || "");
+    setUserHistory(data.testHistory || []);
+    setProfileName(data.displayName || "Student");
+    setIsAdmin(data.role === 'admin');
     
     if (data.nodes) {
       const mergedNodes = nodeData.map(localNode => {
         const firebaseNode = data.nodes.find(n => n.id === localNode.id);
-        if (firebaseNode) {
-          return {
-            ...localNode, 
-            mastery: firebaseNode.mastery, 
-            unlocked: firebaseNode.unlocked 
-          };
-        }
-        return localNode;
+        return firebaseNode ? { ...localNode, ...firebaseNode } : localNode;
       });
       setNodes(mergedNodes);
     }
-  } else {
-    
-    await setDoc(docRef, { 
-      xp: 0, 
-      streak: 0, 
-      lastActiveDate: "",
-      nodes: nodeData 
-    });
   }
   setLoading(false);
 };
-  
-  const [darkMode, setDarkMode] = useState(() => {
-  return localStorage.getItem('mpt_dark_mode') === 'true';
-});
-
-useEffect(() => {
-  localStorage.setItem('mpt_dark_mode', darkMode);
-  if (darkMode) {
-    document.body.classList.add('dark-theme');
-  } else {
-    document.body.classList.remove('dark-theme');
+const saveTestResult = async (results) => {
+  const today = new Date().toLocaleDateString('en-CA');
+  const newAttempt = { 
+    id: Date.now(), 
+    testId: results.testId, 
+    date: today, 
+    totalScore: results.totalScore, 
+    pedScore: results.pedScore, 
+    mathScore: results.mathScore,
+    timeTaken: results.timeTaken, 
+    answers: results.answers 
+  };
+  const updatedHistory = [newAttempt, ...userHistory];
+  setUserHistory(updatedHistory);
+  if (user) {
+    await setDoc(doc(db, "users", user.uid), { testHistory: updatedHistory }, { merge: true });
   }
-}, [darkMode]);
-
-
+};
 
   const handleWin = async () => {
   const today = new Date().toISOString().split('T')[0];
@@ -160,7 +158,18 @@ useEffect(() => {
       }, { merge: true });
     }
   };
-
+const updateProfileName = async (newName) => {
+  if (!newName.trim() || !user) return;
+  
+  try {
+    const userRef = doc(db, "users", user.uid);
+    await setDoc(userRef, { displayName: newName }, { merge: true });
+    setProfileName(newName);
+    alert("Name updated successfully!");
+  } catch (err) {
+    console.error("Error updating name:", err);
+  }
+};
   const addOverallXp = (amount) => {
     setXp(prev => prev + amount);
   };
@@ -219,74 +228,273 @@ useEffect(() => {
   const currentLevel = Math.floor(xp / 500) + 1;
   const xpProgress = ((xp % 500) / 500) * 100;
 
-  
+
   if (loading) return <div className="loading">Loading MPT Prep...</div>;
   if (!user) return <Login />;
 
-  
   return (
-  
-  
-  <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
       
-      
-
-      {view === 'landing' && (
-  <LandingPage 
-    onNavigate={(target) => setView(target)} 
-    streak={streak} 
-    xp={xp} 
-    user={user} 
-  />
-)}
+      {view === 'landing' && <LandingPage onNavigate={(target) => setView(target)} streak={streak} xp={xp} user={user} />}
 
       {view === 'learning-path' && (
-        <div style={{ position: 'relative' }}>
-          
-          
-          
-          <LearningPath 
-            nodes={nodes}
-    currentNode={currentNode}
-    handleSelectNode={handleSelectNode}
-    showLesson={showLesson}
-    showQuiz={showQuiz}
-    showResult={showResult}
-    lastResult={lastResult}
-    handleStartQuiz={handleStartQuiz}
-    handleQuizComplete={handleQuizComplete}
-    handleReplay={handleReplay}
-    handleContinue={handleContinue}
-    addOverallXp={addOverallXp}
-    handleWin={handleWin}
-    xp={xp}
-    streak={streak}
-    darkMode={darkMode}
-    setDarkMode={setDarkMode}
-    user={user}
-    showAccountMenu={showAccountMenu}
-    setShowAccountMenu={setShowAccountMenu}
-	onBackHome={() => setView('landing')}
-
-          />
-        </div>
+        <LearningPath 
+          nodes={nodes} currentNode={currentNode} handleSelectNode={handleSelectNode}
+          showLesson={showLesson} showQuiz={showQuiz} showResult={showResult}
+          lastResult={lastResult} handleStartQuiz={handleStartQuiz} handleQuizComplete={handleQuizComplete}
+          handleReplay={handleReplay} handleContinue={handleContinue} addOverallXp={addOverallXp}
+          handleWin={handleWin} xp={xp} streak={streak} darkMode={darkMode} setDarkMode={setDarkMode}
+          user={user} showAccountMenu={showAccountMenu} setShowAccountMenu={setShowAccountMenu} onBackHome={() => setView('landing')}
+        />
       )}
 
       {view === 'practice-tests' && (
-        <div style={{ padding: '40px' }}>
-          <button onClick={() => setView('landing')}>← Back</button>
-          <h1>Practice Tests</h1>
-          <p>This module is coming soon!</p>
+  <div style={{ padding: '20px', minHeight: '100vh', color: darkMode ? '#fff' : '#000' }}>
+    
+	
+	
+    {!activeTest && !reviewTest ? (
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <button onClick={() => setView('landing')} style={{ marginBottom: '20px', cursor: 'pointer', background: 'none', border: 'none', color: '#1cb0f6', fontWeight: 'bold' }}>
+          ← Back to Home
+        </button>
+        <h1>Practice Exams</h1>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+          {Object.values(MOCK_TESTS).map((test) => {
+            const testId = test.id;
+			
+			const testTitle = test.title;
+            const scores = userHistory.filter(h => h.testId === testId).map(h => h.totalScore);
+            const highScore = scores.length > 0 ? Math.max(...scores) : null;
+            
+            return (
+              <div key={testId} style={{ backgroundColor: darkMode ? '#2c2c2c' : '#fff', border: '2px solid #e5e5e5', borderRadius: '16px', padding: '30px', textAlign: 'center',position: 'relative' }}>
+                <div 
+          title={test.isOfficial ? "Questions sourced from Ministry Practice Tests" : "Custom Practice Test"}
+          style={{
+            position: 'absolute',
+            top: '15px',
+            right: '15px',
+            width: '24px',
+            height: '24px',
+            borderRadius: '50%',
+            backgroundColor: test.isOfficial ? '#1cb0f6' : '#9b59b6',
+            color: '#fff',
+            fontSize: '0.7rem',
+            fontWeight: 'bold',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'help'
+          }}
+        >
+          {test.isOfficial ? 'M' : 'C'}
         </div>
-      )}
+		<button 
+    onClick={(e) => {
+      e.stopPropagation(); // Prevent triggering the test start
+      setOpenComments(test.id); // New state to track which test's comments are open
+    }}
+    style={{
+      position: 'absolute',
+      top: '15px',
+      left: '15px', // Top left corner
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+      fontSize: '1.2rem',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '5px'
+    }}
+  >
+    💬 
+    <span style={{ fontSize: '0.7rem', color: '#888' }}>
+      {/* Optional: You could fetch the comment count here later */}
+    </span>
+  </button>
+				<h3 style={{ marginBottom: '5px' }}>{testTitle}</h3>
+                
+                <div style={{ fontSize: '0.85rem', color: '#1cb0f6', fontWeight: 'bold', height: '20px', marginBottom: '15px' }}>
+                  {highScore !== null ? `High Score: ${highScore}%` : 'No attempts yet'}
+                </div>
 
-      {view === 'test-info' && (
-  <TestInfo 
-    user={user}                 
-    darkMode={darkMode}         // Needed for styling
-    setDarkMode={setDarkMode}   // Needed for the toggle switch
-    onBackHome={() => setView('landing')} // THIS fixes the home button
-  />
+                <button 
+                  onClick={() => {
+                    setReviewTest(null); 
+                    setActiveTest({ id: testId, instanceId: Date.now() }); 
+					if (!test.requiresBriefing) {
+					  setTestStarted(true);
+					} else {
+					  setTestStarted(false);
+					}
+                  }} 
+                  style={{ width: '100%', padding: '12px', backgroundColor: '#1cb0f6', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}
+                >
+                  {highScore !== null ? 'Retake Exam' : 'Start Exam'}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+          <h2 style={{ margin: 0 }}>Recent Activity</h2>
+          {userHistory.length > 0 && (
+            <button 
+              onClick={async () => {
+                if(window.confirm("Clear all recent activity? This will wipe your history from the cloud.")) {
+                  setUserHistory([]);
+                  if (user) {
+                    await setDoc(doc(db, "users", user.uid), { testHistory: [] }, { merge: true });
+                  }
+                }
+              }}
+              style={{ backgroundColor: 'transparent', border: '1px solid #ff4b4b', color: '#ff4b4b', padding: '5px 15px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem' }}
+            >
+              Clear History
+            </button>
+          )}
+        </div>
+
+        <div style={{ display: 'grid', gap: '10px' }}>
+          {userHistory.length === 0 ? (
+            <p style={{ color: '#aaa' }}>No recent activity to show.</p>
+          ) : (
+            userHistory.slice(0, 10).map((attempt, i) => (
+              <div key={i} style={{ padding: '15px 0', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontWeight: 'bold' }}>{attempt.date} - Test #{attempt.testId.split('-').pop()}</div>
+                  <div style={{ display: 'flex', gap: '15px', marginTop: '5px', fontSize: '0.9rem', color: '#666' }}>
+                    <span>Overall: <strong>{attempt.totalScore}%</strong></span>
+                    <span>Pedagogy: {attempt.pedScore || 0}%</span>
+                    <span>Math: {attempt.mathScore || 0}%</span>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setReviewTest(attempt)} 
+                  style={{ color: '#1cb0f6', cursor: 'pointer', background: 'none', border: '1px solid #1cb0f6', padding: '8px 20px', borderRadius: '8px', fontWeight: 'bold' }}
+                >
+                  Review
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    ) : (
+  /* This section triggers if either activeTest OR reviewTest is truthy */
+  <>
+    {/* CASE 1: Reviewing an old test (Skip briefing) */}
+    {reviewTest && (
+      <PracticeTest 
+        key={reviewTest.id}
+        testData={MOCK_TESTS[reviewTest.testId]} 
+        darkMode={darkMode} 
+        reviewData={reviewTest} 
+        onComplete={saveTestResult} 
+        onExit={() => { setReviewTest(null); }} 
+      />
+    )}
+
+    {/* CASE 2: Active Test - Show Briefing first */}
+    {activeTest && !testStarted && (
+      <TestBriefing 
+        test={MOCK_TESTS[activeTest.id]}
+        darkMode={darkMode}
+        onBack={() => setActiveTest(null)}
+        onStart={() => setTestStarted(true)}
+      />
+    )}
+
+    {/* CASE 3: Active Test - Start the actual test */}
+    {activeTest && testStarted && (
+      <PracticeTest 
+        key={activeTest.instanceId}
+        testData={MOCK_TESTS[activeTest.id]} 
+        darkMode={darkMode} 
+        reviewData={null} 
+        onComplete={(results) => {
+          saveTestResult(results);
+          setTestStarted(false); // Reset state for next time
+        }} 
+        onExit={() => { 
+          setActiveTest(null); 
+          setTestStarted(false); 
+        }} 
+      />
+    )}
+  </>
 )}
-    </div>);
+  </div>
+)}
+
+      {view === 'test-info' && <TestInfo user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={() => setView('landing')} />}
+    {openComments && (
+  <div style={{
+    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    zIndex: 1000
+  }}>
+    {/* Backdrop - Click to close */}
+    <div 
+      onClick={() => setOpenComments(null)}
+      style={{
+        position: 'absolute', width: '100%', height: '100%',
+        backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)'
+      }}
+    />
+    
+    {/* Modal Box */}
+    <div style={{
+      position: 'relative',
+      width: 'min(600px, 95%)',
+      maxHeight: '85vh',
+      backgroundColor: darkMode ? '#1a1a1a' : '#fff',
+      borderRadius: '24px',
+      display: 'flex',
+      flexDirection: 'column',
+      boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+      color: darkMode ? '#fff' : '#000',
+      overflow: 'hidden', // Keeps corners rounded
+      border: darkMode ? '1px solid #333' : '1px solid #eee'
+    }}>
+      {/* Header */}
+      <div style={{ 
+        padding: '20px 25px', 
+        borderBottom: `1px solid ${darkMode ? '#333' : '#eee'}`, 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        backgroundColor: darkMode ? '#222' : '#fcfcfc'
+      }}>
+        <h2 style={{ margin: 0, fontSize: '1.25rem' }}>
+          Discussion: {MOCK_TESTS[openComments]?.title}
+        </h2>
+        <button 
+          onClick={() => setOpenComments(null)} 
+          style={{ background: 'none', border: 'none', fontSize: '1.8rem', cursor: 'pointer', color: '#888', lineHeight: 1 }}
+        >
+          ×
+        </button>
+      </div>
+
+      {/* Scrollable Content */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '25px' }}>
+       <TestComments 
+  testId={openComments} 
+  user={user} 
+  profileName={profileName} 
+  isAdmin={isAdmin}         // Pass admin status
+  userHistory={userHistory} 
+  darkMode={darkMode} 
+/>
+      </div>
+    </div>
+  </div>
+)}
+	</div>
+  );
+
 }
