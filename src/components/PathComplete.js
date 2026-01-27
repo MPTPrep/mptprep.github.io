@@ -19,7 +19,7 @@ export default function PathComplete({ totalXp, streak, darkMode, user, onReview
     const dateStr = `${today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}, 2026`;
 
     // 3. DRAW BORDERS
-    doc.setDrawColor(28, 176, 246); // MPT Blue
+    doc.setDrawColor(28, 176, 246); 
     doc.setLineWidth(15);
     doc.rect(20, 20, 802, 555); 
     
@@ -53,7 +53,7 @@ export default function PathComplete({ totalXp, streak, darkMode, user, onReview
     doc.setFontSize(26);
     doc.text('MPT PREP DUOLINGO', 421, 335, { align: 'center' });
 
-    // 5. THE SEAL WITH A VECTOR STAR
+   
     const cx = 421;
     const cy = 460;
     

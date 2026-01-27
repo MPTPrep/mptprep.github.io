@@ -32,13 +32,13 @@ export default function LearningPath({
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   
-  // This controls the Trophy Page visibility
+  
   const [forceTrophy, setForceTrophy] = useState(false);
 
   const isPathMastered = nodes.length > 0 && nodes.every(n => n.mastery >= 100);
   const isFocusMode = showLesson || showQuiz || showResult;
 
-  // Function to handle trophy toggle
+  
   const handleTrophyToggle = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -71,7 +71,7 @@ export default function LearningPath({
         <Sidebar 
           nodes={nodes} 
           onSelect={(node) => {
-            setForceTrophy(false); // Close trophy if a node is picked
+            setForceTrophy(false); 
             handleSelectNode(node);
           }} 
           currentNode={currentNode} 
@@ -93,7 +93,7 @@ export default function LearningPath({
           padding: '0 30px', 
           borderBottom: `1px solid ${darkMode ? '#333' : '#eee'}`,
           backgroundColor: darkMode ? '#1a1a1a' : '#fff',
-          zIndex: 1000, // Highest priority for clicking
+          zIndex: 1000, 
           position: 'relative',
           pointerEvents: 'auto'
         }}>
@@ -161,7 +161,7 @@ export default function LearningPath({
               }
               
               if (forceTrophy) {
-                // If Trophy toggle is on, show this page and hide module summary
+                
                 return (
                   <PathComplete 
                     totalXp={xp} 
@@ -173,7 +173,7 @@ export default function LearningPath({
                 );
               }
 
-              // Default: Show the Selected Module or the empty state
+              
               return (
                 <div style={{ textAlign: 'center', marginTop: '40px' }}>
                   {currentNode ? (
