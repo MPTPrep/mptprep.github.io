@@ -21,14 +21,7 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
       description: 'Simulate the real MPT with full-length exams.',
       color: '#ff4b4b'
     },
-    {
-      id: 'test-info',
-      title: 'Test Info',
-      subtitle: 'Requirements',
-      icon: 'ℹ️',
-      description: 'Scoring rubrics, dates, and what to bring.',
-      color: '#ffc107'
-    },
+    
 	{
       id: 'study-guide',
       title: 'Study',
@@ -36,6 +29,14 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
       icon: '📚',
       description: 'Definitions of terms and example questions.',
       color: '#06c248'
+    },
+	{
+      id: 'test-info',
+      title: 'Test Info',
+      subtitle: 'Requirements',
+      icon: 'ℹ️',
+      description: 'Scoring rubrics, dates, and what to bring.',
+      color: '#ffc107'
     },
 	{
       id: 'resources-info',
@@ -156,7 +157,7 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
       </div>
 
       <div style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: darkMode ? '#fff' : '#3c3c3c' }}>MPT Prep Portal</h1>
+        <h1 style={{ fontSize: '5rem', marginBottom: '10px', color: darkMode ? '#fff' : '#3c3c3c' }}>MPT Prep</h1>
         <p style={{ color: '#666', marginBottom: '50px' }}>Welcome back! Choose your training module.</p>
 
         <div style={{ 
