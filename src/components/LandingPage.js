@@ -28,6 +28,22 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
       icon: 'ℹ️',
       description: 'Scoring rubrics, dates, and what to bring.',
       color: '#ffc107'
+    },
+	{
+      id: 'study-guide',
+      title: 'Study',
+      subtitle: 'Dictionary of Terms',
+      icon: '📚',
+      description: 'Definitions of terms and example questions.',
+      color: '#06c248'
+    },
+	{
+      id: 'resources-info',
+      title: 'Resources',
+      subtitle: 'Helpful Links',
+      icon: '🔗',
+      description: 'Helplful external resources.',
+      color: '#3d03fc'
     }
 	
   ];

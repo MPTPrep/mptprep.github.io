@@ -14,6 +14,8 @@ import TestInfo from './components/TestInfo';
 import PracticeTest from './components/PracticeTest';
 import TestBriefing from './components/TestBriefing';
 import TestComments from './components/TestComments';
+import Study from './components/Study';
+import Resources from './components/Resources';
 import { MOCK_TESTS } from './data/tests';
 
 export default function App() {
@@ -519,6 +521,8 @@ const updateProfileName = async (newName) => {
 )}
 
       {view === 'test-info' && <TestInfo user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+	  {view === 'study-guide' && <Study user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+	  {view === 'resources-info' && <Resources user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
     {openComments && (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
