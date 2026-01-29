@@ -39,6 +39,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('mpt_dark_mode') === 'true');
   const [testStarted, setTestStarted] = useState(false);
   const [openComments, setOpenComments] = useState(null);
+  const [showAboutModal, setShowAboutModal] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -237,7 +238,11 @@ const updateProfileName = async (newName) => {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
       
-      {view === 'landing' && <LandingPage onNavigate={(target) => setView(target)} streak={streak} xp={xp} user={user} />}
+      {view === 'landing' && <LandingPage onNavigate={(target) => {if (target === 'about') {
+        setShowAboutModal(true);
+      } else {
+        setView(target);
+      }}} streak={streak} xp={xp} user={user} />}
 
       {view === 'learning-path' && (
         <LearningPath 
@@ -582,7 +587,118 @@ const updateProfileName = async (newName) => {
     </div>
   </div>
 )}
-	</div>
-  );
+{showAboutModal && (
+  <div style={{
+    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    zIndex: 2000 // Higher than other elements
+  }}>
+    <div 
+      onClick={() => setShowAboutModal(false)}
+      style={{
+        position: 'absolute', width: '100%', height: '100%',
+        backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)'
+      }}
+    />
+    
+    <div style={{
+      position: 'relative',
+      width: 'min(800px, 90%)',
+      backgroundColor: darkMode ? '#2c2c2c' : '#fff',
+      borderRadius: '24px',
+      padding: '40px',
+      boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+      color: darkMode ? '#fff' : '#3c3c3c',
+      textAlign: 'center'
+    }}>
+      <button 
+        onClick={() => setShowAboutModal(false)}
+        style={{
+          position: 'absolute', top: '20px', right: '20px',
+          background: 'none', border: 'none', fontSize: '1.5rem',
+          cursor: 'pointer', color: '#888'
+        }}
+      >
+        ×
+      </button>
 
+      <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🌎</div>
+      <h2 style={{ marginBottom: '15px' }}>About MPT Prep</h2>
+      
+      <p style={{ 
+        lineHeight: '1.6', 
+        color: darkMode ? '#bbb' : '#666',
+        fontSize: '0.95rem' 
+      }}>This site was originally created by me, Liam Salt, in December of 2025 while I was in my second year of teacher's college at the University of Ottawa.
+	  While preparing for the MPT, I noticed that the existing preparation resources did not really work for me. Something which many teacher education students do not seem
+	  to be aware of is the <a href="https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/MPT_Framework_August_2025_EN_-s/MPT_Framework_August_2025_EN_-s.pdf" >MPT Framework </a> 
+	   document, provided by the ministry. This document outlines exactly what content is to be tested on any instance of the 
+	  test, including specific topics, number of questions, etc. My initial idea for this site was to make the information contained in that document more easily 
+	  accessible and also more digestible. This original idea is what is found under the "Test Info" tab on this site. </p>
+	  <p style={{ 
+        lineHeight: '1.6', 
+        color: darkMode ? '#bbb' : '#666',
+        fontSize: '0.95rem' 
+      }}>While I was back for winter break, waiting for the continuation of my last practicum, I noticed that many members of my family were playing Duolingo. I wondered if 
+	  I could somehow involve Duolingo-style gamification to make preparation for the Math Proficiency Test more engaging. Finding myself with a bounty of free time, I started
+	  to slowly building up the site. Eventually, I got it to a presentable state, implementing Duolingo-inspired features like XP, streaks, and iconic sounds (musical credit
+      goes to Damara). I'm always working on improving the site, I plan on implementing support for graphs and tables sometime soon. If you want to see what's going on under
+	  the hood, feel free to check out this project on <a href="https://github.com/MPTPrep/mptprep.github.io">Github</a>.</p>
+      <button 
+        onClick={() => setShowAboutModal(false)}
+        style={{
+          marginTop: '30px',
+          padding: '12px 30px',
+          borderRadius: '12px',
+          border: 'none',
+          backgroundColor: '#1cb0f6',
+          color: '#fff',
+          fontWeight: 'bold',
+          cursor: 'pointer'
+        }}
+      >
+        Got it!
+      </button>
+    </div>
+  </div>
+)}
+  
+  
+  {view === 'landing' && (
+  <>
+  <div style={{height:'200px'}}></div>
+
+	
+  <div style={{ 
+        padding: '40px 0', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        borderTop: darkMode ? '1px solid #333' : '1px solid #eee' 
+      }}>
+        <a 
+          href="https://github.com/MPTPrep/mptprep.github.io" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{
+            color: darkMode ? '#888' : '#3c3c3c',
+            textDecoration: 'none',
+            fontSize: '1.5rem', 
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            transition: 'opacity 0.2s'
+          }}
+          onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+          onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+        >
+          <svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          <span style={{ fontSize: '0.9rem', fontWeight: '600', fontFamily: 'Montserrat' }}>GitHub</span>
+        </a>
+  </div></> )}
+  
+</div>
+ );
 }

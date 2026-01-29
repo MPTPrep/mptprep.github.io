@@ -211,7 +211,7 @@ export const studyData = [
     category: "Pedagogy",
     keywords: ["support", "ZPD", "temporary"],
     definition: "Temporary support that is tailored to a learner's needs and is gradually removed as they gain competence.",
-    rigorousNote: "Connects to @Vygotsky and the **Zone of Proximal Development**. Examples include word walls, graphic organizers, and sentence starters.",
+    rigorousNote: "Connects to Vygotsky and the **Zone of Proximal Development**. Examples include word walls, graphic organizers, and sentence starters.",
     source: "@Learning_for_All",
     exampleQuestion: "Providing a multiplication table to a student while they learn long division is an example of what?",
     sampleAnswer: "**Scaffolding**."
@@ -244,7 +244,7 @@ export const studyData = [
     category: "Policy",
     keywords: ["IEP", "special education", "standards", "assessment"],
     definition: "**Accommodations** change *how* a student learns (e.g., extra time). **Modifications** change *what* a student is expected to learn (e.g., different grade level expectations).",
-    rigorousNote: "This is a critical distinction in @Growing_Success. Accommodations do not change the curriculum expectations; Modifications do.",
+    rigorousNote: "This is a critical distinction in Growing_Success. Accommodations do not change the curriculum expectations; Modifications do.",
     source: "@Ministry_of_Education",
     exampleQuestion: "A Grade 6 student is working on Grade 4 math expectations. Is this an accommodation or a modification?",
     sampleAnswer: "It is a **Modification**."
@@ -279,7 +279,7 @@ export const studyData = [
     keywords: ["conceptual clusters", "curriculum", "depth over breadth"],
     definition: "Broad mathematical concepts that interconnect various smaller skills and expectations.",
     rigorousNote: "Focusing on **Big Ideas** (like Proportional Reasoning) helps students see math as a connected whole rather than a list of isolated procedures.",
-    source: "Marian Small, @Making_Math_Meaningful",
+    source: "Marian Small, Making_Math_Meaningful",
     exampleQuestion: "Which approach is more effective for long-term retention: teaching 50 isolated rules or focusing on 5 'Big Ideas'?",
     sampleAnswer: "Focusing on **Big Ideas**."
   },
@@ -312,7 +312,7 @@ export const studyData = [
     keywords: ["Vygotsky", "scaffolding", "learning gap", "challenge"],
     definition: "The distance between what a learner can do without help and what they can do with support.",
     rigorousNote: "Instruction is most effective when it targets this 'sweet spot'—just beyond the student's independent reach but accessible with **scaffolding**.",
-    source: "@Vygotsky",
+    source: "Vygotsky",
     exampleQuestion: "If a task is too easy for a student, are they in their **ZPD**?",
     sampleAnswer: "No, they are in their **Independent Level**."
   },
@@ -412,7 +412,7 @@ export const studyData = [
     category: "Pedagogy",
     keywords: ["revisiting", "depth", "Bruner", "scaffolded complexity"],
     definition: "An approach where concepts are revisited multiple times throughout the year with increasing levels of complexity.",
-    rigorousNote: "Based on the work of @Bruner. It prevents students from 'learning and forgetting' a unit.",
+    rigorousNote: "Based on the work of Bruner. It prevents students from 'learning and forgetting' a unit.",
     source: "@Bruner",
     exampleQuestion: "Revisiting 'Fractions' in October, January, and May is an example of what?",
     sampleAnswer: "A **Spiral Curriculum**."
