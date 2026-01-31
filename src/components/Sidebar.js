@@ -75,9 +75,11 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
             key={node.id}
             className={`tree-node ${node.unlocked ? 'unlocked' : 'locked'} ${node.mastery >= 100 ? 'mastered' : ''} ${currentNode?.id === node.id ? 'current' : ''}`}
             onClick={() => node.unlocked && onSelect(node)}
+			style = {{backgroundColor: (darkMode ? '#3d3d3d' : '#fff' )}}
           >
             <strong style={{ color: 'inherit' }}>
               {node.title} {node.mastery >= 100 ? '🌟' : (!node.unlocked && '🔒')}
+			  
             </strong>
 
             <div className="mastery-bar">

@@ -23,7 +23,7 @@ Object.values(audio).forEach(s => {
 });
 
 
-export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
+export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin, darkMode }) {
   useEffect(() => {
   const renderMath = () => {
     if (window.renderMathInElement) {
@@ -149,10 +149,10 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
   if (!current) return null;
 
   return (
-    <div className="quiz-container">
+    <div className="quiz-container"  style={{backgroundColor: darkMode ? '#3c3c3c' : '#fff'}}>
       <div className="lesson-progress-container">
         <div className="lesson-progress-header">
-          <p className="progress-text">
+          <p className="progress-text" style={{color: darkMode ? '#fff' : '#000'}}>
             Question {totalQuestions - remaining.length + 1} of {totalQuestions}
           </p>
           <div className="hearts">
@@ -166,15 +166,16 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin }) {
 
       <h2><Latex>{current.question}</Latex></h2>
 
-      <div className="options">
+      <div className="options" style={{backgroundColor: darkMode ? '#3c3c3c' : '#fff'}} >
         {shuffledOptions.map((opt, i) => (
           <button
             key={i}
             onClick={() => handleAnswer(opt)}
+            style = {{background : (selected === opt && feedback === 'correct') ? '#4caf50' : ((selected === opt && feedback === 'wrong') ? '#f44336' : (darkMode ? '#3c3c3c' : '#fff')), color:(darkMode ? '#fff' : '#000')}}
             className={`option
               ${selected === opt && feedback === 'correct' ? 'correct' : ''}
               ${selected === opt && feedback === 'wrong' ? 'wrong' : ''}`}
-          >
+			>
             <Latex>{opt}</Latex>
           </button>
         ))}

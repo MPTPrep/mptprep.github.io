@@ -6,7 +6,8 @@ export default function LessonResult({
   lessonXpAfter, 
   onReplay, 
   onContinue,
-  isNextLocked 
+  isNextLocked, 
+  darkMode
 }) {
   const [lessonFill, setLessonFill] = useState(lessonXpBefore);
 
@@ -17,13 +18,13 @@ export default function LessonResult({
   return () => clearTimeout(timer);
 }, [lessonXpAfter, lessonXpBefore]); 
   return (
-    <div className="quiz-container result-container">
+    <div className="quiz-container result-container" style = {{backgroundColor: darkMode?  '#3c3c3c' : '#fff'}}>
       <div className="result-emoji">{success ? '🎉' : '💔'}</div>
       <h2 className="result-title">{success ? 'Lesson Complete!' : 'Out of Hearts'}</h2>
       
       {success && (
         <div className="result-stats">
-          <p className="progress-text">Lesson Mastery: {lessonXpAfter}%</p>
+          <p className="progress-text" style = {{color: darkMode?  '#fff' : '#555'}}>Lesson Mastery: {lessonXpAfter}%</p>
           <div className="lesson-progress large-bar">
             <div 
               className="lesson-progress-bar mastery-fill" 
@@ -37,7 +38,7 @@ export default function LessonResult({
       {!success && <p className="feedback-text">Don't give up! Review the material and try again.</p>}
       
       <div className="result-buttons">
-        <button onClick={onReplay} className="option replay-button">
+        <button onClick={onReplay} className="option replay-button" style = {{backgroundColor: darkMode?  '#3c3c3c' : '#fff'}}>
           Play Again
         </button>
         

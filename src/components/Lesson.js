@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function Lesson({ node, onNext }) {
+export default function Lesson({ node, onNext,darkMode }) {
   return (
-    <div className="quiz-container">
-      <h1 className="lesson-title">{node.title}</h1>
-      <div className="lesson-content-body">
+    <div className="quiz-container" style={{backgroundColor: darkMode ? '#3c3c3c' : '#fff'}}>
+      <h1 className="lesson-title" style={{color: darkMode ? '#fff' : '#000'}}>{node.title}</h1>
+      <div className="lesson-content-body" style={{color: darkMode ? '#fff' : '#000'}}>
         <p>{node.lesson}</p>
       </div>
       <div className="options" style={{ display: 'block' }}>

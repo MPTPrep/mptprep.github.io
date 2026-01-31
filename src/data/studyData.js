@@ -1459,6 +1459,50 @@ export const studyData = [
     source: "Ravi Vakil, \"The Rising Sea\"",
     exampleQuestion: "How does a Scheme differ from a classical algebraic variety?",
     sampleAnswer: "A Scheme can handle **nilpotent elements** (infinitesimals) and can be defined over any commutative ring, not just algebraically closed fields."
+  },
+  {
+    id: "mean",
+    term: "Arithmetic Mean",
+    category: "Data Literacy",
+    keywords: ["Data Sets"],
+    definition: "The sum of a set of values divided by the number of values.",
+    rigorousNote: "The arithmetic mean of a sample is always between the largest and smallest values in that sample.",
+    source: "Grades 4-8 Curriculum",
+    exampleQuestion: "What is the mean of the following set of numbers? $[1,6,17,19,100]$",
+    sampleAnswer: "$\\frac{1+6+17+19+100}{5}=28.6$"
+  },
+  {
+    id: "median",
+    term: "Median",
+    category: "Data Literacy",
+    keywords: ["Data Sets"],
+    definition: "The midpoint of a set of numbers. In a sorted list of numbers, the median is the number which appears in the cetral position (or is the mean of the centre two values.",
+    rigorousNote: "The basic feature of the median in describing data compared to the mean is that it is not skewed by a small proportion of extreme values, and therefore provides a better representation of the center.",
+    source: "Grades 4-8 Curriculum",
+    exampleQuestion: "What is the median of the following dataset? $[45, 19, 56, 123, 7, 24]$",
+    sampleAnswer: "Sort the set to $[7,19,24,45,26,123]$. The middle two values are $[24,45]$, so the median is $\\frac{24+45}{2}=\\frac{69}{2}=34.5$ "
+  },
+  {
+    id: "mode",
+    term: "Mode",
+    category: "Data Literacy",
+    keywords: ["Data Sets"],
+    definition: "The value (or values) that appear(s) most frequently in a data set.",
+    rigorousNote: "A data set can have multiple modes if two or more values appear the maximum number of times.",
+    source: "Grades 4-8 Curriculum",
+    exampleQuestion: "What is the mode of the following data set? $[3, 1, 2, 3, 4, 2, 17, 2, 19]$",
+    sampleAnswer: "2"
+  },
+  {
+    id: "range-average",
+    term: "Range (Data)",
+    category: "Data Literacy",
+    keywords: ["Data Sets"],
+    definition: "The difference between the largest and smallest values in a data set.",
+    rigorousNote: "The range provides an indication of statistical dispersion. Closely related alternative measures are the Interdecile range and the Interquartile range. ",
+    source: "Grades 4-8 Curriculum",
+    exampleQuestion: "What is the range of the following dataset? $[45, 19, 56, 123, 7, 24]$",
+    sampleAnswer: "$123-7=116$"
   }
 ];
 

@@ -166,7 +166,7 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
 
       <div style={{ textAlign: 'center' }}>
         <h1 style={{ fontSize: '5rem', marginBottom: '10px', color: darkMode ? '#fff' : '#3c3c3c' }}>MPT Prep</h1>
-        <p style={{ color: '#666', marginBottom: '50px' }}>Welcome back! Choose your training module.</p>
+        <p style={{ color: darkMode ? '#fff': '#666', marginBottom: '50px' }}>Welcome back! Choose a module below to get started.</p>
 
         <div style={{ 
           display: 'grid', 

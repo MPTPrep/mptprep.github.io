@@ -120,19 +120,62 @@ export default function LearningPath({
             <button onClick={onBackHome} style={headerBtnStyle(darkMode)}>Home</button>
             <button onClick={() => auth.signOut()} style={headerBtnStyle(darkMode)}>Logout</button>
             
-            <div style={{ position: 'relative' }}>
-              <div style={avatarStyle} onClick={() => setShowAccountMenu(!showAccountMenu)}>
+            
+          <div style={{ position: 'relative' }}>
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowAccountMenu(!showAccountMenu);
+              }}
+              style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+            >
+              <div style={{
+                width: '40px', height: '40px', borderRadius: '50%',
+                backgroundColor: '#1cb0f6', display: 'flex', alignItems: 'center',
+                justifyContent: 'center', color: 'white', fontWeight: 'bold',
+                fontFamily: 'Montserrat', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+              }}>
                 {user?.email?.charAt(0).toUpperCase()}
               </div>
-              {showAccountMenu && (
-                <div style={dropdownStyle(darkMode)}>
-                  <div style={{ padding: '8px', fontSize: '0.75rem', opacity: 0.5 }}>{user?.email}</div>
-                  <div onClick={() => setDarkMode(!darkMode)} style={{ padding: '10px', cursor: 'pointer' }}>
-                    {darkMode ? '☀️ Light' : '🌙 Dark'}
-                  </div>
-                </div>
-              )}
             </div>
+
+            {/* Dropdown Menu */}
+            {showAccountMenu && (
+              <div style={{
+                position: 'absolute', top: '50px', right: '0', width: '220px',
+                backgroundColor: darkMode ? '#2c2c2c' : '#fff',
+                border: '1px solid #e5e5e5', borderRadius: '12px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 1000,
+                padding: '10px', fontFamily: 'Montserrat',
+                color: darkMode ? '#fff' : '#000'
+              }}>
+                <div style={{ padding: '10px', fontSize: '0.8rem', color: '#888', borderBottom: '1px solid #eee' }}>
+                  {user?.email}
+                </div>
+                
+                <div 
+                  onClick={() => setDarkMode(!darkMode)}
+                  style={{ padding: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}
+                >
+                  <span>Dark Mode</span>
+                  <span>{darkMode ? '🌙' : '☀️'}</span>
+                </div>
+
+                <div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Language</span>
+                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>EN (FR soon)</span>
+                </div>
+
+                <div 
+                  onClick={() => auth.signOut()}
+                  style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
+                >
+                  Logout
+                </div>
+              </div>
+            )}
+          </div>
+      
           </div>
         </header>
 
@@ -155,9 +198,9 @@ export default function LearningPath({
             {/* VIEW SELECTOR LOGIC */}
             {(() => {
               if (isFocusMode) {
-                if (showResult) return <LessonResult success={lastResult.success} lessonXpBefore={lastResult.before} lessonXpAfter={lastResult.after} onReplay={handleReplay} onContinue={handleContinue} />;
-                if (showQuiz) return <Quiz node={currentNode} onComplete={handleQuizComplete} addXp={addOverallXp} onWin={handleWin} />;
-                return <Lesson node={currentNode} onNext={handleStartQuiz} />;
+			if (showResult) return <LessonResult success={lastResult.success} lessonXpBefore={lastResult.before} lessonXpAfter={lastResult.after} onReplay={handleReplay} onContinue={handleContinue} darkMode = {darkMode} />;
+                if (showQuiz) return <Quiz node={currentNode} onComplete={handleQuizComplete} addXp={addOverallXp} onWin={handleWin} darkMode = {darkMode} />;
+                return <Lesson node={currentNode} onNext={handleStartQuiz} darkMode = {darkMode} />;
               }
               
               if (forceTrophy) {
@@ -208,7 +251,7 @@ export default function LearningPath({
 
 const headerBtnStyle = (darkMode) => ({
   padding: '8px 16px', borderRadius: '12px', cursor: 'pointer',
-  border: `1px solid ${darkMode ? '#444' : '#ddd'}`,
+  border: `1px solid '#e5e5e5'`,
   backgroundColor: darkMode ? '#2c2c2c' : '#fff', 
   color: darkMode ? '#fff' : '#444', 
   fontWeight: '600', fontSize: '0.85rem'

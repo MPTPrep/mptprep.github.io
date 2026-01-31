@@ -242,7 +242,7 @@ const updateProfileName = async (newName) => {
         setShowAboutModal(true);
       } else {
         setView(target);
-      }}} streak={streak} xp={xp} user={user} />}
+      }}} streak={streak} xp={xp} user={user} darkMode={darkMode} setDarkMode={setDarkMode} />}
 
       {view === 'learning-path' && (
         <LearningPath 
@@ -628,7 +628,8 @@ const updateProfileName = async (newName) => {
       <p style={{ 
         lineHeight: '1.6', 
         color: darkMode ? '#bbb' : '#666',
-        fontSize: '0.95rem' 
+        fontSize: '0.95rem',
+		textAlign:'left'
       }}>This site was originally created by me, Liam Salt, in December of 2025 while I was in my second year of teacher's college at the University of Ottawa.
 	  While preparing for the MPT, I noticed that the existing preparation resources did not really work for me. Something which many teacher education students do not seem
 	  to be aware of is the <a href="https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/MPT_Framework_August_2025_EN_-s/MPT_Framework_August_2025_EN_-s.pdf" >MPT Framework </a> 
@@ -638,7 +639,8 @@ const updateProfileName = async (newName) => {
 	  <p style={{ 
         lineHeight: '1.6', 
         color: darkMode ? '#bbb' : '#666',
-        fontSize: '0.95rem' 
+        fontSize: '0.95rem' ,
+		textAlign:'left'
       }}>While I was back for winter break, waiting for the continuation of my last practicum, I noticed that many members of my family were playing Duolingo. I wondered if 
 	  I could somehow involve Duolingo-style gamification to make preparation for the Math Proficiency Test more engaging. Finding myself with a bounty of free time, I started
 	  to slowly building up the site. Eventually, I got it to a presentable state, implementing Duolingo-inspired features like XP, streaks, and iconic sounds (musical credit
