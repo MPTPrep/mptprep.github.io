@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { nodes as nodeData } from './data/nodes'; 
+import { nodes as nodeDataFR } from './data/nodesFR'; 
 import Sidebar from './components/Sidebar';
 import Lesson from './components/Lesson';
 import Quiz from './components/Quiz';
@@ -17,9 +18,11 @@ import TestComments from './components/TestComments';
 import Study from './components/Study';
 import Resources from './components/Resources';
 import { MOCK_TESTS } from './data/tests';
+import { MOCK_TESTS as MOCK_TESTS_FR } from './data/testsFR';
 
 export default function App() {
-  const [nodes, setNodes] = useState(nodeData);
+  const [french, setFrench] = useState(null); 
+  const [nodes, setNodes] = useState([]);
   const [currentNode, setCurrentNode] = useState(null);
   const [showLesson, setShowLesson] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -43,7 +46,7 @@ export default function App() {
   const [profileName, setProfileName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   
-  const [french, setFrench] = useState(null); 
+  const currentMockTests = french ? MOCK_TESTS_FR : MOCK_TESTS;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
@@ -230,6 +233,29 @@ const updateProfileName = async (newName) => {
     }
   };
 
+
+
+  useEffect(() => {
+  const baseData = french ? nodeDataFR : nodeData;
+
+  if (user) {
+    const mergedNodes = baseData.map(localNode => {
+      const existingProgress = nodes.find(n => n.id === localNode.id);
+      if (existingProgress) {
+        return { 
+          ...localNode, 
+          mastery: existingProgress.mastery, 
+          unlocked: existingProgress.unlocked 
+        };
+      }
+      return localNode;
+    });
+    setNodes(mergedNodes);
+  } else {
+    setNodes(baseData);
+  }
+}, [french]);
+
   const currentLevel = Math.floor(xp / 500) + 1;
   const xpProgress = ((xp % 500) / 500) * 100;
 
@@ -253,6 +279,7 @@ const updateProfileName = async (newName) => {
           lastResult={lastResult} handleStartQuiz={handleStartQuiz} handleQuizComplete={handleQuizComplete}
           handleReplay={handleReplay} handleContinue={handleContinue} addOverallXp={addOverallXp}
           handleWin={handleWin} xp={xp} streak={streak} darkMode={darkMode} setDarkMode={setDarkMode}
+		  french={french} setFrench = {setFrench}
           user={user} showAccountMenu={showAccountMenu} setShowAccountMenu={setShowAccountMenu} onBackHome={() => setView('landing')}
         />
       )}
@@ -343,13 +370,10 @@ const updateProfileName = async (newName) => {
                   <span>{darkMode ? '🌙' : '☀️'}</span>
                 </div>
 
-                <div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Language</span>
-                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>
-                    EN (FR soon)
-                  </span>
+                <div  onClick={() => setFrench(!french)} style={{ padding: '12px', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span onClick={() => setFrench(!french)} > {!french ? 'Language':'Langue'}</span>
+                  <span style={{ fontSize: '0.8rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>{french ? (<>FR <a href="https://emoji.gg/emoji/8690-franco-ontarian-flag" target="_blank" rel="noopener noreferrer"><img src="https://cdn3.emoji.gg/emojis/8690-franco-ontarian-flag.png" width="13px" height="auto" alt="Franco_Ontarian_Flag" style={{ verticalAlign: 'middle' }} /></a></>) : 'EN 🇨🇦'}</span>
                 </div>
-
                 <div 
                   onClick={() => auth.signOut()}
                   style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
@@ -363,7 +387,7 @@ const updateProfileName = async (newName) => {
       </div>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-          {Object.values(MOCK_TESTS).map((test) => {
+          {Object.values(currentMockTests).map((test) => {
             const testId = test.id;
 			
 			const testTitle = test.title;
@@ -373,7 +397,7 @@ const updateProfileName = async (newName) => {
             return (
               <div key={testId} style={{ backgroundColor: darkMode ? '#2c2c2c' : '#fff', border: '2px solid #e5e5e5', borderRadius: '16px', padding: '30px', textAlign: 'center',position: 'relative' }}>
                 <div 
-          title={test.isOfficial ? "Questions sourced from Ministry Practice Tests" : "Custom Practice Test"}
+          title={test.isOfficial ? (!french?"Questions sourced from Ministry Practice Tests":"Questions tirées des tests d’entraînement du Ministère.") : (!french?"Custom Practice Test":"Test d'entraînement personnalisé")}
           style={{
             position: 'absolute',
             top: '15px',
@@ -417,7 +441,7 @@ const updateProfileName = async (newName) => {
   </button>
 				<h3 style={{ marginBottom: '5px' }}>{testTitle}</h3>
                 
-                  {highScore !== null ? `High Score: ${highScore}%` : 'No attempts yet'}
+                  {highScore !== null ? `${!french?'High Score':'Meilleur score'}: ${highScore}%` : (!french?'No attempts yet':'Aucune tentative')}
                 <div style={{ fontSize: '0.85rem', color: '#1cb0f6', fontWeight: 'bold', height: '20px', marginBottom: '15px' }}>
                 </div>
 
@@ -433,7 +457,7 @@ const updateProfileName = async (newName) => {
                   }} 
                   style={{ width: '100%', padding: '12px', backgroundColor: '#1cb0f6', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}
                 >
-                  {'Start Exam'}
+                  {!french?'Start Exam':'Commencer examen'}
                 </button>
               </div>
             );
@@ -441,7 +465,7 @@ const updateProfileName = async (newName) => {
         </div>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-          <h2 style={{ margin: 0 }}>Recent Activity</h2>
+          <h2 style={{ margin: 0 }}>{!french?'Recent Activity':'Activité Récente'}</h2>
           {userHistory.length > 0 && (
             <button 
               onClick={async () => {
@@ -454,30 +478,30 @@ const updateProfileName = async (newName) => {
               }}
               style={{ backgroundColor: 'transparent', border: '1px solid #ff4b4b', color: '#ff4b4b', padding: '5px 15px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem' }}
             >
-              Clear History
+			{!french?'Clear History':"Effacer l'historique"}
             </button>
           )}
         </div>
 
         <div style={{ display: 'grid', gap: '10px' }}>
           {userHistory.length === 0 ? (
-            <p style={{ color: '#aaa' }}>No recent activity to show.</p>
+            <p style={{ color: '#aaa' }}>{!french?'No recent activity to show.':'Aucune activité récente à afficher'}</p>
           ) : (
             userHistory.slice(0, 10).map((attempt, i) => (
               <div key={i} style={{ padding: '15px 0', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <div style={{ fontWeight: 'bold' }}>{attempt.date} - Test #{attempt.testId.split('-').pop()}</div>
+                  <div style={{ fontWeight: 'bold' }}>{attempt.date} - {!french?'Test':'Examen'} #{attempt.testId.split('-').pop()}</div>
                   <div style={{ display: 'flex', gap: '15px', marginTop: '5px', fontSize: '0.9rem', color: '#666' }}>
-                    <span>Overall: <strong>{attempt.totalScore}%</strong></span>
-                    <span>Pedagogy: {attempt.pedScore || 0}%</span>
-                    <span>Math: {attempt.mathScore || 0}%</span>
+                    <span>{!french?'Overall':'Total'}: <strong>{attempt.totalScore}%</strong></span>
+                    <span>{!french?'Pedagogy':'Pédagogie'}: {attempt.pedScore || 0}%</span>
+                    <span>{!french?'Math':'Maths'}: {attempt.mathScore || 0}%</span>
                   </div>
                 </div>
                 <button 
                   onClick={() => setReviewTest(attempt)} 
                   style={{ color: '#1cb0f6', cursor: 'pointer', background: 'none', border: '1px solid #1cb0f6', padding: '8px 20px', borderRadius: '8px', fontWeight: 'bold' }}
                 >
-                  Review
+				{!french?'Review':'Réviser'}
                 </button>
               </div>
             ))
@@ -489,29 +513,32 @@ const updateProfileName = async (newName) => {
     {reviewTest && (
       <PracticeTest 
         key={reviewTest.id}
-        testData={MOCK_TESTS[reviewTest.testId]} 
+        testData={currentMockTests[reviewTest.testId]} 
         darkMode={darkMode} 
         reviewData={reviewTest} 
-        onComplete={saveTestResult} 
+        onComplete={saveTestResult}
+		french = {french}		
         onExit={() => { setReviewTest(null); }} 
       />
     )}
 
     {activeTest && !testStarted && (
       <TestBriefing 
-        test={MOCK_TESTS[activeTest.id]}
+        test={currentMockTests[activeTest.id]}
         darkMode={darkMode}
         onBack={() => setActiveTest(null)}
         onStart={() => setTestStarted(true)}
+	french = {french}
       />
     )}
 
     {activeTest && testStarted && (
       <PracticeTest 
         key={activeTest.instanceId}
-        testData={MOCK_TESTS[activeTest.id]} 
+        testData={currentMockTests[activeTest.id]} 
         darkMode={darkMode} 
         reviewData={null} 
+		french = {french}
         onComplete={(results) => {
           saveTestResult(results);
 		   
@@ -566,7 +593,7 @@ const updateProfileName = async (newName) => {
         backgroundColor: darkMode ? '#222' : '#fcfcfc'
       }}>
         <h2 style={{ margin: 0, fontSize: '1.25rem' }}>
-          Discussion: {MOCK_TESTS[openComments]?.title}
+			Discussion: {currentMockTests[openComments]?.title}
         </h2>
         <button 
           onClick={() => setOpenComments(null)} 
@@ -584,6 +611,7 @@ const updateProfileName = async (newName) => {
   isAdmin={isAdmin}         
   userHistory={userHistory} 
   darkMode={darkMode} 
+  french = {french}
 />
       </div>
     </div>

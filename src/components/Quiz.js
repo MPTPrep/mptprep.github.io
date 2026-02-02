@@ -23,7 +23,7 @@ Object.values(audio).forEach(s => {
 });
 
 
-export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin, darkMode }) {
+export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin, darkMode, french }) {
   useEffect(() => {
   const renderMath = () => {
     if (window.renderMathInElement) {
@@ -153,7 +153,7 @@ export default function Quiz({ node, onComplete, addXp, addLessonXp, onWin, dark
       <div className="lesson-progress-container">
         <div className="lesson-progress-header">
           <p className="progress-text" style={{color: darkMode ? '#fff' : '#000'}}>
-            Question {totalQuestions - remaining.length + 1} of {totalQuestions}
+            Question {totalQuestions - remaining.length + 1} {!french?'of':'sur'} {totalQuestions}
           </p>
           <div className="hearts">
             {'❤️'.repeat(hearts)}

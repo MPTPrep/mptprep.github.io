@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 
-export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, darkMode }) {
+export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, darkMode, french, setFrench }) {
   
   const [activeTab, setActiveTab] = useState('math');
 
@@ -11,7 +11,7 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
 
   return (
     <div className="sidebar">
-      <h2 style={{ color: darkMode ? '#fff' : '#3c3c3c' }}>Knowledge Map</h2>
+      <h2 style={{ color: darkMode ? '#fff' : '#3c3c3c' }}>{!french?'Knowledge Map':'Carte de connaisances'}</h2>
 
       {/* Tab Toggle Buttons */}
       <div style={{ 
@@ -41,7 +41,7 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
             transition: 'all 0.2s'
           }}
         >
-          Math
+		{!french?'Math':'Maths'}
         </button>
 
         {/* PEDAGOGY BUTTON */}
@@ -65,7 +65,7 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
             transition: 'all 0.2s'
           }}
         >
-          Pedagogy
+          {!french?'Pedagogy':'Pédagogie'}
         </button>
       </div>
 
@@ -97,7 +97,8 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
           streak={streak}
           level={level}
           xpPercent={xpPercent}
-          darkMode={darkMode} 
+          darkMode={darkMode}
+		  french = {french}		  
         />
       </div>
     </div>

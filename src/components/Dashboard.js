@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Dashboard({ streak, level, xpPercent }) {
+export default function Dashboard({ streak, level, xpPercent,french }) {
   return (
     <div className="dashboard-container">
       <div className="level-bar-container">
@@ -9,7 +9,7 @@ export default function Dashboard({ streak, level, xpPercent }) {
           <div className="xp-fill" style={{ width: `${xpPercent}%` }}></div>
         </div>
       </div>
-      <p className="streak-display">🔥 Streak: {streak} day{streak !== 1 ? 's' : ''}</p>
+      <p className="streak-display">{!french?`🔥 ${streak} day streak`:`🔥 Série de ${streak} jour`+(streak != 1 ?'s':'')} </p>
     </div>
   );
 }

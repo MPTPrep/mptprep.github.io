@@ -23,6 +23,8 @@ export default function LearningPath({
   xp,
   lessonXp,
   streak,
+  french,
+  setFrench,
   darkMode,
   setDarkMode,
   user,
@@ -78,6 +80,8 @@ export default function LearningPath({
           xp={xp} 
           streak={streak} 
           darkMode={darkMode}
+		  french = {french}
+		  setFrench = {setFrench}
         />
       </div>
 
@@ -97,7 +101,7 @@ export default function LearningPath({
           position: 'relative',
           pointerEvents: 'auto'
         }}>
-          <h2 style={{ margin: 0, fontSize: '1.2rem' }}>MPT Prep</h2>
+<h2 style={{ margin: 0, fontSize: '1.2rem' }}>{!french?'MPT Duolingo':'TCM Duolingo'}</h2>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* THE TROPHY TOGGLE */}
@@ -117,8 +121,8 @@ export default function LearningPath({
               </button>
             )}
 
-            <button onClick={onBackHome} style={headerBtnStyle(darkMode)}>Home</button>
-            <button onClick={() => auth.signOut()} style={headerBtnStyle(darkMode)}>Logout</button>
+            <button onClick={onBackHome} style={headerBtnStyle(darkMode)}>{!french ? 'Home' : 'Accueil'}</button>
+            <button onClick={() => auth.signOut()} style={headerBtnStyle(darkMode)}>{!french?'Logout':'Déconnexion'}</button>
             
             
           <div style={{ position: 'relative' }}>
@@ -157,20 +161,19 @@ export default function LearningPath({
                   onClick={() => setDarkMode(!darkMode)}
                   style={{ padding: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}
                 >
-                  <span>Dark Mode</span>
+                  <span>{!french?'Dark Mode':'Mode sombre'}</span>
                   <span>{darkMode ? '🌙' : '☀️'}</span>
                 </div>
 
-                <div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Language</span>
-                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>EN (FR soon)</span>
+                <div  onClick={() => setFrench(!french)} style={{ padding: '12px', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span onClick={() => setFrench(!french)} > {!french ? 'Language':'Langue'}</span>
+                  <span style={{ fontSize: '0.8rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>{french ? (<>FR <a href="https://emoji.gg/emoji/8690-franco-ontarian-flag" target="_blank" rel="noopener noreferrer"><img src="https://cdn3.emoji.gg/emojis/8690-franco-ontarian-flag.png" width="13px" height="auto" alt="Franco_Ontarian_Flag" style={{ verticalAlign: 'middle' }} /></a></>) : 'EN 🇨🇦'}</span>
                 </div>
-
                 <div 
                   onClick={() => auth.signOut()}
                   style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
                 >
-                  Logout
+                  {!french?'Logout':'Déconnexion'}
                 </div>
               </div>
             )}
@@ -198,9 +201,9 @@ export default function LearningPath({
             {/* VIEW SELECTOR LOGIC */}
             {(() => {
               if (isFocusMode) {
-			if (showResult) return <LessonResult success={lastResult.success} lessonXpBefore={lastResult.before} lessonXpAfter={lastResult.after} onReplay={handleReplay} onContinue={handleContinue} darkMode = {darkMode} />;
-                if (showQuiz) return <Quiz node={currentNode} onComplete={handleQuizComplete} addXp={addOverallXp} onWin={handleWin} darkMode = {darkMode} />;
-                return <Lesson node={currentNode} onNext={handleStartQuiz} darkMode = {darkMode} />;
+			  if (showResult) return <LessonResult success={lastResult.success} lessonXpBefore={lastResult.before} lessonXpAfter={lastResult.after} onReplay={handleReplay} onContinue={handleContinue} darkMode = {darkMode} french = {french}/>;
+                if (showQuiz) return <Quiz node={currentNode} onComplete={handleQuizComplete} addXp={addOverallXp} onWin={handleWin} darkMode = {darkMode} french = {french}/>;
+                return <Lesson node={currentNode} onNext={handleStartQuiz} darkMode = {darkMode} french = {french} />;
               }
               
               if (forceTrophy) {
@@ -235,8 +238,8 @@ export default function LearningPath({
                   ) : (
                     <div style={{ opacity: 0.3, marginTop: '100px' }}>
                       <div style={{ fontSize: '5rem', marginBottom: '20px' }}></div>
-                      <h2>Pick a topic from the sidebar to begin</h2>
-					  <h3>Your progress is saved automatically</h3>
+                      <h2>{!french ? 'Pick a topic from the sidebar to begin' : 'Choisissez un sujet dans la barre latérale pour commencer.'}</h2>
+					  <h3>{!french ? 'Your progress is saved automatically' : 'Votre progression est enregistrée automatiquement.'}</h3>
                     </div>
                   )}
                 </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Lesson({ node, onNext,darkMode }) {
+export default function Lesson({ node, onNext,darkMode,french }) {
   return (
     <div className="quiz-container" style={{backgroundColor: darkMode ? '#3c3c3c' : '#fff'}}>
       <h1 className="lesson-title" style={{color: darkMode ? '#fff' : '#000'}}>{node.title}</h1>
@@ -9,7 +9,7 @@ export default function Lesson({ node, onNext,darkMode }) {
       </div>
       <div className="options" style={{ display: 'block' }}>
         <button onClick={onNext} className="option primary-button">
-          Start Quiz
+			{!french?'Start Quiz':'Commencer le quiz'}
         </button>
       </div>
     </div>

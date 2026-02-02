@@ -70,7 +70,7 @@ const renderMath = (math, isBlock, index) => {
   }
 };
 
-export default function TestComments({ testId, user, profileName, isAdmin, userHistory, darkMode }) {
+export default function TestComments({ testId, user, profileName, isAdmin, userHistory, darkMode, french }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [replyText, setReplyText] = useState('');
@@ -132,7 +132,7 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
   };
 
   const handleDelete = async (commentId) => {
-    if (!window.confirm("Are you sure you want to delete this comment?")) return;
+    if (!window.confirm((!french?"Are you sure you want to delete this comment?":"Êtes-vous sûr de vouloir supprimer ce commentaire ?"))) return;
     try {
       await deleteDoc(doc(db, "test_comments", commentId));
     } catch (error) {
@@ -161,7 +161,7 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
         {comment.authorPassed && (
           <div style={{ fontSize: '0.6rem', color: '#2ecc71', fontWeight: 'bold' }}>✓ PASSED</div>
         )}
-        <div style={{ fontSize: '0.6rem', color: '#888' }}>Best: {comment.authorBestScore}%</div>
+        <div style={{ fontSize: '0.6rem', color: '#888' }}>{!french?'Best':'Meilleur'}: {comment.authorBestScore}%</div>
       </div>
 
       <div style={{ padding: '12px', flex: 1 }}>
@@ -171,10 +171,10 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
             {comment.createdAt?.toDate().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
           </span>
           {!isReply && (
-            <button onClick={onReply} style={{ background: 'none', border: 'none', color: '#1cb0f6', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', padding: 0 }}>Reply</button>
+            <button onClick={onReply} style={{ background: 'none', border: 'none', color: '#1cb0f6', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', padding: 0 }}>{!french?'Reply':'Répondre'}</button>
           )}
           {(user.uid === comment.authorId || isAdmin) && (
-            <button onClick={() => handleDelete(comment.id)} style={{ background: 'none', border: 'none', color: '#ff4b4b', cursor: 'pointer', fontSize: '0.75rem', padding: 0 }}>Delete</button>
+            <button onClick={() => handleDelete(comment.id)} style={{ background: 'none', border: 'none', color: '#ff4b4b', cursor: 'pointer', fontSize: '0.75rem', padding: 0 }}>{!french?'Delete':'Supprimer'}</button>
           )}
         </div>
       </div>
@@ -188,7 +188,7 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Share a tip or ask a question..."
+            placeholder={!french?"Share a tip or ask a question...":"Partagez un conseil ou posez une question ..."}
             style={{
               width: '100%', padding: '12px', paddingBottom: '35px', borderRadius: '12px',
               border: darkMode ? '1px solid #444' : '1px solid #ddd',
@@ -214,10 +214,10 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
                 backgroundColor: '#333', color: '#fff', padding: '10px', borderRadius: '8px',
                 fontSize: '11px', zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.3)', pointerEvents: 'none'
               }}>
-                <strong>LaTeX Formatting:</strong><br/>
-                Use <code>$..$</code> for inline math.<br/>
-                Use <code>$$..$$</code> for blocks.<br/>
-                Example: <code>$\frac{1}{2}$</code>
+                <strong>{!french?'LaTeX Formatting':'Formatage LaTeX'}:</strong><br/>
+				{!french?'Use ':'Utilisez '} <code>$..$</code> {!french?'for inline math.':'pour les maths en ligne.'}<br/>
+                {!french?'Use ':'Utilisez '} <code>$$..$$</code> {!french?'for blocks.':'pour les blocs.'}<br/>
+                Ex{!french?'a':'e'}mple: <code>$\frac{1}{2}$</code>
               </div>
             )}
           </div>
@@ -246,7 +246,7 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
             fontWeight: 'bold', cursor: isSubmitting ? 'not-allowed' : 'pointer'
           }}
         >
-          {isSubmitting ? 'Posting...' : 'Post Comment'}
+          {isSubmitting ? (!french?'Posting...':'Publication ...') : (!french?'Post Comment':'Publier le commentaire')}
         </button>
       </form>
 

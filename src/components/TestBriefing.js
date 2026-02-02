@@ -1,7 +1,6 @@
-
 import React from 'react';
 
-export default function TestBriefing({ test, onStart, onBack, darkMode }) {
+export default function TestBriefing({ test, onStart, onBack, darkMode, french }) {
   
   const totalQuestions = test.sections.reduce((acc, sec) => acc + sec.questions.length, 0);
 
@@ -20,18 +19,30 @@ export default function TestBriefing({ test, onStart, onBack, darkMode }) {
         <h1 style={{ fontSize: '2rem', marginBottom: '10px' }}>{test.title}</h1>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', color: '#666', fontSize: '0.9rem' }}>
           <span>{totalQuestions} Questions</span>
-          <span>⏱️ No Time Limit</span>
+          <span>⏱️ {!french ? 'No Time Limit' : 'Aucune limite de temps'}</span>
         </div>
       </div>
 
       <div style={{ marginBottom: '30px' }}>
         <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-         Instructions
+          {!french ? 'Instructions' : 'Consignes'}
         </h3>
         <ul style={{ paddingLeft: '20px', lineHeight: '1.8', fontSize: '0.95rem' }}>
-          <li>The test is divided into <strong>Pedagogy</strong> and <strong>Mathematics</strong> sections.</li>
-          <li>A calculator is only permitted in the second Math section (indicated on the test).</li>
-          <li>You can review your results and see correct answers immediately after finishing.</li>
+          <li>
+            {!french 
+              ? 'The test is divided into Pedagogy and Mathematics sections.' 
+              : 'Le test est divisé en sections de pédagogie et de mathématiques.'}
+          </li>
+          <li>
+            {!french 
+              ? 'A calculator is only permitted in the second Math section (indicated on the test).' 
+              : 'La calculatrice est permise uniquement dans la deuxième section de mathématiques (indiqué sur le test).'}
+          </li>
+          <li>
+            {!french 
+              ? 'You can review your results and see correct answers immediately after finishing.' 
+              : 'Vous pouvez réviser vos résultats et voir les bonnes réponses immédiatement après avoir terminé.'}
+          </li>
         </ul>
       </div>
 
@@ -43,19 +54,25 @@ export default function TestBriefing({ test, onStart, onBack, darkMode }) {
         borderRadius: '0 12px 12px 0',
         marginBottom: '30px' 
       }}>
-        <h3 style={{ marginTop: 0, fontSize: '1rem', color: '#1cb0f6' }}>Notes and Caution</h3>
-		
-		{test.isOfficial && (
+        <h3 style={{ marginTop: 0, fontSize: '1rem', color: '#1cb0f6' }}>
+          {!french ? 'Notes and Caution' : 'Remarques et mise en garde'}
+        </h3>
+        
+        {test.isOfficial && (
           <p style={{ fontSize: '0.85rem', lineHeight: '1.5', margin: '10px 0' }}>
-            Questions in this particular practice exam are directly taken from publicly available <strong>Ministry of Education</strong> practice materials.
+            {!french 
+              ? <>Questions in this particular practice exam are directly taken from publicly available <strong>Ministry of Education</strong> practice materials.</>
+              : <>Les questions de cet examen d'entraînement sont tirées directement des documents de pratique publics du <strong>ministère de l'Éducation</strong>.</>}
           </p>
         )}
         
         <p style={{ fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
-         This text-based version does not include questions requiring interpretation of visual graphs, geometric figures, or  data ables (<strong>all of which are tested on the real MPT</strong>). To practice those specific skills and to use the official  mock test environment, including the specific calculator, accessibility tools, and formula sheet that you will have access to on the real test, please visit the following:
+          {!french 
+            ? <>This text-based version does not include questions requiring interpretation of visual graphs, geometric figures, or data tables (<strong>all of which are tested on the real MPT</strong>). To practice those specific skills and to use the official mock test environment, including the specific calculator, accessibility tools, and formula sheet that you will have access to on the real test, please visit the following:</>
+            : <>Cette version textuelle n'inclut pas les questions nécessitant l'interprétation de graphiques visuels, de figures géométriques ou de tableaux de données (<strong>lesquels font tous partie du vrai TCM</strong>). Pour pratiquer ces compétences spécifiques et utiliser l'environnement de test officiel, y compris la calculatrice, les outils d'accessibilité et la feuille de formules, veuillez visiter :</>}
         </p>
         <a 
-          href="https://mathproficiencytest.ca/#/en/applicant/explore/before:practice" 
+          href={!french ? "https://mathproficiencytest.ca/#/en/applicant/explore/before:practice" : "https://mathproficiencytest.ca/#/fr/applicant/explore/before:practice"}
           target="_blank" 
           rel="noreferrer" 
           style={{ 
@@ -68,7 +85,7 @@ export default function TestBriefing({ test, onStart, onBack, darkMode }) {
             borderBottom: '1px solid #1cb0f6'
           }}
         >
-          Official MPT Practice Portal →
+          {!french ? 'Official MPT Practice Portal →' : 'Portail d’entraînement officiel du MPT →'}
         </a>
       </div>
 
@@ -81,7 +98,7 @@ export default function TestBriefing({ test, onStart, onBack, darkMode }) {
             fontWeight: 'bold', cursor: 'pointer' 
           }}
         >
-          Cancel
+          {!french ? 'Cancel' : 'Annuler'}
         </button>
         <button 
           onClick={onStart} 
@@ -91,7 +108,7 @@ export default function TestBriefing({ test, onStart, onBack, darkMode }) {
             fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem'
           }}
         >
-          Start Practice Exam
+          {!french ? 'Start Practice Exam' : 'Commencer l’examen'}
         </button>
       </div>
     </div>

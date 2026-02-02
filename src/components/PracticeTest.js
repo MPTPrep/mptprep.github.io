@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Latex from 'react-latex-next';
 
-export default function PracticeTest({ testData, onComplete, onExit, darkMode, reviewData }) {
+export default function PracticeTest({ testData, onComplete, onExit, darkMode, reviewData, french }) {
   const activeTest = testData;  
   
   const isReview = !!reviewData;
@@ -122,7 +122,7 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
 
         <div style={{ padding: '20px', borderBottom: '1px solid #e5e5e5' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <span style={{ fontWeight: 'bold' }}>Section {currentSectionIdx + 1}</span>
+            <span style={{ fontWeight: 'bold' }}>{!french?'Section':'Partie'} {currentSectionIdx + 1}</span>
             <span style={{ color: '#1cb0f6', fontWeight: 'bold', fontFamily: 'monospace', fontSize: '1.1rem' }}>{formatTime(timeElapsed)}</span>
           </div>
           {currentSection.id !== 'pedagogy' && (
@@ -131,7 +131,7 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
               backgroundColor: currentSection.calc ? '#e8f8ef' : '#fff0f0', color: currentSection.calc ? '#2ecc71' : '#ff4b4b',
               border: `1px solid ${currentSection.calc ? '#2ecc71' : '#ff4b4b'}`
             }}>
-              {currentSection.calc ? 'CALCULATOR ALLOWED' : 'NO CALCULATOR'}
+              {currentSection.calc ? (!french?'CALCULATOR ALLOWED':'CALCULATRICE AUTHORISEE') : (!french?'NO CALCULATOR':'CALCULATRICE INTERDITE')}
             </div>
           )}
         </div>
@@ -160,10 +160,10 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
 
         <div style={{ padding: '20px', borderTop: '1px solid #e5e5e5', display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {(viewMode === 'review' || viewMode === 'summary') && (
-            <button onClick={() => setViewMode('summary')} style={{ width: '100%', padding: '10px', backgroundColor: '#1cb0f6', color: '#fff', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>View Summary</button>
+            <button onClick={() => setViewMode('summary')} style={{ width: '100%', padding: '10px', backgroundColor: '#1cb0f6', color: '#fff', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>{!french?'View Summary':'Voir le résumé'}</button>
           )}
-          <button onClick={onExit} style={{ width: '100%', padding: '10px', backgroundColor: '#3c3c3c', color: '#fff', borderRadius: '8px', cursor: 'pointer', border: 'none' }}>Exit</button>
-          {viewMode === 'test' && <button onClick={handleFinish} style={{ width: '100%', padding: '10px', backgroundColor: '#2ecc71', color: '#fff', borderRadius: '8px', cursor: 'pointer', border: 'none', fontWeight: 'bold' }}>Finish Test</button>}
+          <button onClick={onExit} style={{ width: '100%', padding: '10px', backgroundColor: '#3c3c3c', color: '#fff', borderRadius: '8px', cursor: 'pointer', border: 'none' }}>{!french?'Exit':'Sortir'}</button>
+          {viewMode === 'test' && <button onClick={handleFinish} style={{ width: '100%', padding: '10px', backgroundColor: '#2ecc71', color: '#fff', borderRadius: '8px', cursor: 'pointer', border: 'none', fontWeight: 'bold' }}>{!french?'Finish Test':'Terminer le test'}</button>}
         </div>
       </div>
 
@@ -171,26 +171,26 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
       <div style={{ flex: 1, padding: '60px', overflowY: 'auto' }}>
         {viewMode === 'summary' ? (
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-            <h1 style={{ color: '#1cb0f6' }}>Exam Summary</h1>
+            <h1 style={{ color: '#1cb0f6' }}>{!french?'Exam Summary':"Résumé de l'examen"}</h1>
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '40px' }}>
               <div style={{ padding: '30px', borderRadius: '16px', border: '2px solid #e5e5e5', backgroundColor: darkMode ? '#222' : '#fcfcfc', gridColumn: 'span 2' }}>
                 <div style={{ fontSize: '3.5rem', fontWeight: 'bold' }}>{scores.totalScore}%</div>
-                <div style={{ color: '#666', fontWeight: 'bold', marginBottom: '10px' }}>OVERALL SCORE</div>
-                <div style={{ fontSize: '1.2rem', color: '#1cb0f6', fontWeight: 'bold' }}>Time Elapsed: {formatTime(timeElapsed)}</div>
+                <div style={{ color: '#666', fontWeight: 'bold', marginBottom: '10px' }}>{!french?'OVERALL SCORE':'SCORE TOTAL'}</div>
+                <div style={{ fontSize: '1.2rem', color: '#1cb0f6', fontWeight: 'bold' }}>{!french?'Time Elapsed':'Temps écoulé'}: {formatTime(timeElapsed)}</div>
               </div>
               <div style={{ padding: '20px', border: '2px solid #e5e5e5', borderRadius: '16px' }}>
                 <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: '#1cb0f6' }}>{scores.pedScore}%</div>
-                <div style={{ fontSize: '0.8rem', color: '#666' }}>PEDAGOGY</div>
+                <div style={{ fontSize: '0.8rem', color: '#666' }}>{!french?'PEDAGOGY':'PÉDAGOGIE'}</div>
               </div>
               <div style={{ padding: '20px', border: '2px solid #e5e5e5', borderRadius: '16px' }}>
                 <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: '#1cb0f6' }}>{scores.mathScore}%</div>
-                <div style={{ fontSize: '0.8rem', color: '#666' }}>MATH</div>
+                <div style={{ fontSize: '0.8rem', color: '#666' }}>MATH{!french?'':'S'}</div>
               </div>
 
               {/* Performance by Topic Table */}
               <div style={{ padding: '20px', border: '2px solid #e5e5e5', borderRadius: '16px', textAlign: 'left', gridColumn: 'span 2' }}>
-                <h3 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Performance by Topic</h3>
+                <h3 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Performance {!french?'by Topic':'par sujet'}</h3>
                 <div style={{ display: 'grid', gap: '10px' }}>
                   {Object.entries(scores.tagStats).map(([tag, stat]) => {
                     const percent = Math.round((stat.correct / stat.total) * 100);
@@ -245,7 +245,7 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
                   setCurrentSectionIdx(prevSecIdx); 
                   setCurrentQuestionIdx(activeTest.sections[prevSecIdx].questions.length - 1); 
                 }
-              }} style={{ padding: '12px 24px', borderRadius: '12px', cursor: 'pointer', border: '1px solid #ddd', backgroundColor: 'transparent', color: darkMode ? '#fff' : '#000' }}>← Back</button>
+              }} style={{ padding: '12px 24px', borderRadius: '12px', cursor: 'pointer', border: '1px solid #ddd', backgroundColor: 'transparent', color: darkMode ? '#fff' : '#000' }}>← {!french?'Back':'Précédent'}</button>
               
               {currentQuestionIdx === currentSection.questions.length - 1 ? (
                 currentSectionIdx < activeTest.sections.length - 1 ? (
@@ -254,7 +254,7 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
                   viewMode === 'test' && <button onClick={handleFinish} style={{ padding: '12px 24px', borderRadius: '12px', cursor: 'pointer', backgroundColor: '#2ecc71', color: '#fff', border: 'none', fontWeight: 'bold' }}>Complete Exam</button>
                 )
               ) : (
-                <button onClick={() => setCurrentQuestionIdx(p => p + 1)} style={{ padding: '12px 24px', borderRadius: '12px', cursor: 'pointer', backgroundColor: '#1cb0f6', color: '#fff', border: 'none', fontWeight: 'bold' }}>Next Question</button>
+                <button onClick={() => setCurrentQuestionIdx(p => p + 1)} style={{ padding: '12px 24px', borderRadius: '12px', cursor: 'pointer', backgroundColor: '#1cb0f6', color: '#fff', border: 'none', fontWeight: 'bold' }}>{!french?'Next Question':'Question suivante'}</button>
               )}
             </div>
           </div>
