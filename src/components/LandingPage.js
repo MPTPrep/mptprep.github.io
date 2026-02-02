@@ -1,57 +1,57 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase';
 
-export default function LandingPage({ onNavigate, streak, xp, user, darkMode, setDarkMode, onBackHome }) {
+export default function LandingPage({french,setFrench, onNavigate, streak, xp, user, darkMode, setDarkMode, onBackHome }) {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   
   const modules = [
     {
       id: 'learning-path',
-      title: 'MPT Duolingo',
-      subtitle: 'Knowledge Map',
+      title: !french ? 'MPT Duolingo' : 'TCM Duolingo',
+      subtitle: !french?'Knowledge Map':"Carte de connaissances",
       icon: '❤️',
-      description: 'Master math and pedagogy concepts step-by-step.',
+      description: !french?'Master math and pedagogy concepts step-by-step.':'Maîtrisez les concepts de mathématiques et de pédagogie étape par étape.',
       color: '#1cb0f6'
     },
     {
       id: 'practice-tests',
-      title: 'Practice Tests',
-      subtitle: 'Timed Exams',
+      title: !french ? 'Practice Tests' : "Tests de pratique",
+      subtitle: !french?'Timed Exams':'Examens chronométrés',
       icon: '📝',
-      description: 'Simulate the real MPT with full-length exams.',
+      description: !french?'Simulate the real MPT with full-length exams.':'Simulez le vrai TCM avec des examens complets.',
       color: '#ff4b4b'
     },
     
 	{
       id: 'study-guide',
-      title: 'Study',
-      subtitle: 'Dictionary of Terms',
+      title: !french?'Study':"Étudier",
+      subtitle: !french?'Dictionary of Terms':'Dictionnaire de termes',
       icon: '📚',
-      description: 'Definitions of terms and example questions.',
+      description: !french?'Definitions of terms and example questions.':'Définitions de termes et exemples de questions.',
       color: '#06c248'
     },
 	{
       id: 'test-info',
       title: 'Test Info',
-      subtitle: 'Requirements',
+      subtitle: !french?'Requirements':'Exigences',
       icon: 'ℹ️',
-      description: 'Scoring rubrics, dates, and what to bring.',
+      description: !french?'Details about what the test contains.':'Détails sur le contenu du test.',
       color: '#ffc107'
     },
 	{
       id: 'resources-info',
       title: 'Resources',
-      subtitle: 'Helpful Links',
+      subtitle: !french?'Helpful Links':'Liens utiles',
       icon: '🔗',
-      description: 'Helplful external resources.',
+      description: !french?'Helplful external resources.':'Liens utiles externales.',
       color: '#db82ed'
     },
 	{
       id: 'about',
-      title: 'About',
+      title: !french?'About':"À propos",
       subtitle: 'Information',
       icon: '🌎',
-      description: 'Information about this site.',
+      description: !french?'Information about this site.':'Informations sur ce site',
       color: '#8c8c8b'
     }
 	
@@ -86,7 +86,7 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
               transition: '0.2s'
             }}
           >
-            Home
+		  {!french?'Home':'Accueil'}
           </button>
 
           <button 
@@ -104,7 +104,7 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
               transition: '0.2s'
             }}
           >
-            Logout
+            {!french ? 'Logout' : 'Déconnexion'}
           </button>
 
           <div style={{ position: 'relative' }}>
@@ -143,20 +143,20 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
                   onClick={() => setDarkMode(!darkMode)}
                   style={{ padding: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}
                 >
-                  <span>Dark Mode</span>
+                  <span>{!french ? 'Dark Mode' : 'Mode sombre'}</span>
                   <span>{darkMode ? '🌙' : '☀️'}</span>
                 </div>
 
-                <div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Language</span>
-                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>EN (FR soon)</span>
+                <div  onClick={() => setFrench(!french)} style={{ padding: '12px', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span onClick={() => setFrench(!french)} > {!french ? 'Language':'Langue'}</span>
+                  <span style={{ fontSize: '0.8rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>{french ? (<>FR <a href="https://emoji.gg/emoji/8690-franco-ontarian-flag" target="_blank" rel="noopener noreferrer"><img src="https://cdn3.emoji.gg/emojis/8690-franco-ontarian-flag.png" width="13px" height="auto" alt="Franco_Ontarian_Flag" style={{ verticalAlign: 'middle' }} /></a></>) : 'EN 🇨🇦'}</span>
                 </div>
 
                 <div 
                   onClick={() => auth.signOut()}
                   style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
                 >
-                  Logout
+                  {!french ? 'Logout' : 'Déconnexion'}
                 </div>
               </div>
             )}
@@ -165,8 +165,8 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
       </div>
 
       <div style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: '5rem', marginBottom: '10px', color: darkMode ? '#fff' : '#3c3c3c' }}>MPT Prep</h1>
-        <p style={{ color: darkMode ? '#fff': '#666', marginBottom: '50px' }}>Welcome back! Choose a module below to get started.</p>
+        <h1 style={{ fontSize: '5rem', marginBottom: '10px', color: darkMode ? '#fff' : '#3c3c3c' }}>{!french ? 'MPT Prep' : 'Prépa au TCM'}</h1>
+        <p style={{ color: darkMode ? '#fff': '#666', marginBottom: '50px' }}>{!french ? "Welcome back! Choose a module below to get started." : "Bonjour ! Choisissez un module ci-dessous pour commencer."}</p>
 
         <div style={{ 
           display: 'grid', 
@@ -218,7 +218,7 @@ export default function LandingPage({ onNavigate, streak, xp, user, darkMode, se
               
               {m.id === 'learning-path' && (
                 <div style={{ marginTop: '20px', fontSize: '0.8rem', fontWeight: 'bold', color: '#ff9600' }}>
-                  🔥 {streak} DAY STREAK
+					{!french?`🔥 ${streak} DAY STREAK`:`🔥 Série de ${streak} jour`+(streak != 1 ?'s':'')} 
                 </div>
               )}
             </div>

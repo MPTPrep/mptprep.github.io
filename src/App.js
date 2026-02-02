@@ -42,6 +42,8 @@ export default function App() {
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  
+  const [french, setFrench] = useState(null); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
@@ -238,7 +240,7 @@ const updateProfileName = async (newName) => {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
       
-      {view === 'landing' && <LandingPage onNavigate={(target) => {if (target === 'about') {
+      {view === 'landing' && <LandingPage french = {french} setFrench = {setFrench} onNavigate={(target) => {if (target === 'about') {
         setShowAboutModal(true);
       } else {
         setView(target);
@@ -279,7 +281,7 @@ const updateProfileName = async (newName) => {
               color: darkMode ? '#fff' : '#777'
             }}
           >
-            Home
+		  {!french?'Home':'Accueil'}
           </button>
 		  
 		        <button 
@@ -297,7 +299,7 @@ const updateProfileName = async (newName) => {
               transition: '0.2s'
             }}
           >
-            Logout
+            {!french ? 'Logout' : 'Déconnexion'}
           </button>
 
 
@@ -337,7 +339,7 @@ const updateProfileName = async (newName) => {
                   onClick={() => setDarkMode(!darkMode)}
                   style={{ padding: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}
                 >
-                  <span>Dark Mode</span>
+                  <span>{!french ? 'Dark Mode' : 'Mode sombre'}</span>
                   <span>{darkMode ? '🌙' : '☀️'}</span>
                 </div>
 
@@ -352,7 +354,7 @@ const updateProfileName = async (newName) => {
                   onClick={() => auth.signOut()}
                   style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
                 >
-                  Logout
+                  {!french ? 'Logout' : 'Déconnexion'}
                 </div>
               </div>
             )}
@@ -525,9 +527,9 @@ const updateProfileName = async (newName) => {
   </div>
 )}
 
-      {view === 'test-info' && <TestInfo user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
-	  {view === 'study-guide' && <Study user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
-	  {view === 'resources-info' && <Resources user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+      {view === 'test-info' && <TestInfo french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+	  {view === 'study-guide' && <Study french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+	  {view === 'resources-info' && <Resources french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
     {openComments && (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
@@ -623,29 +625,29 @@ const updateProfileName = async (newName) => {
       </button>
 
       <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🌎</div>
-      <h2 style={{ marginBottom: '15px' }}>About MPT Prep</h2>
+      <h2 style={{ marginBottom: '15px' }}>{!french?'About MPT Prep':'À propos de Prépa TCM'}</h2>
       
       <p style={{ 
         lineHeight: '1.6', 
         color: darkMode ? '#bbb' : '#666',
         fontSize: '0.95rem',
 		textAlign:'left'
-      }}>This site was originally created by me, Liam Salt, in December of 2025 while I was in my second year of teacher's college at the University of Ottawa.
-	  While preparing for the MPT, I noticed that the existing preparation resources did not really work for me. Something which many teacher education students do not seem
-	  to be aware of is the <a href="https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/MPT_Framework_August_2025_EN_-s/MPT_Framework_August_2025_EN_-s.pdf" >MPT Framework </a> 
-	   document, provided by the ministry. This document outlines exactly what content is to be tested on any instance of the 
-	  test, including specific topics, number of questions, etc. My initial idea for this site was to make the information contained in that document more easily 
-	  accessible and also more digestible. This original idea is what is found under the "Test Info" tab on this site. </p>
+      }}>{!french?"This site was originally created by me, Liam Salt, in December of 2025 while I was in my second year of teacher's college at the University of Ottawa.":"Ce site a été initialement créé par moi, Liam Salt, en décembre 2025, alors que j'étais en deuxième année à la Faculté d'éducation de l'Université d'Ottawa."}
+	  
+	  {!french?"While preparing for the MPT, I noticed that the existing preparation resources did not really work for me. Something which many teacher education students do not seem to be aware of is the":"En me préparant pour le TCM (Test de compétences en mathématiques), j'ai remarqué que les ressources de préparation existantes ne me convenaient pas vraiment. Un élément dont beaucoup d'étudiants en enseignement ne semblent pas avoir connaissance est le document du "}
+<a href={!french?"https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/MPT_Framework_August_2025_EN_-s/MPT_Framework_August_2025_EN_-s.pdf"
+:"https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/TCM_Document-cadre_Aout_2025_FR_-s/TCM_Document-cadre_Aout_2025_FR_-s.pdf"} >{!french?'MPT Framework':'Cadre du TCM'} </a>
+	{!french?'document, provided by the ministry':''}. 
+	
+	{!french?"This document outlines exactly what content is to be tested on any instance of the test, including specific topics, number of questions, etc. My initial idea for this site was to make the information contained in that document more easily accessible and also more digestible. This original idea is what is found under the \"Test Info\" tab on this site.":"Ce document précise exactement le contenu évalué lors de chaque passation du test, y compris les sujets spécifiques, le nombre de questions, etc. Mon idée initiale pour ce site était de rendre les informations contenues dans ce document plus accessibles et plus faciles à assimiler. Cette idée originale se retrouve sous l'onglet « Info Test » de ce site."} </p>
 	  <p style={{ 
         lineHeight: '1.6', 
         color: darkMode ? '#bbb' : '#666',
         fontSize: '0.95rem' ,
 		textAlign:'left'
-      }}>While I was back for winter break, waiting for the continuation of my last practicum, I noticed that many members of my family were playing Duolingo. I wondered if 
-	  I could somehow involve Duolingo-style gamification to make preparation for the Math Proficiency Test more engaging. Finding myself with a bounty of free time, I started
-	  to slowly building up the site. Eventually, I got it to a presentable state, implementing Duolingo-inspired features like XP, streaks, and iconic sounds (musical credit
-      goes to Damara). I'm always working on improving the site, I plan on implementing support for graphs and tables sometime soon. If you want to see what's going on under
-	  the hood, feel free to check out this project on <a href="https://github.com/MPTPrep/mptprep.github.io">Github</a>.</p>
+      }}> {!french?"While I was back for winter break, waiting for the continuation of my last practicum, I noticed that many members of my family were playing Duolingo. I wondered if I could somehow involve Duolingo-style gamification to make preparation for the Math Proficiency Test more engaging. Finding myself with a bounty of free time, I startedto slowly building up the site. Eventually, I got it to a presentable state, implementing Duolingo-inspired features like XP, streaks, and iconic sounds (musical creditgoes to Damara). I'm always working on improving the site, I plan on implementing support for graphs and tables sometime soon. If you want to see what's going on underthe hood, feel free to check out this project on "
+	  : "Pendant les vacances d'hiver, en attendant le début de mon dernier stage, j'ai remarqué que plusieurs membres de ma famille jouaient à Duolingo. Je me suis demandé si je pouvais intégrer une part de ludification (gamification) à la Duolingo pour rendre la préparation au Test de compétences en mathématiques plus stimulante. Profitant de ce temps libre, j'ai commencé à bâtir ce site peu à peu. J'ai finalement réussi à obtenir un résultat présentable en implantant des fonctionnalités inspirées de Duolingo, comme les points d'expérience (XP), les séries de jours et des sons emblématiques (crédit musical à Damara). Je travaille constamment à l'amélioration du site et je prévois d'ajouter prochainement la prise en charge des graphiques et des tableaux. Si vous voulez voir ce qui se passe sous le capot, n'hésitez pas à consulter ce projet sur "}
+	  <a href="https://github.com/MPTPrep/mptprep.github.io">Github</a>.</p>
       <button 
         onClick={() => setShowAboutModal(false)}
         style={{
@@ -659,7 +661,7 @@ const updateProfileName = async (newName) => {
           cursor: 'pointer'
         }}
       >
-        Got it!
+	  {!french?'Got it!':'Fermer'}
       </button>
     </div>
   </div>

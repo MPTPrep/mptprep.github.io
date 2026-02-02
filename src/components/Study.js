@@ -3,15 +3,24 @@ import { auth } from '../firebase';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { studyData } from '../data/studyData';
+import { studyDataFR } from '../data/studyDataFR';
 
-export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
+
+export default function Study({ french, setFrench, darkMode, user, setDarkMode, onBackHome }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTerm, setSelectedTerm] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState(!french ? "All" : "Tout");
   const [showAccountMenu, setShowAccountMenu] = useState(false);
 
   const userInitial = user?.email ? user.email.charAt(0).toUpperCase() : '?';
-  const categories = ["All", "Number Sense", "Pedagogy", "Geometry", "Measurement", "Data Literacy"];
+  const categories = useMemo(() => [
+  !french ? "All" : "Tout", 
+  !french ? "Number Sense" : "Sens du nombre", 
+  !french ? "Pedagogy" : "Pédagogie", 
+  !french ? "Geometry" : "Géométrie", 
+  !french ? "Measurement" : "Mesure", 
+  !french ? "Data Literacy" : "Littératie des données"
+], [french]);
 	
   const formatText = (text) => {
     if (!text) return "";
@@ -26,20 +35,21 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
       .replace(/@(\w+)/g, '<span style="color: #1cb0f6; font-weight: bold;">@$1</span>');
   };
 
+  
   const formattedDefinition = useMemo(() => formatText(selectedTerm?.definition), [selectedTerm]);
   const formattedRigor = useMemo(() => formatText(selectedTerm?.rigorousNote), [selectedTerm]);
   const formattedQuestion = useMemo(() => formatText(selectedTerm?.exampleQuestion), [selectedTerm]);
   const formattedAnswer = useMemo(() => formatText(selectedTerm?.sampleAnswer), [selectedTerm]);
 
   const sortedStudyData = useMemo(() => {
-    return [...studyData].sort((a, b) => a.term.localeCompare(b.term));
-  }, []);
+    return [...(!french ? studyData: studyDataFR)].sort((a, b) => a.term.localeCompare(b.term));
+  }, [french]);
 
   const filteredData = useMemo(() => {
     return sortedStudyData.filter(item => {
       const matchesSearch = item.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
                             item.keywords.some(k => k.toLowerCase().includes(searchTerm.toLowerCase()));
-      const matchesCategory = activeCategory === "All" || item.category === activeCategory;
+      const matchesCategory = activeCategory === (!french ? "All" : "Tout") || item.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
   }, [searchTerm, activeCategory, sortedStudyData]);
@@ -52,7 +62,32 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
     border: `1px solid ${darkMode ? '#444' : '#eee'}`,
     color: darkMode ? '#fff' : '#333'
   };
+  
+  useMemo(() => {
+  if (!french && activeCategory === "Tout") setActiveCategory("All");
+  if (french && activeCategory === "All") setActiveCategory("Tout");
+  if (!french && activeCategory === "Sens du nombre") setActiveCategory("Number Sense");
+  if (french && activeCategory === "Number Sense") setActiveCategory("Sens du nombre");
+  if (!french && activeCategory === "Géométrie") setActiveCategory("Geometry");
+  if (french && activeCategory === "Geometry") setActiveCategory("Géométrie");
+  if (!french && activeCategory === "Pédagogie") setActiveCategory("Pedagogy");
+  if (french && activeCategory === "Pedagogy") setActiveCategory("Pédagogie");
+  if (!french && activeCategory === "Mesure") setActiveCategory("Measurement");
+  if (french && activeCategory === "Measurement") setActiveCategory("Mesure");
+  if (!french && activeCategory === "Littératie des données") setActiveCategory("Data Literacy");
+  if (french && activeCategory === "Data Literacy") setActiveCategory("Littératie des données");
 
+ 
+ 
+  if (selectedTerm) {
+    const newDataSet = french ? studyDataFR : studyData;
+    const matchingTerm = newDataSet.find(item => item.id === selectedTerm.id);
+    if (matchingTerm) {
+      setSelectedTerm(matchingTerm);
+    }
+  }
+}, [french]);
+  
   const navBtnStyle = {
     padding: '8px 18px', borderRadius: '12px', 
     border: `1px solid ${darkMode ? '#e5e5e5' : '#e5e5e5'}`,
@@ -62,8 +97,8 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
 	
   };
   const handleRandomTerm = () => {
-    const randomIndex = Math.floor(Math.random() * studyData.length);
-    setSelectedTerm(studyData[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * (!french ? studyData: studyDataFR).length);
+    setSelectedTerm((!french ? studyData: studyDataFR)[randomIndex]);
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff', color: darkMode ? '#fff' : '#000' }}>
@@ -74,9 +109,9 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
         padding: '0 30px', borderBottom: `1px solid ${darkMode ? '#333' : '#eee'}`,
         backgroundColor: darkMode ? '#1a1a1a' : '#fff', zIndex: 100
       }}>
-        <h2 style={{ margin: 0, fontSize: '1.2rem', fontFamily: 'Montserrat' }}>MPT Study Room</h2>
+        <h2 style={{ margin: 0, fontSize: '1.2rem', fontFamily: 'Montserrat' }}> {!french ? 'MPT Study Room': 'Salle d\'étude du TCM'}</h2>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <button onClick={onBackHome} style={navBtnStyle}>Home</button>
+          <button onClick={onBackHome} style={navBtnStyle}>{!french ? 'Home' : 'Accueil'}</button>
 		   <button 
             onClick={() => auth.signOut()} 
             style={{ 
@@ -92,7 +127,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
               transition: '0.2s'
             }}
           >
-            Logout
+		  {!french ? 'Logout':'Déconnexion'}
           </button>
           <div style={{ position: 'relative' }}>
             <div 
@@ -130,20 +165,20 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
                   onClick={() => setDarkMode(!darkMode)}
                   style={{ padding: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}
                 >
-                  <span>Dark Mode</span>
+                  <span> {!french ? 'Dark Mode':'Mode sombre'}</span>
                   <span>{darkMode ? '🌙' : '☀️'}</span>
                 </div>
 
-                <div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Language</span>
-                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>EN (FR soon)</span>
+                <div  onClick={() => setFrench(!french)} style={{ padding: '12px', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span onClick={() => setFrench(!french)} > {!french ? 'Language':'Langue'}</span>
+                  <span style={{ fontSize: '0.8rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>{french ? (<>FR <a href="https://emoji.gg/emoji/8690-franco-ontarian-flag" target="_blank" rel="noopener noreferrer"><img src="https://cdn3.emoji.gg/emojis/8690-franco-ontarian-flag.png" width="13px" height="auto" alt="Franco_Ontarian_Flag" style={{ verticalAlign: 'middle' }} /></a></>) : 'EN 🇨🇦'}</span>
                 </div>
 
                 <div 
                   onClick={() => auth.signOut()}
                   style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
                 >
-                  Logout
+                   {!french ? 'Logout':'Déconnexion'}
                 </div>
               </div>
             )}
@@ -156,7 +191,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
         <div style={{ width: '350px', borderRight: `1px solid ${darkMode ? '#333' : '#eee'}`, display: 'flex', flexDirection: 'column', padding: '20px' }}>
           <input 
             type="text"
-            placeholder="Search terms..."
+            placeholder={!french ? "Search terms...": 'Rechercher des termes...'}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ width: '100%', padding: '14px', borderRadius: '12px', border: `2px solid ${darkMode ? '#333' : '#eee'}`, backgroundColor: darkMode ? '#222' : '#fff', color: darkMode ? '#fff' : '#000', outline: 'none' }}
@@ -198,7 +233,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
       onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.98)'}
       onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
     >
-      Random Article
+	{!french ? 'Random Article' : 'Article aléatoire' }
     </button>
         </div>
 
@@ -211,7 +246,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
               
 
 <section style={{ marginBottom: '30px' }}>
-  <h3 style={{ color: '#1cb0f6' }}>Definition</h3>
+  <h3 style={{ color: '#1cb0f6' }}>{!french ? 'Definition' : 'Définition'}</h3>
   <div style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>
     <Latex>
       {formattedDefinition}
@@ -220,7 +255,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
 </section>
 
 <div style={{ padding: '20px', borderRadius: '16px', backgroundColor: darkMode ? '#252525' : '#f0faff', borderLeft: '5px solid #1cb0f6' }}>
-  <h4 style={{ color: '#1cb0f6', marginTop: 0 }}>Dive Deeper</h4>
+  <h4 style={{ color: '#1cb0f6', marginTop: 0 }}>{!french ? "Dive Deeper" : "Approfondissement"}</h4>
   <div style={{ fontStyle: 'italic' }}>
     <Latex>
       {formattedRigor}
@@ -229,7 +264,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
 </div>
 
 <section style={{ marginTop: '40px' }}>
-  <h4 style={{ opacity: 0.6 }}>Sample MPT Question</h4>
+  <h4 style={{ opacity: 0.6 }}>{!french ? "Sample MPT Question" : "Exemple de question du TCM"}</h4>
   <div style={{ padding: '20px', borderRadius: '12px', border: `1px dashed ${darkMode ? '#444' : '#ccc'}`, marginBottom: '10px' }}>
     <Latex>
       {formattedQuestion}
@@ -237,7 +272,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
   </div>
   
   <details style={answerDropdownStyle}>
-    <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>View Solution</summary>
+    <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>{!french ? "View Solution" : "Voir la solution"}</summary>
     <div style={{ marginTop: '15px', padding: '15px', borderTop: `1px solid ${darkMode ? '#444' : '#eee'}` }}>
       <Latex>
         {formattedAnswer}
@@ -250,7 +285,7 @@ export default function Study({ darkMode, user, setDarkMode, onBackHome }) {
           ) : (
             <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', opacity: 0.3 }}>
               <div style={{ fontSize: '5rem' }}>📚</div>
-              <h2>Select a term to start studying</h2>
+              <h2>{!french ? 'Select a term to start studying':'Sélectionnez un terme pour commencer à étudier'}</h2>
             </div>
           )}
         </main>

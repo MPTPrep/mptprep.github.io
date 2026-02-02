@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { auth } from '../firebase';
 import { resourceData } from '../data/resourceData';
+//import { resourceDataFR } from '../data/resourceDataFR';
 
-export default function Resources({ darkMode, user, setDarkMode, onBackHome }) {
+export default function Resources({ french, setFrench, darkMode, user, setDarkMode, onBackHome }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -140,9 +141,9 @@ export default function Resources({ darkMode, user, setDarkMode, onBackHome }) {
                   <span>{darkMode ? '🌙' : '☀️'}</span>
                 </div>
 
-                <div style={{ padding: '12px', opacity: 0.6, fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Language</span>
-                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>EN (FR soon)</span>
+                <div  onClick={() => setFrench(!french)} style={{ padding: '12px', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span onClick={() => setFrench(!french)} >Language</span>
+                  <span style={{ fontSize: '0.8rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>{french ? 'FR 🇫🇷󠁣󠁡': 'EN 🇨🇦'}</span>
                 </div>
 
                 <div 

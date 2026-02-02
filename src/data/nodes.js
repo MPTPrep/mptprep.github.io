@@ -70,7 +70,7 @@ export const nodes = [
     { question: "Calculate: $10^2 \\div 5^2$", options: ["$2$", "$4$", "$20$", "$10$"], answer: "$4$" },
     { question: "Square root of $1,600$?", options: ["$40$", "$400$", "$80$", "$20$"], answer: "$40$" },
     { question: "What is $0^5$?", options: ["$0$", "$1$", "$5$", "Undefined"], answer: "$0$" },
-    { question: "Value of $1^100$?", options: ["$100$", "$1$", "$0$", "$10$"], answer: "$1$" },
+    { question: "Value of $1^{100}$?", options: ["$100$", "$1$", "$0$", "$10$"], answer: "$1$" },
     { question: "Solve for $y$: $\\sqrt{y} = 12$", options: ["$6$", "$144$", "$24$", "$120$"], answer: "$144$" },
     { question: "Value of $6^2 - 5^2$?", options: ["$1$", "$11$", "$61$", "$7$"], answer: "$11$" },
     { question: "What is $\\sqrt{0.04}$?", options: ["$0.2$", "$0.02$", "$0.002$", "$2.0$"], answer: "$0.2$" },
