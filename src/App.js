@@ -6,8 +6,8 @@ import Lesson from './components/Lesson';
 import Quiz from './components/Quiz';
 import LessonResult from './components/LessonResult'
 import { auth, db } from './firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { onAuthStateChanged, updateProfile, updatePassword,sendPasswordResetEmail } from 'firebase/auth';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import Login from './components/Login';
 import LandingPage from './components/LandingPage';
 import LearningPath from './components/LearningPath';
@@ -46,7 +46,37 @@ export default function App() {
   const [profileName, setProfileName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   
+  const [showSettingsModal, setShowSettingsModal] = useState(false);	  
+  const [newDisplayName, setNewDisplayName] = useState(user?.displayName || "");
+  const [newPassword, setNewPassword] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [activeSettingTab, setActiveSettingTab] = useState('menu'); 
+  const COLORS = ['#1cb0f6', '#ff4b4b', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22', '#34495e'];
+  const EMOJIS = ['🎓', '✏️', '🧠', '🦉', '⭐', '🔥', '📈', '🎯'];
+  
+  const [profileColor, setProfileColor] = useState('#1cb0f6'); 
+  const [profileIcon, setProfileIcon] = useState("");
+  const userInitial = profileIcon || (profileName || user?.displayName || user?.email || " ")[0].toUpperCase();
+  
+  const handleSaveSettings = async () => {
+    if (!auth.currentUser || !newDisplayName.trim()) return;
+    setIsSaving(true);
+
+    try {
+      await updateProfile(auth.currentUser, { displayName: newDisplayName });
+      await setProfileName(newDisplayName);
+
+      setActiveSettingTab('menu');
+    } catch (error) {
+      console.error("Settings update failed:", error);
+      alert(error.message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  
   const currentMockTests = french ? MOCK_TESTS_FR : MOCK_TESTS;
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
@@ -74,30 +104,41 @@ const loadUserData = async (uid) => {
   const docSnap = await getDoc(docRef);
   const data = docSnap.exists() ? docSnap.data() : null;
 
-
   if (!data || !data.role) {
+    
     console.log("Initializing new profile fields...");
     const initialName = `Student_${Math.random().toString(36).substring(7)}`;
+    
     const initialData = {
-      xp: data?.xp || 0,
-      streak: data?.streak || 0,
-      lastActiveDate: data?.lastActiveDate || "",
-      nodes: data?.nodes || nodeData,
-      testHistory: data?.testHistory || [],
-      displayName: data?.displayName || initialName,
+      xp: 0,
+      streak: 0,
+      lastActiveDate: "",
+      nodes: nodeData,
+      testHistory: [],
+      displayName: initialName,
+      profileColor: '#1cb0f6',
+      profileIcon: "",
       role: 'student' 
     };
 
     await setDoc(docRef, initialData, { merge: true });
+
+    
     setProfileName(initialData.displayName);
+    setProfileColor(initialData.profileColor);
+    setProfileIcon(initialData.profileIcon);
+    setXp(initialData.xp);
+    setStreak(initialData.streak);
     setIsAdmin(false);
+
   } else {
-	  
+    setProfileName(data.displayName || "Student");
+    setProfileColor(data.profileColor || '#1cb0f6');
+    setProfileIcon(data.profileIcon || "");
     setXp(data.xp || 0);
     setStreak(data.streak || 0);
     setLastActiveDate(data.lastActiveDate || "");
     setUserHistory(data.testHistory || []);
-    setProfileName(data.displayName || "Student");
     setIsAdmin(data.role === 'admin');
     
     if (data.nodes) {
@@ -109,6 +150,14 @@ const loadUserData = async (uid) => {
     }
   }
   setLoading(false);
+};
+
+const updateProfileIcon = async (newColor, newIcon) => {
+  if (!user) return;
+  const userRef = doc(db, "users", user.uid);
+  await setDoc(userRef, { profileColor: newColor, profileIcon: newIcon }, { merge: true });
+  setProfileColor(newColor);
+  setProfileIcon(newIcon);
 };
 const saveTestResult = async (results) => {
   const today = new Date().toLocaleDateString('en-CA');
@@ -266,7 +315,7 @@ const updateProfileName = async (newName) => {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
       
-      {view === 'landing' && <LandingPage french = {french} setFrench = {setFrench} onNavigate={(target) => {if (target === 'about') {
+      {view === 'landing' && <LandingPage profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName} french = {french} setFrench = {setFrench} onNavigate={(target) => {if (target === 'about') {
         setShowAboutModal(true);
       } else {
         setView(target);
@@ -281,6 +330,7 @@ const updateProfileName = async (newName) => {
           handleWin={handleWin} xp={xp} streak={streak} darkMode={darkMode} setDarkMode={setDarkMode}
 		  french={french} setFrench = {setFrench}
           user={user} showAccountMenu={showAccountMenu} setShowAccountMenu={setShowAccountMenu} onBackHome={() => setView('landing')}
+		  profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName}
         />
       )}
 
@@ -291,7 +341,239 @@ const updateProfileName = async (newName) => {
 	
     {!activeTest && !reviewTest ? (
       <div style={{ maxWidth: '1000px', margin: '0 auto' }} >
+	  
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '40px' }}>
+		
+		 {showSettingsModal && (
+  <div style={{
+    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', zIndex: 3000, backdropFilter: 'blur(4px)'
+  }}>
+    <div style={{
+      width: '90%', maxWidth: '400px', backgroundColor: darkMode ? '#2c2c2c' : '#fff',
+      borderRadius: '20px', padding: '25px', color: darkMode ? '#fff' : '#000',
+      boxShadow: '0 10px 30px rgba(0,0,0,0.3)', position: 'relative'
+    }}>
+      
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+        {activeSettingTab !== 'menu' && (
+          <button 
+            onClick={() => setActiveSettingTab('menu')}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem', color: '#1cb0f6', padding: '0 10px 0 0' }}
+          >
+            ←
+          </button>
+        )}
+        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>
+          {activeSettingTab === 'menu' && (!french ? 'Account Settings' : 'Paramètres')}
+          {activeSettingTab === 'name' && (!french ? 'Change Name' : 'Changer le nom')}
+		  
+          {activeSettingTab === 'password' && (!french ? 'Security' : 'Sécurité')}
+        </h2>
+      </div>
+
+      {activeSettingTab === 'menu' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          <div 
+            onClick={() => setActiveSettingTab('name')}
+            style={{ padding: '15px', borderRadius: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', backgroundColor: darkMode ? '#3c3c3c' : '#f7f7f7' }}
+          >
+            <span>👤 {!french ? 'Display Name' : 'Nom d’affichage'}</span>
+            <span style={{ color: '#888' }}>{user?.displayName || (!french ? 'Edit' : 'Modifier')} ›</span>
+          </div>
+<div 
+      onClick={() => setActiveSettingTab('appearance')}
+      style={{ padding: '15px', borderRadius: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', backgroundColor: darkMode ? '#3c3c3c' : '#f7f7f7' }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        
+        <span>🎨 {!french ? 'Appearance' : 'Apparence'}</span>
+      </div>
+      <span style={{ color: '#888' }}>{!french ? 'Edit' : 'Modifier'} ›</span>
+    </div>
+          <div 
+            onClick={() => setActiveSettingTab('password')}
+            style={{ padding: '15px', borderRadius: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', backgroundColor: darkMode ? '#3c3c3c' : '#f7f7f7' }}
+          >
+            <span>🔒 {!french ? 'Password' : 'Mot de passe'}</span>
+            <span style={{ color: '#888' }}>{!french ? 'Change' : 'Changer'} ›</span>
+          </div>
+
+          <button 
+            onClick={() => setShowSettingsModal(false)}
+            style={{ marginTop: '20px', padding: '12px', borderRadius: '12px', border: 'none', fontWeight: 'bold', cursor: 'pointer', backgroundColor: '#1cb0f6', color: '#fff' }}
+          >
+            {!french ? 'Done' : 'Terminé'}
+          </button>
+        </div>
+      )}
+	  
+{activeSettingTab === 'appearance' && (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    
+   
+    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
+      <div style={{
+        width: '80px', height: '80px', borderRadius: '50%',
+        backgroundColor: profileColor, display: 'flex', alignItems: 'center',
+        justifyContent: 'center', color: 'white', fontSize: '2rem', fontWeight: 'bold',
+        boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+      }}>
+        {profileIcon || userInitial}
+      </div>
+    </div>
+
+    <div>
+      <label style={{ fontSize: '0.8rem', fontWeight: 'bold', display: 'block', marginBottom: '10px' }}>
+        {!french ? 'Background Color' : 'Couleur de fond'}
+      </label>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        {COLORS.map(c => (
+          <div 
+            key={c}
+            onClick={() => updateProfileIcon(c, profileIcon)}
+            style={{ 
+              width: '30px', height: '30px', borderRadius: '50%', backgroundColor: c, 
+              cursor: 'pointer', border: profileColor === c ? '3px solid #000' : 'none' 
+            }}
+          />
+        ))}
+		
+		<div style={{ position: 'relative', width: '30px', height: '30px' }}>
+    <label 
+      htmlFor="customColorPicker"
+      style={{
+        width: '30px', height: '30px', borderRadius: '50%',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        backgroundColor: darkMode ? '#444' : '#eee',
+        cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold',
+        border: !COLORS.includes(profileColor) && profileColor !== '' ? '3px solid #1cb0f6' : '1px dashed #888'
+      }}
+    >
+      +
+    </label>
+    <input 
+      id="customColorPicker"
+      type="color"
+      value={profileColor}
+      onChange={(e) => updateProfileIcon(e.target.value, profileIcon)}
+      style={{
+        position: 'absolute', top: 0, left: 0, opacity: 0, width: '100%', height: '100%', cursor: 'pointer'
+      }}
+    />
+  </div>
+      </div>
+    </div>
+
+   
+<div>
+  <label style={{ fontSize: '0.8rem', fontWeight: 'bold', display: 'block', marginBottom: '10px' }}>
+    {!french ? 'Icon / Emoji' : 'Icône / Emoji'}
+  </label>
+  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', fontSize: '1.5rem' }}>
+    
+    <div 
+      onClick={() => updateProfileIcon(profileColor, "")} 
+      style={{ 
+        cursor: 'pointer', 
+        width: '40px', height: '40px', 
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        borderRadius: '8px',
+        backgroundColor: profileIcon === "" ? (darkMode ? '#444' : '#eee') : 'transparent',
+        border: profileIcon === "" ? '2px solid #1cb0f6' : '1px solid transparent'
+      }}
+    >
+      
+      {(profileName || user?.displayName || user?.email || "?")[0].toUpperCase()}
+    </div>
+
+    {EMOJIS.map(e => (
+      <div 
+        key={e}
+        onClick={() => updateProfileIcon(profileColor, e)}
+        style={{ 
+          cursor: 'pointer', 
+          padding: '5px',
+          borderRadius: '8px',
+          backgroundColor: profileIcon === e ? (darkMode ? '#444' : '#eee') : 'transparent',
+          border: profileIcon === e ? '2px solid #1cb0f6' : '1px solid transparent'
+        }}
+      >
+        {e}
+      </div>
+    ))}
+  </div>
+</div>
+  </div>
+)}
+	  
+	  
+      {activeSettingTab === 'name' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <input 
+            type="text" 
+            placeholder={!french ? "Enter new name" : "Entrez le nom"}
+            value={newDisplayName}
+            onChange={(e) => setNewDisplayName(e.target.value)}
+            style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #ddd', background: darkMode ? '#444' : '#fff', color: darkMode ? '#fff' : '#000' }} 
+          />
+          <button 
+            onClick={handleSaveSettings}
+            disabled={isSaving}
+            style={{ padding: '12px', borderRadius: '12px', border: 'none', backgroundColor: '#1cb0f6', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}
+          >
+            {isSaving ? '...' : (!french ? 'Save Name' : 'Enregistrer')}
+          </button>
+        </div>
+      )}
+
+      {activeSettingTab === 'password' && (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', textAlign: 'center' }}>
+    <div style={{ fontSize: '3rem', marginBottom: '10px' }}>✉️</div>
+    <p style={{ fontSize: '0.9rem', lineHeight: '1.5' }}>
+      {!french 
+        ? `We will send a password reset link to:` 
+        : `Nous enverrons un lien de réinitialisation à :`}
+      <br />
+      <strong>{user?.email}</strong>
+    </p>
+    
+    <button 
+      onClick={async () => {
+        setIsSaving(true);
+        try {
+          await sendPasswordResetEmail(auth, user.email);
+          alert(!french 
+            ? "Reset email sent! Please check your inbox." 
+            : "Email de réinitialisation envoyé ! Veuillez consulter votre boîte de réception.");
+          setActiveSettingTab('menu');
+        } catch (error) {
+          alert(error.message);
+        } finally {
+          setIsSaving(false);
+        }
+      }}
+      disabled={isSaving}
+      style={{ 
+        padding: '12px', borderRadius: '12px', border: 'none', 
+        backgroundColor: '#1cb0f6', color: '#fff', 
+        fontWeight: 'bold', cursor: 'pointer' 
+      }}
+    >
+      {isSaving ? '...' : (!french ? 'Send Reset Email' : 'Envoyer l’email')}
+    </button>
+    
+    <p style={{ fontSize: '0.75rem', color: '#888' }}>
+      {!french 
+        ? "Note: You will be logged out on other devices after changing your password." 
+        : "Remarque : Vous serez déconnecté sur vos autres appareils après le changement."}
+    </p>
+  </div>
+)}
+    </div>
+  </div>
+)}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           
           <button 
@@ -339,14 +621,14 @@ const updateProfileName = async (newName) => {
               style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
             >
               <div style={{
-                width: '40px', height: '40px', borderRadius: '50%',
-                backgroundColor: '#1cb0f6', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', color: 'white', fontWeight: 'bold',
-                fontFamily: 'Montserrat', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-              }}>
-                {
-				user?.email ? user.email.charAt(0).toUpperCase() : '?'}
-              </div>
+			  width: '40px', height: '40px', borderRadius: '50%',
+			  backgroundColor: profileColor, 
+
+			  display: 'flex', alignItems: 'center', justifyContent: 'center', 
+			  color: 'white', fontWeight: 'bold'
+			}}>
+			  {profileIcon || (profileName || user?.email || "?")[0].toUpperCase()}
+			</div>
             </div>
 
             {/* DROPDOWN MENU */}
@@ -374,6 +656,24 @@ const updateProfileName = async (newName) => {
                   <span onClick={() => setFrench(!french)} > {!french ? 'Language':'Langue'}</span>
                   <span style={{ fontSize: '0.8rem', backgroundColor: '#eee', padding: '2px 6px', borderRadius: '4px', color: '#000' }}>{french ? (<>FR <a href="https://emoji.gg/emoji/8690-franco-ontarian-flag" target="_blank" rel="noopener noreferrer"><img src="https://cdn3.emoji.gg/emojis/8690-franco-ontarian-flag.png" width="13px" height="auto" alt="Franco_Ontarian_Flag" style={{ verticalAlign: 'middle' }} /></a></>) : 'EN 🇨🇦'}</span>
                 </div>
+				
+				<div 
+				  onClick={() => {
+					setShowAccountMenu(false);
+					setShowSettingsModal(true);
+				  }}
+				  style={{ 
+					padding: '12px', 
+					cursor: 'pointer', 
+					display: 'flex', 
+					justifyContent: 'space-between', 
+					alignItems: 'center', 
+					fontSize: '0.9rem'
+				  }}
+				>
+				  <span>{!french ? 'Settings' : 'Paramètres'}</span>
+				  <span>⚙️</span>
+				</div>
                 <div 
                   onClick={() => auth.signOut()}
                   style={{ padding: '12px', cursor: 'pointer', color: '#ff4b4b', fontWeight: '600', borderTop: '1px solid #eee', marginTop: '5px', fontSize: '0.9rem' }}
@@ -554,9 +854,9 @@ const updateProfileName = async (newName) => {
   </div>
 )}
 
-      {view === 'test-info' && <TestInfo french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
-	  {view === 'study-guide' && <Study french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
-	  {view === 'resources-info' && <Resources french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+      {view === 'test-info' && <TestInfo profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName} french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+	  {view === 'study-guide' && <Study profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName} french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
+	  {view === 'resources-info' && <Resources profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName} french = {french} setFrench = {setFrench} user={user} darkMode={darkMode} setDarkMode={setDarkMode} onBackHome={()=> setView('landing')}  />}
     {openComments && (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
@@ -608,10 +908,12 @@ const updateProfileName = async (newName) => {
   testId={openComments} 
   user={user} 
   profileName={profileName} 
+  profileColor={profileColor} 
+  profileIcon={profileIcon}   
   isAdmin={isAdmin}         
   userHistory={userHistory} 
   darkMode={darkMode} 
-  french = {french}
+  french={french}
 />
       </div>
     </div>

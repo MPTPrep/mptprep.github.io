@@ -70,7 +70,7 @@ const renderMath = (math, isBlock, index) => {
   }
 };
 
-export default function TestComments({ testId, user, profileName, isAdmin, userHistory, darkMode, french }) {
+export default function TestComments({ testId, user, profileName, profileIcon, profileColor, isAdmin, userHistory, darkMode, french }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [replyText, setReplyText] = useState('');
@@ -115,6 +115,8 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
         text: textToPost,
         authorId: user.uid,
         authorName: profileName || "Student",
+		authorColor: profileColor || '#1cb0f6', 
+		authorIcon: profileIcon || "",
         authorBestScore: bestScore,
         authorPassed: hasPassed,
         createdAt: serverTimestamp()
@@ -141,43 +143,79 @@ export default function TestComments({ testId, user, profileName, isAdmin, userH
   };
 
   const CommentCard = ({ comment, isReply, onReply }) => (
+  <div style={{ 
+    display: 'flex', 
+    border: `1px solid ${darkMode ? '#444' : '#eee'}`, 
+    borderRadius: '12px', 
+    overflow: 'hidden',
+    backgroundColor: darkMode ? '#262626' : '#fff',
+    fontSize: isReply ? '0.85rem' : '0.9rem'
+  }}>
     <div style={{ 
-      display: 'flex', 
-      border: `1px solid ${darkMode ? '#444' : '#eee'}`, 
-      borderRadius: '12px', 
-      overflow: 'hidden',
-      backgroundColor: darkMode ? '#262626' : '#fff',
-      fontSize: isReply ? '0.85rem' : '0.9rem'
+      width: '85px', padding: '12px 8px', 
+      backgroundColor: darkMode ? '#1a1a1a' : '#fcfcfc', 
+      borderRight: `1px solid ${darkMode ? '#444' : '#eee'}`,
+      textAlign: 'center', flexShrink: 0,
+      display: 'flex', flexDirection: 'column', alignItems: 'center' 
     }}>
-      <div style={{ 
-        width: '85px', padding: '12px 8px', 
-        backgroundColor: darkMode ? '#1a1a1a' : '#fcfcfc', 
-        borderRight: `1px solid ${darkMode ? '#444' : '#eee'}`,
-        textAlign: 'center', flexShrink: 0
+      
+      <div style={{
+        width: '40px', height: '40px', borderRadius: '50%',
+        backgroundColor: comment.authorColor || '#1cb0f6',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: 'white', fontWeight: 'bold', fontSize: '1.2rem',
+        marginBottom: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
       }}>
-        <div style={{ fontWeight: 'bold', fontSize: '0.75rem', marginBottom: '5px', overflowWrap: 'break-word' }}>
-          {comment.authorName}
-        </div>
-        {comment.authorPassed && (
-          <div style={{ fontSize: '0.6rem', color: '#2ecc71', fontWeight: 'bold' }}>✓ PASSED</div>
-        )}
-        <div style={{ fontSize: '0.6rem', color: '#888' }}>{!french?'Best':'Meilleur'}: {comment.authorBestScore}%</div>
+        {comment.authorIcon || (comment.authorName || "?")[0].toUpperCase()}
       </div>
 
-      <div style={{ padding: '12px', flex: 1 }}>
-        <div style={{ margin: 0, lineHeight: '1.4' }}><LatexContent content={comment.text}/></div>
-        <div style={{ marginTop: '10px', display: 'flex', gap: '15px', alignItems: 'center' }}>
-          <span style={{ fontSize: '0.7rem', color: '#666' }}>
-            {comment.createdAt?.toDate().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
-          </span>
-          {!isReply && (
-            <button onClick={onReply} style={{ background: 'none', border: 'none', color: '#1cb0f6', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', padding: 0 }}>{!french?'Reply':'Répondre'}</button>
-          )}
-          {(user.uid === comment.authorId || isAdmin) && (
-            <button onClick={() => handleDelete(comment.id)} style={{ background: 'none', border: 'none', color: '#ff4b4b', cursor: 'pointer', fontSize: '0.75rem', padding: 0 }}>{!french?'Delete':'Supprimer'}</button>
-          )}
-        </div>
+     
+      <div style={{ 
+        fontWeight: 'bold', 
+        fontSize: '0.7rem', 
+        marginBottom: '5px', 
+        overflowWrap: 'break-word',
+        width: '100%' 
+      }}>
+        {comment.authorName}
       </div>
+
+      {comment.authorPassed && (
+        <div style={{ fontSize: '0.55rem', color: '#2ecc71', fontWeight: 'bold' }}>✓ PASSED</div>
+      )}
+      <div style={{ fontSize: '0.55rem', color: '#888' }}>
+        {!french ? 'Best' : 'Meilleur'}: {comment.authorBestScore}%
+      </div>
+    </div>
+
+     <div style={{ padding: '12px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+  
+  <div style={{ 
+    margin: 0, 
+    lineHeight: '1.3', 
+    flex: 1, 
+    display: 'block' 
+  }}>
+    <LatexContent content={comment.text}/>
+  </div>
+
+  <div style={{ 
+    marginTop: '8px', 
+    display: 'flex', 
+    gap: '15px', 
+    alignItems: 'center' 
+  }}>
+    <span style={{ fontSize: '0.7rem', color: '#666' }}>
+      {comment.createdAt?.toDate().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
+    </span>
+    {!isReply && (
+      <button onClick={onReply} style={{ background: 'none', border: 'none', color: '#1cb0f6', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', padding: 0 }}>{!french?'Reply':'Répondre'}</button>
+    )}
+    {(user.uid === comment.authorId || isAdmin) && (
+      <button onClick={() => handleDelete(comment.id)} style={{ background: 'none', border: 'none', color: '#ff4b4b', cursor: 'pointer', fontSize: '0.75rem', padding: 0 }}>{!french?'Delete':'Supprimer'}</button>
+    )}
+  </div>
+</div>
     </div>
   );
 
