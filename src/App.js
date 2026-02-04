@@ -921,10 +921,11 @@ const updateProfileName = async (newName) => {
 )}
 {showAboutModal && (
   <div style={{
-    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+    position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    zIndex: 2000 // Higher than other elements
+    zIndex: 5000, padding: '15px', boxSizing: 'border-box'
   }}>
+    {/* Background Overlay */}
     <div 
       onClick={() => setShowAboutModal(false)}
       style={{
@@ -933,51 +934,63 @@ const updateProfileName = async (newName) => {
       }}
     />
     
+    {/* Modal Card */}
     <div style={{
       position: 'relative',
-      width: 'min(800px, 90%)',
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh', // Ensures it doesn't go off-screen on mobile
       backgroundColor: darkMode ? '#2c2c2c' : '#fff',
       borderRadius: '24px',
-      padding: '40px',
+      padding: window.innerWidth < 600 ? '30px 20px' : '40px',
       boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
       color: darkMode ? '#fff' : '#3c3c3c',
-      textAlign: 'center'
+      textAlign: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      overflowY: 'auto',
+      WebkitOverflowScrolling: 'touch'
     }}>
       <button 
         onClick={() => setShowAboutModal(false)}
         style={{
           position: 'absolute', top: '20px', right: '20px',
           background: 'none', border: 'none', fontSize: '1.5rem',
-          cursor: 'pointer', color: '#888'
+          cursor: 'pointer', color: '#888', zIndex: 10
         }}
       >
         ×
       </button>
 
-      <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🌎</div>
-      <h2 style={{ marginBottom: '15px' }}>{!french?'About MPT Prep':'À propos de Prépa TCM'}</h2>
+      <div style={{ fontSize: '3rem', marginBottom: '20px', flexShrink: 0 }}>🌎</div>
+      <h2 style={{ marginBottom: '15px', flexShrink: 0 }}>{!french?'About MPT Prep':'À propos de Prépa TCM'}</h2>
       
-      <p style={{ 
-        lineHeight: '1.6', 
-        color: darkMode ? '#bbb' : '#666',
-        fontSize: '0.95rem',
-		textAlign:'left'
-      }}>{!french?"This site was originally created by me, Liam Salt, in December of 2025 while I was in my second year of teacher's college at the University of Ottawa.":"Ce site a été initialement créé par moi, Liam Salt, en décembre 2025, alors que j'étais en deuxième année à la Faculté d'éducation de l'Université d'Ottawa."}
-	  
-	  {!french?"While preparing for the MPT, I noticed that the existing preparation resources did not really work for me. Something which many teacher education students do not seem to be aware of is the":"En me préparant pour le TCM (Test de compétences en mathématiques), j'ai remarqué que les ressources de préparation existantes ne me convenaient pas vraiment. Un élément dont beaucoup d'étudiants en enseignement ne semblent pas avoir connaissance est le document du "}
-<a href={!french?"https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/MPT_Framework_August_2025_EN_-s/MPT_Framework_August_2025_EN_-s.pdf"
-:"https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/TCM_Document-cadre_Aout_2025_FR_-s/TCM_Document-cadre_Aout_2025_FR_-s.pdf"} >{!french?'MPT Framework':'Cadre du TCM'} </a>
-	{!french?'document, provided by the ministry':''}. 
-	
-	{!french?"This document outlines exactly what content is to be tested on any instance of the test, including specific topics, number of questions, etc. My initial idea for this site was to make the information contained in that document more easily accessible and also more digestible. This original idea is what is found under the \"Test Info\" tab on this site.":"Ce document précise exactement le contenu évalué lors de chaque passation du test, y compris les sujets spécifiques, le nombre de questions, etc. Mon idée initiale pour ce site était de rendre les informations contenues dans ce document plus accessibles et plus faciles à assimiler. Cette idée originale se retrouve sous l'onglet « Info Test » de ce site."} </p>
-	  <p style={{ 
-        lineHeight: '1.6', 
-        color: darkMode ? '#bbb' : '#666',
-        fontSize: '0.95rem' ,
-		textAlign:'left'
-      }}> {!french?"While I was back for winter break, waiting for the continuation of my last practicum, I noticed that many members of my family were playing Duolingo. I wondered if I could somehow involve Duolingo-style gamification to make preparation for the Math Proficiency Test more engaging. Finding myself with a bounty of free time, I startedto slowly building up the site. Eventually, I got it to a presentable state, implementing Duolingo-inspired features like XP, streaks, and iconic sounds (musical creditgoes to Damara). I'm always working on improving the site, I plan on implementing support for graphs and tables sometime soon. If you want to see what's going on underthe hood, feel free to check out this project on "
-	  : "Pendant les vacances d'hiver, en attendant le début de mon dernier stage, j'ai remarqué que plusieurs membres de ma famille jouaient à Duolingo. Je me suis demandé si je pouvais intégrer une part de ludification (gamification) à la Duolingo pour rendre la préparation au Test de compétences en mathématiques plus stimulante. Profitant de ce temps libre, j'ai commencé à bâtir ce site peu à peu. J'ai finalement réussi à obtenir un résultat présentable en implantant des fonctionnalités inspirées de Duolingo, comme les points d'expérience (XP), les séries de jours et des sons emblématiques (crédit musical à Damara). Je travaille constamment à l'amélioration du site et je prévois d'ajouter prochainement la prise en charge des graphiques et des tableaux. Si vous voulez voir ce qui se passe sous le capot, n'hésitez pas à consulter ce projet sur "}
-	  <a href="https://github.com/MPTPrep/mptprep.github.io">Github</a>.</p>
+      <div style={{ textAlign: 'left' }}>
+        <p style={{ 
+          lineHeight: '1.6', 
+          color: darkMode ? '#bbb' : '#666',
+          fontSize: '0.95rem',
+          marginBottom: '15px'
+        }}>
+          {!french ? "This site was originally created by me, Liam Salt, in December of 2025 while I was in my second year of teacher's college at the University of Ottawa." : "Ce site a été initialement créé par moi, Liam Salt, en décembre 2025, alors que j'étais en deuxième année à la Faculté d'éducation de l'Université d'Ottawa."}
+          {" "}
+          {!french ? "While preparing for the MPT, I noticed that the existing preparation resources did not really work for me. Something which many teacher education students do not seem to be aware of is the" : "En me préparant pour le TCM (Test de compétences en mathématiques), j'ai remarqué que les ressources de préparation existantes ne me convenaient pas vraiment. Un élément dont beaucoup d'étudiants en enseignement ne semblent pas avoir connaissance est le document du "}
+          <a href={!french ? "https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/MPT_Framework_August_2025_EN_-s/MPT_Framework_August_2025_EN_-s.pdf" : "https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/515714/authoring/TCM_Document-cadre_Aout_2025_FR_-s/TCM_Document-cadre_Aout_2025_FR_-s.pdf"} style={{color: '#1cb0f6', fontWeight: 'bold'}}>{!french ? 'MPT Framework' : 'Cadre du TCM'}</a>
+          {!french ? ' document, provided by the ministry.' : '.'} 
+          {" "}
+          {!french ? "This document outlines exactly what content is to be tested on any instance of the test, including specific topics, number of questions, etc. My initial idea for this site was to make the information contained in that document more easily accessible and also more digestible. This original idea is what is found under the \"Test Info\" tab on this site." : "Ce document précise exactement le contenu évalué lors de chaque passation du test, y compris les sujets spécifiques, le nombre de questions, etc. Mon idée initiale pour ce site était de rendre les informations contenues dans ce document plus accessibles et plus faciles à assimiler. Cette idée originale se retrouve sous l'onglet « Info Test » de ce site."}
+        </p>
+
+        <p style={{ 
+          lineHeight: '1.6', 
+          color: darkMode ? '#bbb' : '#666',
+          fontSize: '0.95rem'
+        }}>
+          {!french ? "While I was back for winter break, waiting for the continuation of my last practicum, I noticed that many members of my family were playing Duolingo. I wondered if I could somehow involve Duolingo-style gamification to make preparation for the Math Proficiency Test more engaging. Finding myself with a bounty of free time, I startedto slowly building up the site. Eventually, I got it to a presentable state, implementing Duolingo-inspired features like XP, streaks, and iconic sounds (musical credit goes to Damara). I'm always working on improving the site, I plan on implementing support for graphs and tables sometime soon. If you want to see what's going on underthe hood, feel free to check out this project on " : "Pendant les vacances d'hiver, en attendant le début de mon dernier stage, j'ai remarqué que plusieurs membres de ma famille jouaient à Duolingo. Je me suis demandé si je pouvais intégrer une part de ludification (gamification) à la Duolingo pour rendre la préparation au Test de compétences en mathématiques plus stimulante. Profitant de ce temps libre, j'ai commencé à bâtir ce site peu à peu. J'ai finalement réussi à obtenir un résultat présentable en implantant des fonctionnalités inspirées de Duolingo, comme les points d'expérience (XP), les séries de jours et des sons emblématiques (crédit musical à Damara). Je travaille constamment à l'amélioration du site et je prévois d'ajouter prochainement la prise en charge des graphiques et des tableaux. Si vous voulez voir ce qui se passe sous le capot, n'hésitez pas à consulter ce projet sur "}
+          <a href="https://github.com/MPTPrep/mptprep.github.io" style={{color: '#1cb0f6'}}>Github</a>.
+        </p>
+      </div>
+
       <button 
         onClick={() => setShowAboutModal(false)}
         style={{
@@ -988,15 +1001,15 @@ const updateProfileName = async (newName) => {
           backgroundColor: '#1cb0f6',
           color: '#fff',
           fontWeight: 'bold',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          flexShrink: 0
         }}
       >
-	  {!french?'Got it!':'Fermer'}
+        {!french ? 'Got it!' : 'Fermer'}
       </button>
     </div>
   </div>
 )}
-  
   
   {view === 'landing' && (
   <>
