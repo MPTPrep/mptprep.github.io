@@ -13,7 +13,7 @@ export default function Resources({ french, setFrench, darkMode, user, setDarkMo
   const [activeCategory, setActiveCategory] = useState("All");
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [viewMode, setViewMode] = useState("grid"); 
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [showSettingsModal, setShowSettingsModal] = useState(false);	  
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || "");
@@ -77,7 +77,31 @@ export default function Resources({ french, setFrench, darkMode, user, setDarkMo
     color: darkMode ? '#fff' : '#777',
     transition: '0.2s'
   };
-
+  const mobileStyles = `
+  @media (max-width: 768px) {
+    .resources-sidebar {
+      position: fixed !important;
+      top: 0;
+      left: ${isSidebarOpen ? '0' : '-100%'} !important;
+      width: 80% !important;
+      height: 100vh !important;
+      z-index: 2000;
+      transition: 0.3s ease;
+      background-color: ${darkMode ? '#1a1a1a' : '#fff'} !important;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    }
+    .resources-main {
+      padding: 20px !important;
+    }
+    .mobile-toggle {
+      display: flex !important;
+    }
+    
+    .resources-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+`;
   const gridContainerStyle = {
     display: viewMode === "grid" ? 'grid' : 'flex',
     flexDirection: viewMode === "grid" ? 'unset' : 'column',
@@ -101,7 +125,21 @@ export default function Resources({ french, setFrench, darkMode, user, setDarkMo
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fcfcfc', color: darkMode ? '#fff' : '#000' }}>
-      {showSettingsModal && (
+      <style>{mobileStyles}</style>
+	  <button 
+  className="mobile-toggle"
+  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+  style={{
+    position: 'fixed', bottom: '25px', right: '25px',
+    width: '60px', height: '60px', borderRadius: '50%',
+    backgroundColor: '#1cb0f6', color: '#fff', border: 'none',
+    zIndex: 2001, boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+    display: 'none', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem'
+  }}
+>
+  {isSidebarOpen ? '✕' : '🔍'}
+</button>
+	  {showSettingsModal && (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
     backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center',
@@ -425,7 +463,7 @@ export default function Resources({ french, setFrench, darkMode, user, setDarkMo
       </header>
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        <aside style={{ width: '280px', borderRight: `1px solid ${darkMode ? '#333' : '#eee'}`, padding: '30px', display: 'flex', flexDirection: 'column', gap: '25px' }}>
+        <aside className="resources-sidebar" style={{ width: '280px', borderRight: `1px solid ${darkMode ? '#333' : '#eee'}`, padding: '30px', display: 'flex', flexDirection: 'column', gap: '25px' }}>
           
           {/* SEARCH */}
           <div>
@@ -461,7 +499,7 @@ export default function Resources({ french, setFrench, darkMode, user, setDarkMo
             {categories.map(cat => (
               <button 
                 key={cat} 
-                onClick={() => setActiveCategory(cat)} 
+                onClick={() => {setActiveCategory(cat);setIsSidebarOpen(false);}} 
                 style={{ width: '100%', textAlign: 'left', padding: '10px', borderRadius: '8px', border: 'none', cursor: 'pointer', backgroundColor: activeCategory === cat ? '#1cb0f6' : 'transparent', color: activeCategory === cat ? '#fff' : (darkMode ? '#aaa' : '#555'), fontWeight: '600' }}
               >
                 {cat}
@@ -470,7 +508,7 @@ export default function Resources({ french, setFrench, darkMode, user, setDarkMo
           </div>
         </aside>
 
-        <main style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
+        <main className="resources-main" style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
           <div style={gridContainerStyle}>
             {filteredResources.map(res => (
               <div key={res.id} style={cardStyle()}>

@@ -26,6 +26,35 @@ export default function Study({ french, setFrench, darkMode, user, setDarkMode, 
   const EMOJIS = ['🎓', '✏️', '🧠', '🦉', '⭐', '🔥', '📈', '🎯'];
   const userInitial = profileIcon || (profileName || user?.displayName || user?.email || " ")[0].toUpperCase();
   
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  const mobileStyles = `
+  @media (max-width: 768px) {
+    .study-sidebar {
+      position: fixed !important;
+      top: 0;
+      left: ${isSidebarOpen ? '0' : '-100%'} !important;
+      width: 85% !important;
+      max-width: 320px;
+      height: 100vh !important;
+      z-index: 2000;
+      transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: ${darkMode ? '#1a1a1a' : '#fff'} !important;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    }
+    .study-main {
+      padding: 20px !important;
+      padding-top: 80px !important;
+    }
+    .mobile-toggle {
+      display: flex !important;
+    }
+  }
+  @media (min-width: 769px) {
+    .mobile-toggle { display: none !important; }
+  }
+`;
+  
   const handleSaveSettings = async () => {
     if (!auth.currentUser || !newDisplayName.trim()) return;
     setIsSaving(true);
@@ -132,7 +161,23 @@ export default function Study({ french, setFrench, darkMode, user, setDarkMode, 
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff', color: darkMode ? '#fff' : '#000' }}>
-      {showSettingsModal && (
+      
+	  <style>{mobileStyles}</style>
+
+    <button 
+      className="mobile-toggle"
+      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      style={{
+        position: 'fixed', bottom: '25px', right: '25px', 
+        width: '60px', height: '60px', borderRadius: '50%',
+        backgroundColor: '#1cb0f6', color: '#fff', border: 'none',
+        zIndex: 2001, boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
+        display: 'none', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem'
+      }}
+    >
+      {isSidebarOpen ? '✕' : '📚'}
+    </button>
+	  {showSettingsModal && (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
     backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center',
@@ -464,7 +509,7 @@ export default function Study({ french, setFrench, darkMode, user, setDarkMode, 
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
         {/* SIDEBAR */}
-        <div style={{ width: '350px', borderRight: `1px solid ${darkMode ? '#333' : '#eee'}`, display: 'flex', flexDirection: 'column', padding: '20px' }}>
+        <div className="study-sidebar" style={{ width: '350px', borderRight: `1px solid ${darkMode ? '#333' : '#eee'}`, display: 'flex', flexDirection: 'column', padding: '20px' , backgroundColor: darkMode ? '#1a1a1a' : '#fff'}}>
           <input 
             type="text"
             placeholder={!french ? "Search terms...": 'Rechercher des termes...'}
@@ -483,7 +528,7 @@ export default function Study({ french, setFrench, darkMode, user, setDarkMode, 
           </div>
           <div style={{ flex: 1, overflowY: 'auto' }}>
             {filteredData.map(item => (
-              <div key={item.id} onClick={() => setSelectedTerm(item)} style={{ padding: '15px', borderRadius: '12px', cursor: 'pointer', marginBottom: '8px', backgroundColor: selectedTerm?.id === item.id ? '#1cb0f620' : 'transparent', border: `1px solid ${selectedTerm?.id === item.id ? '#1cb0f6' : 'transparent'}` }}>
+			<div key={item.id} onClick={() => {setSelectedTerm(item);setIsSidebarOpen(false);}} style={{ padding: '15px', borderRadius: '12px', cursor: 'pointer', marginBottom: '8px', backgroundColor: selectedTerm?.id === item.id ? '#1cb0f620' : 'transparent', border: `1px solid ${selectedTerm?.id === item.id ? '#1cb0f6' : 'transparent'}` }}>
                 <div style={{ fontWeight: 'bold' }}>{item.term}</div>
                 <div style={{ fontSize: '0.75rem', opacity: 0.6 }}>{item.category}</div>
               </div>
@@ -514,7 +559,7 @@ export default function Study({ french, setFrench, darkMode, user, setDarkMode, 
         </div>
 
         {/* CONTENT PANEL */}
-        <main style={{ flex: 1, padding: '60px', overflowY: 'auto' }}>
+        <main className="study-main" style={{ flex: 1, padding: '60px', overflowY: 'auto' }}>
           {selectedTerm ? (
             <div style={{ maxWidth: '750px' }}>
               <span style={{ backgroundColor: '#1cb0f6', color: 'white', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{selectedTerm.category}</span>

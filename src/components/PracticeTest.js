@@ -14,7 +14,30 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
 
   const currentSection = activeTest.sections[currentSectionIdx];
   const currentQuestion = currentSection.questions[currentQuestionIdx];
-
+  const [showMobileNav, setShowMobileNav] = useState(false);
+  
+  const mobileStyles = `
+  @media (max-width: 768px) {
+    .test-sidebar {
+      position: fixed !important;
+      top: 0;
+      left: ${showMobileNav ? '0' : '-100%'} !important;
+      width: 250px !important;
+      height: 100vh !important;
+      z-index: 2000;
+      transition: 0.3s ease;
+      background-color: ${darkMode ? '#2c2c2c' : '#fff'} !important;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    }
+    .mobile-nav-toggle {
+      display: flex !important;
+    }
+  }
+  @media (min-width: 769px) {
+    .mobile-nav-toggle { display: none !important; }
+  }
+`;
+  
   useEffect(() => {
     if (viewMode !== 'test') return;
     const timer = setInterval(() => setTimeElapsed(p => p + 1), 1000);
@@ -100,10 +123,31 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff', color: darkMode ? '#fff' : '#000' }}>
-      
+    <div className="practice-test-container" style={{ display: 'flex', height: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff', color: darkMode ? '#fff' : '#000' }}>
+      <style>{mobileStyles}</style>
+
+    {/* MOBILE TOGGLE BUTTON */}
+    <button 
+      className="mobile-nav-toggle"
+      onClick={() => setShowMobileNav(!showMobileNav)}
+      style={{
+        position: 'fixed', bottom: '20px', left: '20px',
+        width: '50px', height: '50px', borderRadius: '50%',
+        backgroundColor: '#1cb0f6', color: '#fff', border: 'none',
+        zIndex: 2001, boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+        display: 'none', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem'
+      }}
+    >
+      {showMobileNav ? '✕' : '☰'}
+    </button>
       {/* SIDEBAR */}
-      <div style={{ width: '320px', borderRight: '1px solid #e5e5e5', display: 'flex', flexDirection: 'column' }}>
+      <div className="test-sidebar" style={{ 
+  width: '320px', 
+  borderRight: '1px solid #e5e5e5', 
+  display: 'flex', 
+  flexDirection: 'column',
+  backgroundColor: darkMode ? '#1a1a1a' : '#fff' 
+}}>
         <div style={{ display: 'flex', backgroundColor: darkMode ? '#222' : '#f7f7f7', borderBottom: '1px solid #e5e5e5' }}>
           {activeTest.sections.map((sec, i) => (
             <button
@@ -118,6 +162,7 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
               {sec.title.toUpperCase()} {i > 0 ? (i === 1 ? '(PT 1)' : '(PT 2)') : ''}
             </button>
           ))}
+		  <div onClick={() => setShowMobileNav(false)}></div>
         </div>
 
         <div style={{ padding: '20px', borderBottom: '1px solid #e5e5e5' }}>
@@ -145,15 +190,19 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
 
             return (
               <button 
-                key={q.id} 
-                onClick={() => { if (viewMode === 'summary') setViewMode('review'); setCurrentQuestionIdx(i); }} 
-                style={{ 
+  key={q.id} 
+  onClick={() => { 
+    if (viewMode === 'summary') setViewMode('review'); 
+    setCurrentQuestionIdx(i);
+    setShowMobileNav(false); 
+  }} 
+  style={{ 
                   height: '35px', backgroundColor: bgColor, color: (isAnswered || viewMode !== 'test') ? '#fff' : 'inherit', 
                   cursor: 'pointer', borderRadius: '4px', border: currentQuestionIdx === i ? '2px solid #1cb0f6' : '1px solid #ddd' 
                 }}
-              >
-                {i + 1}
-              </button>
+>
+  {i + 1}
+</button>
             );
           })}
         </div>
@@ -168,12 +217,22 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
       </div>
 
       {/* MAIN CONTENT */}
-      <div style={{ flex: 1, padding: '60px', overflowY: 'auto' }}>
+      <div style={{ 
+  flex: 1, 
+  padding: window.innerWidth < 768 ? '20px' : '60px', 
+  paddingTop: '40px',
+  overflowY: 'auto' 
+}}>
         {viewMode === 'summary' ? (
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
             <h1 style={{ color: '#1cb0f6' }}>{!french?'Exam Summary':"Résumé de l'examen"}</h1>
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '40px' }}>
+            <div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: window.innerWidth < 600 ? '1fr' : '1fr 1fr', 
+  gap: '15px', 
+  marginTop: '20px' 
+}}>
               <div style={{ padding: '30px', borderRadius: '16px', border: '2px solid #e5e5e5', backgroundColor: darkMode ? '#222' : '#fcfcfc', gridColumn: 'span 2' }}>
                 <div style={{ fontSize: '3.5rem', fontWeight: 'bold' }}>{scores.totalScore}%</div>
                 <div style={{ color: '#666', fontWeight: 'bold', marginBottom: '10px' }}>{!french?'OVERALL SCORE':'SCORE TOTAL'}</div>

@@ -74,7 +74,27 @@ export default function LearningPath({
       setIsSaving(false);
     }
   };
-  
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .lp-sidebar-container {
+      position: fixed !important;
+      left: ${isSidebarOpen ? '0' : '-100%'} !important;
+      width: 85% !important;
+      height: 100vh !important;
+      z-index: 2000 !important;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    }
+    .lp-main-workspace {
+      width: 100vw !important;
+    }
+    .mobile-hide {
+      display: none !important;
+    }
+    .lp-content-wrapper {
+      padding: 20px 15px !important;
+    }
+  }
+`;
   const handleTrophyToggle = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -93,9 +113,9 @@ export default function LearningPath({
       position: 'fixed',
       top: 0, left: 0
     }}>
-      
+      <style>{mobileStyles}</style>
       {/* 1. SIDEBAR */}
-      <div style={{ 
+      <div className="lp-sidebar-container" style={{ 
         width: isSidebarOpen ? '300px' : '0px', 
         flexShrink: 0,
         transition: 'width 0.3s ease',
@@ -109,6 +129,7 @@ export default function LearningPath({
           onSelect={(node) => {
             setForceTrophy(false); 
             handleSelectNode(node);
+			if(window.innerWidth <= 768) setIsSidebarOpen(false);
           }} 
           currentNode={currentNode} 
           xp={xp} 
@@ -120,7 +141,7 @@ export default function LearningPath({
       </div>
 
       {/* 2. MAIN WORKSPACE */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, position: 'relative' }}>
+      <div className="lp-main-workspace" style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, position: 'relative' }}>
         
         {/* HEADER BAR */}
         <header style={{ 
@@ -135,10 +156,22 @@ export default function LearningPath({
           position: 'relative',
           pointerEvents: 'auto'
         }}>
-<h2 style={{ margin: 0, fontSize: '1.2rem' }}>{!french?'MPT Duolingo':'TCM Duolingo'}</h2>
+
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
 		  
+		  <button 
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            style={{
+              background: 'none', border: 'none', fontSize: '1.5rem', 
+              cursor: 'pointer', color: '#1cb0f6', padding: '5px'
+            }}
+          >
+            {isSidebarOpen ? '✕' : '☰'}
+          </button>
+		  <h2 style={{ margin: 0, fontSize: '1.2rem' }}>{!french?'MPT Duolingo':'TCM Duolingo'}</h2>
+		  </div>
+		  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
 			{showSettingsModal && (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
@@ -387,7 +420,7 @@ export default function LearningPath({
             )}
 
             <button onClick={onBackHome} style={headerBtnStyle(darkMode)}>{!french ? 'Home' : 'Accueil'}</button>
-            <button onClick={() => auth.signOut()} style={headerBtnStyle(darkMode)}>{!french?'Logout':'Déconnexion'}</button>
+            <button className="mobile-hide" onClick={() => auth.signOut()} style={headerBtnStyle(darkMode)}>{!french?'Logout':'Déconnexion'}</button>
             
             
           <div style={{ position: 'relative' }}>
@@ -471,7 +504,7 @@ export default function LearningPath({
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           style={{
             position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)',
-            zIndex: 1100, width: '25px', height: '50px', backgroundColor: '#1cb0f6',
+            zIndex: 1099, width: '25px', height: '50px', backgroundColor: '#1cb0f6',
             color: 'white', border: 'none', borderRadius: '0 8px 8px 0', cursor: 'pointer'
           }}
         >
@@ -480,7 +513,7 @@ export default function LearningPath({
 
         {/* MAIN SCROLLABLE CONTENT */}
         <main style={{ flex: 1, overflowY: 'auto', padding: '40px 20px', zIndex: 1 }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div  className="lp-content-wrapper" style={{ maxWidth: '800px', margin: '0 auto' }}>
             
             {/* VIEW SELECTOR LOGIC */}
             {(() => {
@@ -532,16 +565,31 @@ export default function LearningPath({
           </div>
         </main>
       </div>
+	  {isSidebarOpen && window.innerWidth <= 768 && (
+      <div 
+        onClick={() => setIsSidebarOpen(false)}
+        style={{
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+          backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1999
+        }}
+      />
+    )}
     </div>
   );
 }
 
 const headerBtnStyle = (darkMode) => ({
-  padding: '8px 16px', borderRadius: '12px', cursor: 'pointer',
-  border: `1px solid '#e5e5e5'`,
+  padding: '8px 16px', 
+  borderRadius: '12px', 
+  cursor: 'pointer',
+  border: `1px solid ${darkMode ? '#444' : '#e5e5e5'}`, 
   backgroundColor: darkMode ? '#2c2c2c' : '#fff', 
   color: darkMode ? '#fff' : '#444', 
-  fontWeight: '600', fontSize: '0.85rem'
+  fontWeight: '600', 
+  fontSize: '0.85rem',
+  display: 'inline-flex', 
+  alignItems: 'center',
+  whiteSpace: 'nowrap'    
 });
 
 const avatarStyle = {
