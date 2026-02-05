@@ -27,6 +27,7 @@ export default function LearningPath({
   xp,
   lessonXp,
   streak,
+  isStreakActiveToday,
   french,
   setFrench,
   darkMode,
@@ -137,6 +138,7 @@ const mobileStyles = `
           darkMode={darkMode}
 		  french = {french}
 		  setFrench = {setFrench}
+		  isStreakActiveToday={isStreakActiveToday}
         />
       </div>
 

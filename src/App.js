@@ -45,7 +45,7 @@ export default function App() {
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  
+  const isStreakActiveToday = lastActiveDate === new Date().toLocaleDateString('en-CA');
   const [showSettingsModal, setShowSettingsModal] = useState(false);	  
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || "");
   const [newPassword, setNewPassword] = useState("");
@@ -64,6 +64,10 @@ export default function App() {
 
     try {
       await updateProfile(auth.currentUser, { displayName: newDisplayName });
+	  const userRef = doc(db, "users", auth.currentUser.uid);
+    await updateDoc(userRef, { 
+      displayName: newDisplayName 
+    });
       await setProfileName(newDisplayName);
 
       setActiveSettingTab('menu');
@@ -78,79 +82,78 @@ export default function App() {
   const currentMockTests = french ? MOCK_TESTS_FR : MOCK_TESTS;
 
 
-  useEffect(() => {
+const loadUserData = async (uid) => {
+    try {
+      const docRef = doc(db, "users", uid);
+      const docSnap = await getDoc(docRef);
+      const data = docSnap.exists() ? docSnap.data() : null;
+
+      if (!data || !data.role) {
+        const initialName = `Student_${Math.random().toString(36).substring(7)}`;
+        const initialData = {
+          xp: 0, streak: 0, lastActiveDate: "", nodes: nodeData,
+          testHistory: [], displayName: initialName, profileColor: '#1cb0f6',
+          profileIcon: "", role: 'student'
+        };
+        await setDoc(docRef, initialData, { merge: true });
+        setProfileName(initialName);
+        setXp(0); setStreak(0); setLastActiveDate(""); setNodes(nodeData);
+      } else {
+        const today = new Date().toLocaleDateString('en-CA');
+        let currentStreak = data.streak || 0;
+        const lastActive = data.lastActiveDate || "";
+
+        if (lastActive !== "" && lastActive !== today) {
+          const yesterdayDate = new Date();
+          yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+          const yesterday = yesterdayDate.toLocaleDateString('en-CA');
+          if (lastActive !== yesterday) {
+            currentStreak = 0;
+            await updateDoc(docRef, { streak: 0 });
+          }
+        }
+
+        setProfileName(data.displayName || data.profileName || "Student");
+        setProfileColor(data.profileColor || '#1cb0f6');
+        setProfileIcon(data.profileIcon || "");
+        setXp(data.xp || 0);
+        setStreak(currentStreak);
+        setLastActiveDate(lastActive);
+        setUserHistory(data.testHistory || []);
+        setIsAdmin(data.role === 'admin');
+        
+        const baseData = french ? nodeDataFR : nodeData;
+        const mergedNodes = baseData.map(localNode => {
+          const fbNode = data.nodes?.find(n => n.id === localNode.id);
+          return fbNode ? { ...localNode, ...fbNode } : localNode;
+        });
+        setNodes(mergedNodes);
+      }
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+    }
+  };
+useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
-      if (u && u.emailVerified) {
+      if (u) {
         setUser(u);
         loadUserData(u.uid);
       } else {
-        if (u && !u.emailVerified) auth.signOut(); 
         setUser(null);
-        setProfileName("");
-        setIsAdmin(false);
         setLoading(false);
       }
     });
     return () => unsubscribe();
-  }, []);
-
+  }, [french]);
+  
+  
   useEffect(() => {
     localStorage.setItem('mpt_dark_mode', darkMode);
     document.body.classList.toggle('dark-theme', darkMode);
   }, [darkMode]);
 
-const loadUserData = async (uid) => {
-  const docRef = doc(db, "users", uid);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.exists() ? docSnap.data() : null;
-
-  if (!data || !data.role) {
-    
-    console.log("Initializing new profile fields...");
-    const initialName = `Student_${Math.random().toString(36).substring(7)}`;
-    
-    const initialData = {
-      xp: 0,
-      streak: 0,
-      lastActiveDate: "",
-      nodes: nodeData,
-      testHistory: [],
-      displayName: initialName,
-      profileColor: '#1cb0f6',
-      profileIcon: "",
-      role: 'student' 
-    };
-
-    await setDoc(docRef, initialData, { merge: true });
-
-    
-    setProfileName(initialData.displayName);
-    setProfileColor(initialData.profileColor);
-    setProfileIcon(initialData.profileIcon);
-    setXp(initialData.xp);
-    setStreak(initialData.streak);
-    setIsAdmin(false);
-
-  } else {
-    setProfileName(data.displayName || "Student");
-    setProfileColor(data.profileColor || '#1cb0f6');
-    setProfileIcon(data.profileIcon || "");
-    setXp(data.xp || 0);
-    setStreak(data.streak || 0);
-    setLastActiveDate(data.lastActiveDate || "");
-    setUserHistory(data.testHistory || []);
-    setIsAdmin(data.role === 'admin');
-    
-    if (data.nodes) {
-      const mergedNodes = nodeData.map(localNode => {
-        const firebaseNode = data.nodes.find(n => n.id === localNode.id);
-        return firebaseNode ? { ...localNode, ...firebaseNode } : localNode;
-      });
-      setNodes(mergedNodes);
-    }
-  }
-  setLoading(false);
-};
 
 const updateProfileIcon = async (newColor, newIcon) => {
   if (!user) return;
@@ -178,41 +181,24 @@ const saveTestResult = async (results) => {
   }
 };
 
-  const handleWin = async () => {
-  const today = new Date().toISOString().split('T')[0];
-  
-  let newXP = xp + 100;
-  let newStreak = streak;
-  let newLastActiveDate = lastActiveDate;
-
-  if (lastActiveDate !== today) {
+const handleWin = async () => {
+    const today = new Date().toLocaleDateString('en-CA');
+    let newStreak = (lastActiveDate !== today) ? (streak + 1) : streak;
     
-    const yesterdayDate = new Date();
-    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-    const yesterday = yesterdayDate.toISOString().split('T')[0];
-
-    
-    
-    if (lastActiveDate === yesterday || lastActiveDate === "") {
-      newStreak += 1;
-    } else {
-      newStreak = 1;
+    if (lastActiveDate !== today) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (lastActiveDate !== yesterday.toLocaleDateString('en-CA') && lastActiveDate !== "") {
+            newStreak = 1;
+        }
     }
-    newLastActiveDate = today;
-  }
 
-    setXp(newXP);
-    setStreak(newStreak);
-    setLastActiveDate(newLastActiveDate);
-
+    const newXp = xp + 100;
+    setXp(newXp); setStreak(newStreak); setLastActiveDate(today);
     if (user) {
-      const userRef = doc(db, "users", user.uid);
-      await setDoc(userRef, {
-        xp: newXP,
-        streak: newStreak,
-        lastActiveDate: newLastActiveDate,
-        nodes: nodes 
-      }, { merge: true });
+      await updateDoc(doc(db, "users", user.uid), {
+        xp: newXp, streak: newStreak, lastActiveDate: today, nodes: nodes 
+      });
     }
   };
 const updateProfileName = async (newName) => {
@@ -315,7 +301,7 @@ const updateProfileName = async (newName) => {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
       
-      {view === 'landing' && <LandingPage profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName} french = {french} setFrench = {setFrench} onNavigate={(target) => {if (target === 'about') {
+      {view === 'landing' && <LandingPage isStreakActiveToday={isStreakActiveToday} profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName} french = {french} setFrench = {setFrench} onNavigate={(target) => {if (target === 'about') {
         setShowAboutModal(true);
       } else {
         setView(target);
@@ -327,7 +313,8 @@ const updateProfileName = async (newName) => {
           showLesson={showLesson} showQuiz={showQuiz} showResult={showResult}
           lastResult={lastResult} handleStartQuiz={handleStartQuiz} handleQuizComplete={handleQuizComplete}
           handleReplay={handleReplay} handleContinue={handleContinue} addOverallXp={addOverallXp}
-          handleWin={handleWin} xp={xp} streak={streak} darkMode={darkMode} setDarkMode={setDarkMode}
+          handleWin={handleWin} xp={xp} streak={streak} 
+		  isStreakActiveToday={isStreakActiveToday} darkMode={darkMode} setDarkMode={setDarkMode}
 		  french={french} setFrench = {setFrench}
           user={user} showAccountMenu={showAccountMenu} setShowAccountMenu={setShowAccountMenu} onBackHome={() => setView('landing')}
 		  profileColor = {profileColor} profileIcon = {profileIcon} updateProfileIcon = {updateProfileIcon} profileName = {profileName} setProfileName={setProfileName}
@@ -939,7 +926,7 @@ const updateProfileName = async (newName) => {
       position: 'relative',
       width: '100%',
       maxWidth: '800px',
-      maxHeight: '90vh', // Ensures it doesn't go off-screen on mobile
+      maxHeight: '90vh', 
       backgroundColor: darkMode ? '#2c2c2c' : '#fff',
       borderRadius: '24px',
       padding: window.innerWidth < 600 ? '30px 20px' : '40px',

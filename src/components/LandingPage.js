@@ -3,7 +3,7 @@ import { auth, db } from '../firebase';
 import { updateProfile, updatePassword,sendPasswordResetEmail } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 
-export default function LandingPage({french,setFrench, onNavigate, streak, xp, user, darkMode, setDarkMode, onBackHome, profileName, setProfileName, profileColor, updateProfileIcon, profileIcon  }) {
+export default function LandingPage({isStreakActiveToday, french,setFrench, onNavigate, streak, xp, user, darkMode, setDarkMode, onBackHome, profileName, setProfileName, profileColor, updateProfileIcon, profileIcon  }) {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   
   const [showSettingsModal, setShowSettingsModal] = useState(false);	  
@@ -493,7 +493,7 @@ export default function LandingPage({french,setFrench, onNavigate, streak, xp, u
               <p style={{ color: '#777', fontSize: '0.9rem', lineHeight: '1.4' }}>{m.description}</p>
               
               {m.id === 'learning-path' && (
-                <div style={{ marginTop: '20px', fontSize: '0.8rem', fontWeight: 'bold', color: '#ff9600' }}>
+                <div style={{ marginTop: '20px', fontSize: '0.8rem', fontWeight: 'bold', color: '#ff9600', filter: isStreakActiveToday ? 'none' : 'grayscale(1)', opacity: isStreakActiveToday ? 1 : 0.6, transition: 'all 0.3s ease'}}>
 					{!french?`🔥 ${streak} DAY STREAK`:`🔥 Série de ${streak} jour`+(streak != 1 ?'s':'')} 
                 </div>
               )}

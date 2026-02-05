@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 
-export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, darkMode, french, setFrench }) {
+export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, darkMode, french, setFrench, isStreakActiveToday }) {
   
   const [activeTab, setActiveTab] = useState('math');
 
@@ -95,6 +95,7 @@ export default function Sidebar({ nodes, onSelect, currentNode, xp, streak, dark
       <div className="sidebar-dashboard">
         <Dashboard
           streak={streak}
+		  isStreakActiveToday={isStreakActiveToday}
           level={level}
           xpPercent={xpPercent}
           darkMode={darkMode}
