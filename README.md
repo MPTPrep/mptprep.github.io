@@ -49,14 +49,14 @@
 
 ## Documentation en français
 
-**Préparation TPM** est une plateforme éducative en ligne spécialisée, conçue pour aider les futurs enseignants de l'Ontario à se préparer au Test de compétences en mathématiques (TPM). En intégrant un programme structuré aux principes de ludification, la plateforme offre un parcours bilingue clair pour renforcer la confiance en mathématiques et suivre la maîtrise des concepts essentiels.
+**Préparation TCM** est une plateforme éducative en ligne spécialisée, conçue pour aider les futurs enseignants de l'Ontario à se préparer au Test de compétences en mathématiques (TCM). En intégrant un programme structuré aux principes de ludification, la plateforme offre un parcours bilingue clair pour renforcer la confiance en mathématiques et suivre la maîtrise des concepts essentiels.
 
 ### Caractéristiques principales
-* **TPM Duolingo :** Un module d’entraînement inspiré de Duolingo, comprenant des niveaux d'expérience (XP) et des séries quotidiennes.
+* **TCM Duolingo :** Un module d’entraînement inspiré de Duolingo, comprenant des niveaux d'expérience (XP) et des séries quotidiennes.
 * **Tests de pratique :** Des reproductions du test de pratique du Ministère ainsi que des tests d’entraînement personnalisés supplémentaires.
     * Comprend des fonctions de révision améliorées et un résumé des points forts par domaine.
-* **Informations sur le TPM :** Un résumé visuel du document cadre du Test de compétences en mathématiques.
-* **Guide d'étude :** Un dictionnaire complet des termes mathématiques et pédagogiques pertinents au TPM.
+* **Informations sur le TCM :** Un résumé visuel du document cadre du Test de compétences en mathématiques.
+* **Guide d'étude :** Un dictionnaire complet des termes mathématiques et pédagogiques pertinents au TCM.
 * **Ressources supplémentaires :** Une liste interactive de ressources externes complémentaires.
 * **Soutien bilingue intégral :** Conçu dès le départ pour soutenir les candidats anglophones et francophones de manière équitable.
 
