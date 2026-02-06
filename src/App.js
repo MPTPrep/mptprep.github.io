@@ -83,6 +83,12 @@ export default function App() {
 
 
 const loadUserData = async (uid) => {
+	
+	if (!auth.currentUser?.emailVerified) {
+        setLoading(false);
+        return; 
+    }
+	
     try {
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
@@ -296,7 +302,9 @@ const updateProfileName = async (newName) => {
 
 
   if (loading) return <div className="loading">Loading MPT Prep...</div>;
-  if (!user) return <Login />;
+  if (!user || (user && !user.emailVerified)) {
+  return <Login />;
+  }
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff' }}>
