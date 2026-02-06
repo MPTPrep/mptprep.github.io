@@ -1,39 +1,87 @@
 # MPT Prep
-### Gamified Learning for the Ontario Math Proficiency Test
+### Gamified Learning for the Ontario Math Proficiency Test (MPT)
+*(Le français suit)*
 
-[**Visit the Live Site**](https://mptprep.github.io/)
-
-**MPT Prep** is a web-based educational platform designed to help teacher education students master the Math Proficiency Test. By utilizing a structured learning path and gamification principles, the app provides a clear, engaging roadmap for students to build mathematical confidence and track their progress.
-
----
-
-## Features
-
-### Structured Learning Path
-The curriculum is organized into a series of learning nodes. Students unlock new mathematical concepts only after demonstrating mastery of prerequisites, ensuring a solid foundation before advancing to complex topics.
-
-### Progress Tracking
-* **Daily Streaks:** Encourages consistent practice by tracking consecutive days of learning. The system resets the streak to zero if a day is missed to encourage accountability.
-* **XP System:** Students earn Experience Points (XP) for completing lessons and quizzes, contributing to an overall level.
-* **Mastery Levels:** Each topic features a mastery percentage based on quiz performance, allowing students to visualize their proficiency.
-
-### Interactive Quizzes
-* **Lesson Modules:** Direct instruction on specific math concepts.
-* **Assessment:** Immediate feedback on quiz results to identify strengths and weaknesses.
-* **Performance History:** Tracks progress across different attempts to show improvement over time.
-
-### User Experience
-* **Authentication:** Secure user accounts via Firebase to save progress across devices.
-* **Theme Support:** Includes both Light and Dark modes to accommodate user preference.
-* **Responsive Design:** Optimized for study sessions on various screen sizes.
+[**Visit the Live Application**](https://mptprep.github.io/)
 
 ---
 
-## Technical Overview
+## Documentation
 
-The application is built using a modern frontend stack to ensure performance and reliability:
+**MPT Prep** is a specialized web-based educational platform designed to assist Ontario teacher candidates in preparing for the Math Proficiency Test (MPT). By integrating a structured curriculum with gamification principles, the platform provides a clear roadmap for students to build mathematical confidence and track their mastery of essential concepts.
 
-* **Framework:** React.js
-* **Database & Auth:** Firebase (Firestore and Authentication)
+### Core Features
+* **MPT Duolingo:** A training module inspired by Duolingo, featuring XP leveling and daily streaks.
+* **Practice Tests:** Reproductions of the Ministry Practice test alongside additional custom-built practice tests.
+    * features improved review functions and a summary of strengths by topic.
+* **MPT Information:** Visual summary of the MPT Framework document.
+* **Study Guide:** Comprehensive dictionary of mathematical and pedagogical terms relevant to the MPT
+* **Additional Resources:** Interactice list of additional external resources.
+* **Fully Bilingual Support:** Built from the ground up to support both English and French-speaking candidates.
+
+### Technical Stack
+* **Frontend Framework:** React.js
+* **Internationalization:** Custom-built bilingual state management (EN/FR)
+* **Database & Logic:** Firebase (Firestore and Authentication)
 * **Deployment:** GitHub Pages
-* **State Management:** React Hooks (useState, useEffect)
+* **Styling:** CSS3 (including Responsive Design and Dark Mode support)
+
+### Local Development
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/MPTPrep/mptprep.github.io.git](https://github.com/MPTPrep/mptprep.github.io.git)
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Start the development server:**
+    ```bash
+    npm start
+    ```
+
+### Deployment
+1. Commit changes to the `main` branch.
+2. Run the build script: `npm run build`
+3. Deploy to the `gh-pages` branch: `npm run deploy`
+
+---
+
+## Documentation en français
+
+**Préparation TPM** est une plateforme éducative en ligne spécialisée, conçue pour aider les futurs enseignants de l'Ontario à se préparer au Test de compétences en mathématiques (TPM). En intégrant un programme structuré aux principes de ludification, la plateforme offre un parcours bilingue clair pour renforcer la confiance en mathématiques et suivre la maîtrise des concepts essentiels.
+
+### Caractéristiques principales
+* **TPM Duolingo :** Un module d’entraînement inspiré de Duolingo, comprenant des niveaux d'expérience (XP) et des séries quotidiennes.
+* **Tests de pratique :** Des reproductions du test de pratique du Ministère ainsi que des tests d’entraînement personnalisés supplémentaires.
+    * Comprend des fonctions de révision améliorées et un résumé des points forts par domaine.
+* **Informations sur le TPM :** Un résumé visuel du document cadre du Test de compétences en mathématiques.
+* **Guide d'étude :** Un dictionnaire complet des termes mathématiques et pédagogiques pertinents au TPM.
+* **Ressources supplémentaires :** Une liste interactive de ressources externes complémentaires.
+* **Soutien bilingue intégral :** Conçu dès le départ pour soutenir les candidats anglophones et francophones de manière équitable.
+
+### Pile technique
+* **Cadre (Framework) :** React.js
+* **Internationalisation :** Gestion d'état bilingue personnalisée (EN/FR)
+* **Base de données :** Firebase (Firestore et Authentication)
+* **Déploiement :** GitHub Pages
+* **Stylisation :** CSS3 (incluant le design adaptatif et le support du mode sombre)
+
+### Développement local
+1.  **Cloner le dépôt :**
+    ```bash
+    git clone [https://github.com/MPTPrep/mptprep.github.io.git](https://github.com/MPTPrep/mptprep.github.io.git)
+    ```
+2.  **Installer les dépendances :**
+    ```bash
+    npm install
+    ```
+3.  **Lancer le serveur :**
+    ```bash
+    npm start
+    ```
+
+### Déploiement
+1. Validez les modifications sur la branche `main`.
+2. Exécutez le script de construction : `npm run build`
+3. Déployez sur la branche `gh-pages` : `npm run deploy`
