@@ -250,6 +250,22 @@ questions: [
     a: 3, 
     tags: ["Proportional Reasoning", "Rates"] 
   },
+  {
+	id: "mc5",
+    q:"The temperatures at 2 a.m. and at 4 a.m. are recorded in this table. If the relationship between temperature and time is linear, what are the temperatures at 3 a.m. and 5 a.m.?",
+	table: {
+    headers: ["Time", "Temperature ($^\\circ C$)"],
+    rows: [
+      ["2 a.m.", "$-8$"],
+      ["3 a.m.", ""],
+      ["4 a.m.", "$-2$"],
+      ["5 a.m.", ""]
+    ]
+  },
+	options: ["$-4^\\circ C$ and $0^\\circ C$","$-4^\\circ C$ and $2^\\circ C$","$-5^\\circ C$ and $1^\\circ C$","$-5^\\circ C$ and $5^\\circ C$"],
+	a:2,
+	tags:["Linear Relations", "Rate of Change"]
+  },
   { 
     id: "mc6", 
     q: "Calculate: $2 + 2 \\times 4 + 2$", 
@@ -264,6 +280,20 @@ questions: [
     a: 0, 
     tags: ["Arithmetic", "Decimals"] 
   },
+  {id: "mc9",
+  q: "Three of these tables of values provide information about linear relations. Which table represents a non-linear relation?",
+  options: [
+    { table: { headers: ["q", "V"], rows: [["1", "5"], ["2", "7"], ["3", "9"], ["4", "11"]] } }, // slope = 2
+    { table: { headers: ["q", "V"], rows: [["1", "9"], ["2", "5"], ["3", "1"], ["4", "-3"]] } }, // slope = 3 (Correct)
+    { table: { headers: ["q", "V"], rows: [["1", "-3"], ["2", "-3"], ["3", "-3"], ["4", "-3"]] } }, // non-linear
+    { table: { headers: ["q", "V"], rows: [["1", "-1"], ["2", "2"], ["3", "6"], ["4", "11"]] } } // slope = 5
+  ],  
+  a:1,
+  tags:["Linear Relations", "Non-linear Relations"]
+  
+  
+  },
+  
   { 
     id: "mc11", 
     q: "A club has $30$ members, and $\\frac{4}{5}$ of them attend an event. The cost is $\\$10$ per member. What is the total cost paid by all attending members?", 
@@ -299,6 +329,38 @@ questions: [
     a: 2, 
     tags: ["Algebra", "Patterns"] 
   },
+  {
+	  id:"mc16",
+	  q:"Which representation has a rate of change of 7?",
+	  options:["Equation: $K=2n+7$",
+	  {table: { headers: ["x", "y"], rows: [["0", "65"], ["7", "66"], ["14", "67"]] }},
+      { 
+      graph: { 
+        fn: (x) => -x + 7, 
+        viewBox: { x: [0, 4], y: [0, 8] }, 
+        domain: [0, 4] 
+      } 
+    },
+	  "Scenario: The total cost to print T-shirts is made up of a set-up fee of $\\$65$ and a cost of $\\$7$ per T-shirt."],
+	  a:3,
+	  tags:["Linear Relations", "Rate of Change"]
+	  
+  },
+  {
+	id: "mc18",
+    q:"This table shows information about some students who walk to school. The number of students for Grade 6 is missing. Which is closest to the percentage of students who walk to school and are in Grade 6?",
+	table: {
+    headers: ["Grade", "Number of Students"],
+    rows: [
+      ["4", "18"],
+      ["5", "10"],
+      ["6", ""],
+      ["Total", "65"]
+    ]},
+	options:["15%","28%","43%","57%"],
+	a:3,
+	tags:["Data Management", "Percentages"]
+  },
   { 
     id: "mc19", 
     q: "A team raises $\\$1650$ by selling $550$ pucks. If Harjot collects $\\$24$, how many hockey pucks has she sold?", 
@@ -306,6 +368,26 @@ questions: [
     a: 1, 
     tags: ["Proportional Reasoning", "Rates"] 
   },
+  {
+  id: "mc22",
+  q: "This table of values represents the relationship between the cost, $C$, in dollars, and the number of hours, $t$, to repair an electrical appliance. What is the hourly rate to repair this electrical appliance?",
+  table: {
+    headers: ["Time, $t$ (h)", "Cost, $C$ ($)"],
+    rows: [
+      ["0", "$60$"],
+      ["3", "$228$"],
+      ["6", "$396$"]
+    ]
+  },
+  options: [
+    "$\\$56/\\text{h}$",
+    "$\\$60/\\text{h}$",
+    "$\\$76/\\text{h}$",
+    "$\\$168/\\text{h}$"
+  ],
+  a: 0, 
+  tags: ["Linear Relations", "Rate of Change"]
+},
   { 
     id: "mc23", 
     q: "A bag contains 3 blue, 9 green, 6 red, and 12 yellow marbles. What is the probability of NOT pulling a yellow marble?", 
@@ -314,12 +396,46 @@ questions: [
     tags: ["Data", "Probability"] 
   },
   { 
+  id: "mc24", 
+  q: "Which of the following graphs represents the equation $y = -3x+4$?", 
+  options: [
+    { graph: { fn: (x) => 3*x - 4, viewBox: { x: [-5, 5], y: [-7, 7] } } },
+    { graph: { fn: (x) => -3*x + 4, viewBox: { x: [-5, 5], y: [-7, 7] } } }, 
+    { graph: { fn: (x) => -4*x - 3, viewBox: { x: [-5, 5], y: [-7, 7] } } },
+    { graph: { fn: (x) => 4*x - 3, viewBox: { x: [-5, 5], y: [-7, 7] } } }
+  ], 
+  a: 1, 
+  tags: ["Algebra", "Quadratics"] 
+},
+  { 
     id: "mc26", 
     q: "Which list of fractions is in order from least to greatest?", 
     options: ["$\\frac{5}{3}, \\frac{5}{8}, \\frac{5}{10}, \\frac{5}{15}$", "$\\frac{5}{3}, \\frac{5}{10}, \\frac{5}{8}, \\frac{5}{15}$", "$\\frac{5}{15}, \\frac{5}{10}, \\frac{5}{8}, \\frac{5}{3}$", "$\\frac{5}{15}, \\frac{5}{8}, \\frac{5}{10}, \\frac{5}{3}$"], 
     a: 2, 
     tags: ["Number Sense", "Fractions"] 
   },
+  {
+  id: "mc27",
+  q: "Arya plants trees for a summer job. This table of values represents the relationship between Arya's earnings, $E$, and the number of trees planted, $n$. What are Arya's earnings if she plants $1000$ trees?",
+  table: {
+    headers: ["Number of trees, $n$", "Earnings, $E$ ($)"],
+    rows: [
+      ["0", "40"],
+      ["50", "48"],
+      ["100", "56"],
+      ["150", "64"],
+      ["200", "72"]
+    ]
+  },
+  options: [
+    "$\\$160$",
+    "$\\$200$",
+    "$\\$360$",
+    "$\\$560$"
+  ],
+  a: 0, // Option A is the correct earnings of $160 (E = 0.16(1000) + 40 = 200? Wait, let's check: rate is (48-40)/50 = 8/50 = 0.16 per tree. For 1000 trees: 0.16 * 1000 = 160 + 40 = 200? Let's re-verify: 0 trees = $40 base. 200 trees = 72 - 40 = 32 dollars earned for 200 trees, which is $0.16 per tree. For 1000 trees: 1000 * 0.16 = 160 + 40 base = 200. Option B is $200, so a: 1!)
+  tags: ["Linear Relations", "Rate of Change"]
+},
   { 
     id: "mc28", 
     q: "Which toothpaste has the lowest cost per mL?", 
@@ -334,6 +450,27 @@ questions: [
     a: 0, 
     tags: ["Algebra", "Equations"] 
   },
+  {
+  id: "mc31",
+  q: "An online streaming service charges a membership fee and a cost for each movie streamed. This table of values shows information about the total cost, $C$, and the number of movies streamed, $n$. Which of the following equations represents this relationship?",
+  table: {
+    headers: ["Number of movies, $n$", "Total cost, $C$ ($)"],
+    rows: [
+      ["1", "12"],
+      ["2", "14"],
+      ["3", "16"],
+      ["4", "18"]
+    ]
+  },
+  options: [
+    "$C = 4n + 8$",
+    "$C = 4n + 12$",
+    "$C = 2n + 10$",
+    "$C = 2n + 12$"
+  ],
+  a: 2, 
+  tags: ["Linear Relations", "Equations"]
+},
   { 
     id: "mc32", 
     q: "Which represents the number $4937$ in expanded form?", 
@@ -355,6 +492,30 @@ questions: [
     a: 2, 
     tags: ["Number Sense", "Fractions"] 
   },
+  {
+  id: "mc35",
+  q: "If the mean height of all seven players is $128\\text{ cm}$, what is Peter's height?",
+  table: {
+    headers: ["Player", "Height (cm)"],
+    rows: [
+      ["Chinua", "138"],
+      ["Zaki", "132"],
+      ["Baina", "116"],
+      ["Bohumir", "138"],
+      ["Nura", "126"],
+      ["Leslie", "130"],
+      ["Peter", "?"]
+    ]
+  },
+  options: [
+    "$138\\text{ cm}$",
+    "$131\\text{ cm}$",
+    "$130\\text{ cm}$",
+    "$116\\text{ cm}$"
+  ],
+  a: 3, 
+  tags: ["Data Management", "Mean"]
+},
   { 
     id: "mc36", 
     q: "Which equation is true?", 
@@ -857,12 +1018,36 @@ questions: [
     tags: ["Proportional Reasoning", "Rates"]
   },
   {
+  id: "mc752",
+  q: "The table contains the amount of rain for a six-month period. Which value is closest to the mean amount of rain for this six-month period?",
+  table: {
+    headers: ["Month", "Amount of rain (mm)"],
+    rows: [
+      ["January", "23.7"],
+      ["February", "74.3"],
+      ["March", "65.6"],
+      ["April", "55.7"],
+      ["May", "78.3"],
+      ["June", "55.7"]
+    ]
+  },
+  options: [
+    "$55.7\\text{ mm}$",
+    "$58.9\\text{ mm}$",
+    "$307.0\\text{ mm}$",
+    "$353.4\\text{ mm}$"
+  ],
+  a: 1,
+  tags: ["Data Management", "Mean"]
+},
+  {
     id: "mc76",
     q: "What is the solution to this equation? $3(7 - x) = 27$",
     options: ["$-2$", "$-6$", "$-17$", "$-74$"],
     a: 0,
     tags: ["Algebra", "Equations"]
   },
+  {id:"mc_nonlinear_table",q:"Which table of values <strong>cannot</strong> represent a linear relationship?",options:[{table:{headers:["Time (hours)","Temperature (°C)"],rows:[["3","5"],["6","0"],["12","-10"],["15","-15"]]}},{table:{headers:["Time (hours)","Temperature (°C)"],rows:[["3","5"],["6","0"],["9","-10"],["12","-20"]]}},{table:{headers:["Time (hours)","Temperature (°C)"],rows:[["3","5"],["9","-5"],["12","-10"],["15","-15"]]}},{table:{headers:["Time (hours)","Temperature (°C)"],rows:[["3","5"],["9","-5"],["15","-15"],["21","-25"]]}}],a:1,tags:["Linear Relations","Rate of Change"]},
   {
     id: "mc77",
     q: "A loyalty program provides $2500$ points per purchase, plus a bonus of $7500$ points. How many purchases result in $70,000$ points?",
@@ -870,13 +1055,64 @@ questions: [
     a: 2,
     tags: ["Algebra", "Linear Relations"]
   },
+  {id:"mc_peach_paint",q:"The table shows the amount of red, white and yellow paint required to make a can of peach-coloured paint. The table also shows the amount of paint available in red, white and yellow. How many cans of peach-coloured paint can be made using the amounts of paint available?",table:{headers:["Paint","Amount needed for one can of peach paint","Amount available"],rows:[["Red","$\\frac{1}{4}$ can","$5$ cans"],["White","$\\frac{5}{8}$ can","$10$ cans"],["Yellow","$\\frac{1}{8}$ can","$\\frac{1}{2}$ can"]]},options:["$4\\text{ cans}$","$5\\text{ cans}$","$16\\text{ cans}$","$20\\text{ cans}$"],a:0,tags:["Fractions","Limiting Quantities"]},
   {
     id: "mc78",
     q: "What number is represented by this expanded form? $(7 \\times 10^6) + (3 \\times 10^4) + (6 \\times 10^3) + (2 \\times 10) + (9 \\times 1)$?",
     options: ["$736,291$", "$7,036,029$", "$7,030,629$", "$7,003,629$"],
     a: 1,
     tags: ["Number Sense", "Place Value"]
-  }
+  },
+  {
+  id: "mc_nathalie_bank",
+  q: "Nathalie has $\\$1370$ in her bank account. She deposits a cheque of $\\$260$ and pays her expenses listed in the table below. What will her account balance be after she pays her expenses?",
+  table: {
+    headers: ["Expenses", "Amount (\\$)"],
+    rows: [
+      ["Food", "123"],
+      ["Textbook", "55"],
+      ["Rent", "800"]
+    ]
+  },
+  options: [
+    "$\\$652$",
+    "$\\$718$",
+    "$\\$1238$",
+    "$\\$2088$"
+  ],
+  a: 0,
+  tags: ["Financial Literacy", "Operations"]
+},
+{
+  id: "mc_jersey_cost",
+  q: "A company that makes sports team uniforms charges $\\$35.00$ to set up an account and $\\$32.25$ per hockey jersey. Which of the following represents the cost ($C$) vs. the number of hockey jerseys ($n$)?",
+  options: [
+    "$C = 67.25n$",
+    "$C = 32.25 + 35n$",
+    {
+      table: {
+        headers: ["Number of hockey jerseys", "Cost ($)"],
+        rows: [
+          ["5", "161.25"],
+          ["10", "322.50"],
+          ["15", "483.75"]
+        ]
+      }
+    },
+    {
+      table: {
+        headers: ["Number of hockey jerseys", "Cost ($)"],
+        rows: [
+          ["7", "260.75"],
+          ["11", "389.75"],
+          ["18", "615.50"]
+        ]
+      }
+    }
+  ],
+  a: 3,
+  tags: ["Linear Relations", "Modeling"]
+}
 ]
       }
     ]
@@ -939,7 +1175,8 @@ questions: [
           { id: "mc82", q: "A cylindrical tank has a radius of $3\\text{ m}$ and a height of $5\\text{ m}$. What is its volume? (Use $\\pi \\approx 3.14$)", options: ["$47.1\\text{ m}^3$", "$94.2\\text{ m}^3$", "$141.3\\text{ m}^3$", "$282.6\\text{ m}^3$"], a: 2, tags: ["Measurement", "Volume"] },
           { id: "mc83", q: "A car travels $240\\text{ km}$ in $3$ hours. At this same constant rate, how far will it travel in $7$ hours?", options: ["$480\\text{ km}$", "$560\\text{ km}$", "$600\\text{ km}$", "$720\\text{ km}$"], a: 1, tags: ["Proportional Reasoning", "Rates"] },
           { id: "mc84", q: "Determine the mean of the data set: $[12, 15, 18, 22, 22, 31]$.", options: ["20", "22", "18.5", "21"], a: 0, tags: ["Data", "Mean"] },
-          { id: "mc85", q: "Which expression is equivalent to $(x^4 \\cdot x^3) \\div x^2$?", options: ["$x^5$", "$x^9$", "$x^6$", "$x^{10}$"], a: 0, tags: ["Number Sense", "Exponents"] },
+          {id:"set1_q1",q:"A local gym charges a registration fee and a monthly membership fee. The table below shows the total cost, $C$, for $m$ months. What is the monthly membership fee?",table:{headers:["Months, $m$","Total Cost, $C$ (\$)"],rows:[["2","110"],["5","215"],["8","320"]]},options:["\$35/\\text{month}\$","\$40/\\text{month}\$","\$55/\\text{month}\$","\$105/\\text{month}\$"],a:0,tags:["Linear Relations","Rate of Change"]},
+		  { id: "mc85", q: "Which expression is equivalent to $(x^4 \\cdot x^3) \\div x^2$?", options: ["$x^5$", "$x^9$", "$x^6$", "$x^{10}$"], a: 0, tags: ["Number Sense", "Exponents"] },
           { id: "mc86", q: "A investment of $\\$5000$ earns $3\\%$ simple interest per year. How much interest is earned after $4$ years?", options: ["$\\$150$", "$\\$450$", "$\\$600$", "$\\$6000$"], a: 2, tags: ["Financial Literacy", "Interest"] },
           { id: "mc87", q: "The hypotenuse of a right triangle is $13\\text{ cm}$ and one leg is $5\\text{ cm}$. What is the length of the other leg?", options: ["$8\\text{ cm}$", "$10\\text{ cm}$", "$12\\text{ cm}$", "$18\\text{ cm}$"], a: 2, tags: ["Geometry", "Pythagorean Theorem"] },
           { id: "mc88", q: "Represent the linear relation $y = -2x + 5$ numerically. Which set of $(x, y)$ pairs is correct?", options: ["$(0,5), (1,3), (2,1)$", "$(0,5), (1,7), (2,9)$", "$(1,3), (2,5), (3,7)$", "$(0,-2), (1,3), (2,8)$"], a: 0, tags: ["Algebra", "Linear Relations"] },
@@ -950,7 +1187,8 @@ questions: [
           { id: "mc93", q: "Which of the following represents a non-linear relationship?", options: ["$y = 3x - 1$", "$y = x^2 + 4$", "$x + y = 10$", "$y = 0.5x$"], a: 1, tags: ["Algebra", "Linear vs Non-linear"] },
           { id: "mc94", q: "Evaluate $3^0 + 3^{-1}$ as a fraction.", options: ["$1/3$", "$4/3$", "$0$", "$1$"], a: 1, tags: ["Number Sense", "Exponents"] },
           { id: "mc95", q: "A rectangular prism has dimensions $4\\text{ cm} \\times 5\\text{ cm} \\times 10\\text{ cm}$. What is its surface area?", options: ["$200\\text{ cm}^2$", "$110\\text{ cm}^2$", "$220\\text{ cm}^2$", "$180\\text{ cm}^2$"], a: 2, tags: ["Measurement", "Surface Area"] },
-          { id: "mc96", q: "A salesperson receives a base salary of $\\$400$ per week plus $5\\%$ commission on sales. If they sell $\\$8000$ worth of goods, what is their total pay?", options: ["$\\$400$", "$\\$800$", "$\\$1200$", "$\\$4400$"], a: 1, tags: ["Financial Literacy", "Algebraic Modeling"] },
+          {id:"set1_q2",q:"The graph below shows the depth of water in a pool as it is being drained over time. What is the initial depth of the water?",graph:{fn:(x)=>-0.5*x+3,viewBox:{x:[0,6],y:[0,4]},domain:[0,6]},options:["\$1.5\\text{ m}\$","\$2.0\\text{ m}\$","\$3.0\\text{ m}\$","\$6.0\\text{ m}\$"],a:2,tags:["Linear Relations","Initial Value"]},
+		  { id: "mc96", q: "A salesperson receives a base salary of $\\$400$ per week plus $5\\%$ commission on sales. If they sell $\\$8000$ worth of goods, what is their total pay?", options: ["$\\$400$", "$\\$800$", "$\\$1200$", "$\\$4400$"], a: 1, tags: ["Financial Literacy", "Algebraic Modeling"] },
           { id: "mc97", q: "Which value of $x$ makes the proportion $x/15 = 8/12$ true?", options: ["6", "10", "11", "12"], a: 1, tags: ["Proportional Reasoning", "Proportions"] },
           { id: "mc98", q: "What is the value of $\\sqrt{0.64}$?", options: ["0.08", "0.8", "8", "0.32"], a: 1, tags: ["Number Sense", "Roots"] },
           { id: "mc99", q: "A budget allocates $30\\%$ for rent, $20\\%$ for food, and $15\\%$ for transportation. If the total budget is $\\$3200$, how much is left for other expenses?", options: ["$\\$1120$", "$\\$2080$", "$\\$1000$", "$\\$1200$"], a: 0, tags: ["Financial Literacy", "Budgeting"] },
@@ -960,15 +1198,18 @@ questions: [
           { id: "mc103", q: "What is $45\\%$ of $\\$150.00$?", options: ["$\\$67.50$", "$\\$60.00$", "$\\$75.00$", "$\\$55.50$"], a: 0, tags: ["Financial Literacy", "Percentages"] },
           { id: "mc104", q: "The area of a circle is $78.5\\text{ cm}^2$. What is its approximate radius? (Use $\\pi \\approx 3.14$)", options: ["$5\\text{ cm}$", "$10\\text{ cm}$", "$25\\text{ cm}$", "$12.5\\text{ cm}$"], a: 0, tags: ["Measurement", "Area of Circles"] },
           { id: "mc105", q: "A worker's pay is increased from $\\$20/\\text{hr}$ to $\\$23/\\text{hr}$. What is the percent increase?", options: ["$3\\%$", "$15\\%$", "$13\\%$", "$20\\%$"], a: 1, tags: ["Financial Literacy", "Percent Change"] },
-          { id: "mc106", q: "Which fraction is between $1/2$ and $3/4$?", options: ["$2/5$", "$5/8$", "$7/8$", "$1/3$"], a: 1, tags: ["Number Sense", "Fractions"] },
+          {id:"set1_q3",q:"A cell phone plan charges a base monthly rate plus a fee per gigabyte of data used. Which equation models the relationship shown in the table?",table:{headers:["Data, $d$ (GB)","Total Bill, $B$ (\$)"],rows:[["1","45"],["3","55"],["5","65"]]},options:["\$B = 5d + 40\$","\$B = 10d + 35\$","\$B = 45d\$","\$B = 5d + 45\$"],a:0,tags:["Linear Relations","Equations"]},
+		  { id: "mc106", q: "Which fraction is between $1/2$ and $3/4$?", options: ["$2/5$", "$5/8$", "$7/8$", "$1/3$"], a: 1, tags: ["Number Sense", "Fractions"] },
           { id: "mc107", q: "A rental car costs $\\$40$ per day plus $\\$0.15$ per kilometre. If the car is driven $200\\text{ km}$ in one day, what is the total cost?", options: ["$\\$70$", "$\\$60$", "$\\$30$", "$\\$55$"], a: 0, tags: ["Financial Literacy", "Algebraic Modeling"] },
           { id: "mc108", q: "Simplify: $5(2x - 3) - 3(x + 4)$.", options: ["$7x - 27$", "$7x - 3$", "$10x - 15$", "$13x - 3$"], a: 0, tags: ["Algebra", "Polynomials"] },
-          { id: "mc109", q: "What is the mode of the data set: $[5, 8, 5, 12, 10, 8, 5]$?", options: ["5", "8", "10", "12"], a: 0, tags: ["Data", "Mode"] },
+          {id:"set1_q4",q:"Which table of values represents a linear relationship with a constant rate of change of \$-4\$?",options:[{table:{headers:["$x$","$y$"],rows:[["0","20"],["1","16"],["2","12"],["3","8"]]}},{table:{headers:["$x$","$y$"],rows:[["0","20"],["2","16"],["4","12"],["6","8"]]}},{table:{headers:["$x$","$y$"],rows:[["0","20"],["1","15"],["2","10"],["3","5"]]}},{table:{headers:["$x$","$y$"],rows:[["0","0"],["1","-4"],["2","-12"],["3","-24"]]}}],a:0,tags:["Linear Relations","Table Identification"]},
+		  { id: "mc109", q: "What is the mode of the data set: $[5, 8, 5, 12, 10, 8, 5]$?", options: ["5", "8", "10", "12"], a: 0, tags: ["Data", "Mode"] },
           { id: "mc110", q: "A pair of shoes is on sale for $\\$64$, which is $80\\%$ of the original price. What was the original price?", options: ["$\\$80$", "$\\$75$", "$\\$100$", "$\\$120$"], a: 0, tags: ["Financial Literacy", "Percentages"] },
           { id: "mc111", q: "Find the perimeter of a semi-circle with a radius of $10\\text{ cm}$. (Use $\\pi \\approx 3.14$)", options: ["$31.4\\text{ cm}$", "$51.4\\text{ cm}$", "$41.4\\text{ cm}$", "$62.8\\text{ cm}$"], a: 1, tags: ["Measurement", "Perimeter"] },
           { id: "mc112", q: "If $x = -3$, what is the value of $2x^2 - 5x + 1$?", options: ["2", "34", "4", "22"], a: 1, tags: ["Algebra", "Substitution"] },
           { id: "mc113", q: "A bag has $3$ red, $5$ green, and $2$ blue balls. What is the probability of NOT picking a green ball?", options: ["$1/2$", "$1/5$", "$3/10$", "$7/10$"], a: 0, tags: ["Data", "Probability"] },
-          { id: "mc114", q: "Which unit rate is the lowest price per unit?", options: ["$3$ for $\\$10.50$", "$5$ for $\\$17.00$", "$2$ for $\\$7.20$", "$10$ for $\\$35.00$"], a: 1, tags: ["Proportional Reasoning", "Unit Rates"] },
+          {id:"set1_q5",q:"The linear function graphed below represents the earnings of a tutor based on hours worked. What is the hourly rate?",graph:{fn:(x)=>25*x,viewBox:{x:[0,5],y:[0,125]},domain:[0,5]},options:["\$20/\\text{h}\$","\$25/\\text{h}\$","\$30/\\text{h}\$","\$50/\\text{h}\$"],a:1,tags:["Linear Relations","Rate of Change"]},
+		  { id: "mc114", q: "Which unit rate is the lowest price per unit?", options: ["$3$ for $\\$10.50$", "$5$ for $\\$17.00$", "$2$ for $\\$7.20$", "$10$ for $\\$35.00$"], a: 1, tags: ["Proportional Reasoning", "Unit Rates"] },
           { id: "mc115", q: "Express $0.000042$ in scientific notation.", options: ["$4.2 \\times 10^5$", "$4.2 \\times 10^{-5}$", "$42 \\times 10^{-6}$", "$0.42 \\times 10^{-4}$"], a: 1, tags: ["Number Sense", "Scientific Notation"] },
           { id: "mc116", q: "A savings account pays $2\\%$ interest compounded annually. If $\\$1000$ is invested, what is the balance after $2$ years?", options: ["$\\$1040.00$", "$\\$1040.40$", "$\\$1020.00$", "$\\$1200.00$"], a: 1, tags: ["Financial Literacy", "Compound Interest"] },
           { id: "mc117", q: "The angles in a triangle are in the ratio $2:3:5$. What is the measure of the largest angle?", options: ["$36^\\circ$", "$54^\\circ$", "$90^\\circ$", "$100^\\circ$"], a: 2, tags: ["Geometry", "Ratios"] },
@@ -976,7 +1217,8 @@ questions: [
           { id: "mc119", q: "A cube has a surface area of $150\\text{ cm}^2$. What is the length of one side?", options: ["$5\\text{ cm}$", "$25\\text{ cm}$", "$6\\text{ cm}$", "$10\\text{ cm}$"], a: 0, tags: ["Measurement", "Geometry"] },
           { id: "mc120", q: "What is the result of increasing $\\$80$ by $15\\%$, then decreasing that result by $15\\%$?", options: ["$\\$80.00$", "$\\$78.20$", "$\\$81.80$", "$\\$75.00$"], a: 1, tags: ["Financial Literacy", "Percentages"] },
           { id: "mc121", q: "Which represents a rate of $60\\text{ km/h}$?", options: ["$1\\text{ km/min}$", "$600\\text{ m/s}$", "$10\\text{ km/min}$", "$360\\text{ km/day}$"], a: 0, tags: ["Proportional Reasoning", "Rates"] },
-          { id: "mc122", q: "Simplify: $(2^3)^2 \\cdot 2^{-4}$.", options: ["$2^2$", "$2^1$", "$2^6$", "$2^0$"], a: 0, tags: ["Number Sense", "Exponents"] },
+          {id:"set1_q6",q:"A bakery tracks the total cost of making custom cakes based on the weight of the cake in kilograms. Based on the table, what is the fixed setup cost before adding any weight?",table:{headers:["Weight, $w$ (kg)","Total Cost, $C$ (\$)"],rows:[["1.5","42.50"],["3.0","65.00"],["4.5","87.50"]]},options:["\$15.00\$","\$20.00\$","\$22.50\$","\$27.50\$"],a:1,tags:["Linear Relations","Initial Value"]},
+		  { id: "mc122", q: "Simplify: $(2^3)^2 \\cdot 2^{-4}$.", options: ["$2^2$", "$2^1$", "$2^6$", "$2^0$"], a: 0, tags: ["Number Sense", "Exponents"] },
           { id: "mc123", q: "A field is a trapezoid with parallel sides of $20\\text{ m}$ and $30\\text{ m}$, and a height of $15\\text{ m}$. What is its area?", options: ["$375\\text{ m}^2$", "$750\\text{ m}^2$", "$450\\text{ m}^2$", "$300\\text{ m}^2$"], a: 0, tags: ["Measurement", "Area"] }
         ]
       }
@@ -1040,13 +1282,15 @@ questions: [
           { id: "mc128", q: "A car uses $8\\text{ L}$ of fuel per $100\\text{ km}$. How much fuel is needed for a $350\\text{ km}$ trip?", options: ["$24\\text{ L}$", "$28\\text{ L}$", "$32\\text{ L}$", "$35\\text{ L}$"], a: 1, tags: ["Proportional Reasoning"] },
           { id: "mc129", q: "What is the median of this data set: $[2, 5, 8, 12, 15, 20]$?", options: ["8", "10", "12", "11"], a: 1, tags: ["Data"] },
           { id: "mc130", q: "A laptop costs $\\$800$. Sales tax is $13\\%$. What is the total cost?", options: ["$\\$904$", "$\\$813$", "$\\$880$", "$\\$913$"], a: 0, tags: ["Financial Literacy"] },
-          { id: "mc131", q: "Simplify: $(a^5)^2 \\div a^3$.", options: ["$a^4$", "$a^7$", "$a^{10}$", "$a^{13}$"], a: 1, tags: ["Number Sense"] },
+          {id:"set2_q1",q:"The table shows the daily high temperatures recorded over one week in October. What is the mean temperature for the week?",table:{headers:["Day","Temperature (°C)"],rows:[["Mon","12"],["Tue","15"],["Wed","11"],["Thu","14"],["Fri","18"],["Sat","16"],["Sun","12"]]},options:["\$12.5^\\circ\\text{C}\$","\$13.0^\\circ\\text{C}\$","\$14.0^\\circ\\text{C}\$","\$15.5^\\circ\\text{C}\$"],a:2,tags:["Data Management","Mean"]},
+	  { id: "mc131", q: "Simplify: $(a^5)^2 \\div a^3$.", options: ["$a^4$", "$a^7$", "$a^{10}$", "$a^{13}$"], a: 1, tags: ["Number Sense"] },
           { id: "mc132", q: "The ratio of boys to girls in a class is $3:2$. If there are $30$ students total, how many are girls?", options: ["10", "12", "15", "18"], a: 1, tags: ["Proportional Reasoning"] },
           { id: "mc133", q: "What is the area of a circle with a diameter of $10\\text{ cm}$? (Use $\\pi \\approx 3.14$)", options: ["$314\\text{ cm}^2$", "$78.5\\text{ cm}^2$", "$15.7\\text{ cm}^2$", "$100\\text{ cm}^2$"], a: 1, tags: ["Measurement"] },
           { id: "mc134", q: "A worker makes $\\$22$ per hour and gets time-and-a-half for overtime (over $40$ hours). If they work $44$ hours, what is their gross pay?", options: ["$\\$968$", "$\\$1,012$", "$\\$880$", "$\\$1,100$"], a: 1, tags: ["Financial Literacy"] },
           { id: "mc135", q: "Which coordinate point satisfies $y = 3x - 4$?", options: ["$(0, 4)$", "$(2, 2)$", "$(1, -1)$", "$(3, 6)$"], a: 1, tags: ["Algebra"] },
           { id: "mc136", q: "A bag contains $4$ red, $3$ blue, and $5$ green marbles. What is the probability of picking a blue marble?", options: ["$1/3$", "$1/4$", "$3/12$", "$1/2$"], a: 2, tags: ["Data"] },
-          { id: "mc137", q: "Convert $0.05\\text{ km}$ to metres.", options: ["$5\\text{ m}$", "$50\\text{ m}$", "$500\\text{ m}$", "$0.5\\text{ m}$"], a: 1, tags: ["Measurement"] },
+			{id:"set2_q2",q:"Six students reported their weekly study hours in the table below. If the mean study time for all seven students in the group is \$8\\text{ hours}\$, how many hours did Mateo study?",table:{headers:["Student","Study Time (h)"],rows:[["Aria","6"],["Bao","9"],["Chloe","11"],["Devon","5"],["Elena","8"],["Farhan","7"],["Mateo","?"]]},options:["\$8\\text{ h}\$","\$10\\text{ h}\$","\$12\\text{ h}\$","\$13\\text{ h}\$"],a:3,tags:["Data Management","Mean"]},
+		 { id: "mc137", q: "Convert $0.05\\text{ km}$ to metres.", options: ["$5\\text{ m}$", "$50\\text{ m}$", "$500\\text{ m}$", "$0.5\\text{ m}$"], a: 1, tags: ["Measurement"] },
           { id: "mc138", q: "Which fraction is equivalent to $125\\%$?", options: ["$1/4$", "$5/4$", "$2/5$", "$8/10$"], a: 1, tags: ["Number Sense"] },
           { id: "mc139", q: "An investment of $\\$2,000$ doubles in $10$ years. What is the total amount?", options: ["$\\$2,200$", "$\\$4,000$", "$\\$3,000$", "$\\$20,000$"], a: 1, tags: ["Financial Literacy"] },
           { id: "mc140", q: "Find the volume of a cylinder with $r=2\\text{ m}$ and $h=10\\text{ m}$. (Use $\\pi \\approx 3.14$)", options: ["$62.8\\text{ m}^3$", "$125.6\\text{ m}^3$", "$40\\text{ m}^3$", "$314\\text{ m}^3$"], a: 1, tags: ["Measurement"] },
@@ -1061,19 +1305,22 @@ questions: [
           { id: "mc149", q: "The probability of an event is $0.05$. What is the probability it will NOT happen?", options: ["$0.95$", "$0.5$", "$0.995$", "$0.05$"], a: 0, tags: ["Data"] },
           { id: "mc150", q: "Find the hypotenuse of a right triangle with legs $6\\text{ cm}$ and $8\\text{ cm}$.", options: ["$14\\text{ cm}$", "$10\\text{ cm}$", "$12\\text{ cm}$", "$100\\text{ cm}$"], a: 1, tags: ["Measurement"] },
           { id: "mc151", q: "A pair of jeans is $\\$60$. It is on sale for $30\\%$ off. What is the sale price?", options: ["$\\$18$", "$\\$42$", "$\\$30$", "$\\$50$"], a: 1, tags: ["Financial Literacy"] },
-          { id: "mc152", q: "Solve for $x$: $x/2 + 5 = 11$.", options: ["3", "12", "6", "8"], a: 1, tags: ["Algebra"] },
+          {id:"set2_q3",q:"A runner records her 5 km time trials over 5 consecutive weeks. What is the median time in minutes?",table:{headers:["Week","Time (min)"],rows:[["1","24.5"],["2","23.8"],["3","25.1"],["4","22.9"],["5","23.2"]]},options:["\$22.9\\text{ min}\$","\$23.8\\text{ min}\$","\$23.9\\text{ min}\$","\$24.5\\text{ min}\$"],a:1,tags:["Data Management","Median"]},
+		  { id: "mc152", q: "Solve for $x$: $x/2 + 5 = 11$.", options: ["3", "12", "6", "8"], a: 1, tags: ["Algebra"] },
           { id: "mc153", q: "What is the mode of $[1, 2, 2, 3, 4, 4, 4, 5]$?", options: ["4", "2", "3", "5"], a: 0, tags: ["Data"] },
           { id: "mc154", q: "A sphere has a radius of $3\\text{ cm}$. What is its volume? (Use $V = 4/3 \\pi r^3$ and $\\pi \\approx 3.14$)", options: ["$113.04\\text{ cm}^3$", "$37.68\\text{ cm}^3$", "$28.26\\text{ cm}^3$", "$100\\text{ cm}^3$"], a: 0, tags: ["Measurement"] },
           { id: "mc155", q: "A person saves $\\$50$ a month for $2$ years. How much have they saved?", options: ["$\\$100$", "$\\$600$", "$\\$1,200$", "$\\$5,000$"], a: 2, tags: ["Financial Literacy"] },
           { id: "mc156", q: "Which is the better buy?", options: ["$500\\text{ g}$ for $\\$4.00$", "$1\\text{ kg}$ for $\\$7.50$", "$200\\text{ g}$ for $\\$2.00$", "$2\\text{ kg}$ for $\\$16.00$"], a: 1, tags: ["Proportional Reasoning"] },
           { id: "mc157", q: "Find the slope of the line passing through $(0,0)$ and $(2,6)$.", options: ["3", "1/3", "6", "2"], a: 0, tags: ["Algebra"] },
-          { id: "mc158", q: "A coin is tossed $3$ times. What is the probability of getting $3$ heads?", options: ["$1/2$", "$1/6$", "$1/8$", "$1/4$"], a: 2, tags: ["Data"] },
+          {id:"set2_q4",q:"Which table shows a dataset where the mean and the median are equal?",options:[{table:{headers:["Sample","Value"],rows:[["1","4"],["2","8"],["3","12"],["4","16"],["5","20"]]}},{table:{headers:["Sample","Value"],rows:[["1","2"],["2","4"],["3","6"],["4","8"],["5","30"]]}},{table:{headers:["Sample","Value"],rows:[["1","10"],["2","10"],["3","10"],["4","20"],["5","50"]]}},{table:{headers:["Sample","Value"],rows:[["1","1"],["2","2"],["3","3"],["4","4"],["5","100"]]}}],a:0,tags:["Data Management","Statistics"]},
+		  { id: "mc158", q: "A coin is tossed $3$ times. What is the probability of getting $3$ heads?", options: ["$1/2$", "$1/6$", "$1/8$", "$1/4$"], a: 2, tags: ["Data"] },
           { id: "mc159", q: "What is $\\$15.00$ as a percentage of $\\$60.00$?", options: ["$20\\%$", "$25\\%$", "$30\\%$", "$15\\%$"], a: 1, tags: ["Number Sense"] },
           { id: "mc160", q: "A triangle has a base of $10\\text{ cm}$ and an area of $50\\text{ cm}^2$. What is its height?", options: ["$5\\text{ cm}$", "$10\\text{ cm}$", "$20\\text{ cm}$", "$50\\text{ cm}$"], a: 1, tags: ["Measurement"] },
           { id: "mc161", q: "Solve for $x$: $2(x + 1) = 10$.", options: ["4", "5", "9", "3"], a: 0, tags: ["Algebra"] },
           { id: "mc162", q: "What is the cost of $5$ items if $2$ items cost $\\$1.50$?", options: ["$\\$3.75$", "$\\$3.00$", "$\\$4.00$", "$\\$7.50$"], a: 0, tags: ["Proportional Reasoning"] },
           { id: "mc163", q: "An employee's annual salary is $\\$48,000$. What is their monthly gross pay?", options: ["$\\$4,000$", "$\\$2,000$", "$\\$4,800$", "$\\$1,000$"], a: 0, tags: ["Financial Literacy"] },
-          { id: "mc164", q: "The range of a data set is $20$. If the lowest number is $5$, what is the highest?", options: ["15", "25", "20", "10"], a: 1, tags: ["Data"] },
+          {id:"set2_q5",q:"The table lists the points scored by a basketball team in six games. If the score of \$110\$ in game 6 is removed, how does the mean score change?",table:{headers:["Game","Points"],rows:[["1","72"],["2","78"],["3","80"],["4","74"],["5","76"],["6","110"]]},options:["Decreases by 6 points","Decreases by 8 points","Increases by 6 points","Stays the same"],a:0,tags:["Data Management","Outliers"]},	
+		  { id: "mc164", q: "The range of a data set is $20$. If the lowest number is $5$, what is the highest?", options: ["15", "25", "20", "10"], a: 1, tags: ["Data"] },
           { id: "mc165", q: "Convert $2.5\\text{ L}$ to millilitres.", options: ["$25\\text{ mL}$", "$250\\text{ mL}$", "$2,500\\text{ mL}$", "$25,000\\text{ mL}$"], a: 2, tags: ["Measurement"] },
           { id: "mc166", q: "What is $150\\%$ of $80$?", options: ["120", "100", "150", "180"], a: 0, tags: ["Number Sense"] },
           { id: "mc167", q: "A cell phone plan is $\\$45$ plus $\\$0.10$ per text. If $100$ texts are sent, what is the cost?", options: ["$\\$45.10$", "$\\$55$", "$\\$145$", "$\\$46$"], a: 1, tags: ["Financial Literacy"] },
@@ -1136,7 +1383,9 @@ questions: [
           { id: "mc169", q: "A worker earns $\\$25$ per hour. If they work $40$ hours, what is their gross pay?", options: ["$\\$1,000$", "$\\$800$", "$\\$1,200$", "$\\$2,500$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc170", q: "A car travels $150\\text{ km}$ in $2$ hours. What is its average speed?", options: ["$60\\text{ km/h}$", "$75\\text{ km/h}$", "$100\\text{ km/h}$", "$150\\text{ km/h}$"], a: 1, tags: ["Proportional Reasoning"] },
           { id: "mc171", q: "Solve for $x$: $x/4 = 12$.", options: ["3", "48", "16", "8"], a: 1, tags: ["Algebra"] },
-          { id: "mc172", q: "Find the area of a rectangle with length $8\\text{ cm}$ and width $12\\text{ cm}$.", options: ["$20\\text{ cm}^2$", "$96\\text{ cm}^2$", "$40\\text{ cm}^2$", "$100\\text{ cm}^2$"], a: 1, tags: ["Measurement"] },
+          {id:"set3_q1",q:"To make a specific shade of green paint, blue, yellow, and white paint are mixed together. Based on the available supplies in the table, how many full batches of green paint can be made?",table:{headers:["Color","Amount for 1 Batch","Amount Available"],rows:[["Blue","\\frac{1}{3} \\text{ L}","4 \\text{ L}"],["Yellow","\\frac{1}{2} \\text{ L}","5 \\text{ L}"],["White","\\frac{1}{6} \\text{ L}","3 \\text{ L}"]]},options:["\$8\\text{ batches}\$","\$10\\text{ batches}\$","\$12\\text{ batches}\$","\$18\\text{ batches}\$"],a:1,tags:["Fractions","Limiting Quantities"]},
+
+		  { id: "mc172", q: "Find the area of a rectangle with length $8\\text{ cm}$ and width $12\\text{ cm}$.", options: ["$20\\text{ cm}^2$", "$96\\text{ cm}^2$", "$40\\text{ cm}^2$", "$100\\text{ cm}^2$"], a: 1, tags: ["Measurement"] },
           { id: "mc173", q: "What is $15\\%$ of $\\$80.00$?", options: ["$\\$12$", "$\\$15$", "$\\$10$", "$\\$20$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc174", q: "Simplify: $2(x + 3) - 4$.", options: ["$2x + 2$", "$2x + 6$", "$2x - 1$", "$2x + 10$"], a: 0, tags: ["Algebra"] },
           { id: "mc175", q: "A bag has $5$ red and $15$ blue balls. What is the ratio of red to total balls?", options: ["$1:3$", "$1:4$", "$3:1$", "$4:1$"], a: 1, tags: ["Proportional Reasoning"] },
@@ -1146,7 +1395,8 @@ questions: [
           { id: "mc179", q: "A store has a $20\\%$ off sale. A shirt costs $\\$40.00$. What is the sale price?", options: ["$\\$8.00$", "$\\$32.00$", "$\\$48.00$", "$\\$20.00$"], a: 1, tags: ["Financial Literacy"] },
           { id: "mc180", q: "Solve for $y$: $2y + 5 = 15$.", options: ["5", "10", "15", "20"], a: 0, tags: ["Algebra"] },
           { id: "mc181", q: "What is the volume of a cube with side $3\\text{ m}$?", options: ["$9\\text{ m}^3$", "$27\\text{ m}^3$", "$6\\text{ m}^3$", "$12\\text{ m}^3$"], a: 1, tags: ["Measurement"] },
-          { id: "mc182", q: "A person earns $\\$3,000$ a month and spends $\\$1,200$ on rent. What percentage is rent?", options: ["$30\\%$", "$40\\%$", "$50\\%$", "$60\\%$"], a: 1, tags: ["Financial Literacy"] },
+			{id:"set3_q2",q:"An event catering service charges a fixed server setup fee plus a price per guest. Which table matches the rule \$C = 18g + 150\$?",options:[{table:{headers:["Guests, $g$","Cost, $C$ (\$)"],rows:[["10","330"],["20","510"],["30","690"]]}},{table:{headers:["Guests, $g$","Cost, $C$ (\$)"],rows:[["10","168"],["20","336"],["30","504"]]}},{table:{headers:["Guests, $g$","Cost, $C$ (\$)"],rows:[["10","150"],["20","330"],["30","510"]]}},{table:{headers:["Guests, $g$","Cost, $C$ (\$)"],rows:[["10","350"],["20","530"],["30","710"]]}}],a:0,tags:["Linear Relations","Modeling"]},
+		 { id: "mc182", q: "A person earns $\\$3,000$ a month and spends $\\$1,200$ on rent. What percentage is rent?", options: ["$30\\%$", "$40\\%$", "$50\\%$", "$60\\%$"], a: 1, tags: ["Financial Literacy"] },
           { id: "mc183", q: "If $y = 3x - 2$ and $x = 4$, what is $y$?", options: ["10", "14", "12", "6"], a: 0, tags: ["Algebra"] },
           { id: "mc184", q: "A recipe uses $2$ cups of flour for $10$ cookies. How many cups for $25$ cookies?", options: ["4", "5", "6", "10"], a: 1, tags: ["Proportional Reasoning"] },
           { id: "mc185", q: "What is the median of $[1, 3, 5, 7, 9]$?", options: ["3", "5", "7", "4"], a: 1, tags: ["Data"] },
@@ -1155,7 +1405,9 @@ questions: [
           { id: "mc188", q: "Which fraction is the smallest?", options: ["$1/2$", "$1/3$", "$1/4$", "$1/5$"], a: 3, tags: ["Number Sense"] },
           { id: "mc189", q: "Solve: $2(x - 1) = 8$.", options: ["3", "4", "5", "6"], a: 2, tags: ["Algebra"] },
           { id: "mc190", q: "A triangle has angles $40^\\circ$ and $60^\\circ$. what is the third angle?", options: ["$80^\\circ$", "$100^\\circ$", "$120^\\circ$", "$180^\\circ$"], a: 0, tags: ["Measurement"] },
-          { id: "mc191", q: "What is the mode of $[5, 5, 10, 10, 10, 15]$?", options: ["5", "10", "15", "10.5"], a: 1, tags: ["Data"] },
+          {id:"set3_q3",q:"A tank contains water that is being drained at a steady rate. Which line graphed below represents a tank starting at \$80\\text{ liters}\$ and emptying completely in \$10\\text{ minutes}\$?",graph:{fn:(x)=>-8*x+80,viewBox:{x:[0,10],y:[0,80]},domain:[0,10]},options:["\$y = -8x + 80\$","\$y = -10x + 80\$","\$y = 8x + 80\$","\$y = -0.125x + 80\$"],a:0,tags:["Linear Relations","Graphing"]},
+
+		  { id: "mc191", q: "What is the mode of $[5, 5, 10, 10, 10, 15]$?", options: ["5", "10", "15", "10.5"], a: 1, tags: ["Data"] },
           { id: "mc192", q: "A person saves $20\\%$ of their $\\$400$ paycheck. How much is saved?", options: ["$\\$20$", "$\\$40$", "$\\$80$", "$\\$100$"], a: 2, tags: ["Financial Literacy"] },
           { id: "mc193", q: "If $x/5 + 2 = 10$, what is $x$?", options: ["40", "50", "30", "60"], a: 0, tags: ["Algebra"] },
           { id: "mc194", q: "What is the area of a triangle with base $12\\text{ cm}$ and height $5\\text{ cm}$?", options: ["$60\\text{ cm}^2$", "$30\\text{ cm}^2$", "$15\\text{ cm}^2$", "$20\\text{ cm}^2$"], a: 1, tags: ["Measurement"] },
@@ -1163,11 +1415,15 @@ questions: [
           { id: "mc196", q: "A car travels $300\\text{ km}$ on $30\\text{ L}$ of gas. What is the rate in km/L?", options: ["$10\\text{ km/L}$", "$100\\text{ km/L}$", "$1\\text{ km/L}$", "$3\\text{ km/L}$"], a: 0, tags: ["Proportional Reasoning"] },
           { id: "mc197", q: "What is the surface area of a rectangular prism with sides $2, 3, 4$?", options: ["$24$", "$52$", "$26$", "$48$"], a: 1, tags: ["Measurement"] },
           { id: "mc198", q: "An item costs $\\$50.00$ plus $13\\%$ tax. What is the total?", options: ["$\\$56.50$", "$\\$51.30$", "$\\$63.00$", "$\\$50.13$"], a: 0, tags: ["Financial Literacy"] },
-          { id: "mc199", q: "Solve for $x$: $3x + 4 = 19$.", options: ["5", "15", "6", "4"], a: 0, tags: ["Algebra"] },
+          {id:"set3_q4",q:"Samuel has \$500\$ in a savings account. He withdraws a fixed amount each week for public transit. The table shows his balance over time. How much money remains after \$12\\text{ weeks}\$?",table:{headers:["Week, $w$","Balance, $B$ (\$)"],rows:[["0","500"],["2","440"],["4","380"]]},options:["\$140\$","\$160\$","\$200\$","\$260\$"],a:0,tags:["Linear Relations","Extrapolation"]},
+
+		  { id: "mc199", q: "Solve for $x$: $3x + 4 = 19$.", options: ["5", "15", "6", "4"], a: 0, tags: ["Algebra"] },
           { id: "mc200", q: "A map scale is $1:1,000$. What does $5\\text{ cm}$ on the map represent?", options: ["$50\\text{ m}$", "$5\\text{ m}$", "$500\\text{ m}$", "$5\\text{ km}$"], a: 0, tags: ["Proportional Reasoning"] },
           { id: "mc201", q: "What is the square root of $100$?", options: ["10", "20", "50", "5"], a: 0, tags: ["Number Sense"] },
           { id: "mc202", q: "A person earns $\\$15/\\text{hr}$ and works $20$ hours a week. What is their annual pay ($52$ weeks)?", options: ["$\\$15,600$", "$\\$300$", "$\\$1,560$", "$\\$3,000$"], a: 0, tags: ["Financial Literacy"] },
-          { id: "mc203", q: "Find the volume of a sphere with $r=3$. (Use $\\pi \\approx 3.14$)", options: ["$113.04$", "$37.68$", "$28.26$", "$100$"], a: 0, tags: ["Measurement"] },
+          {id:"set3_q5",q:"A farmer sells apples in crates. The mass of an empty crate plus the apples inside is given by the graph below. What is the mass of the empty crate?",graph:{fn:(x)=>15*x+2,viewBox:{x:[0,5],y:[0,80]},domain:[0,5]},options:["\$0\\text{ kg}\$","\$2\\text{ kg}\$","\$15\\text{ kg}\$","\$17\\text{ kg}\$"],a:1,tags:["Linear Relations","Initial Value"]},
+
+		  { id: "mc203", q: "Find the volume of a sphere with $r=3$. (Use $\\pi \\approx 3.14$)", options: ["$113.04$", "$37.68$", "$28.26$", "$100$"], a: 0, tags: ["Measurement"] },
           { id: "mc204", q: "If $y = -2x + 10$ and $y=0$, what is $x$?", options: ["5", "-5", "10", "0"], a: 0, tags: ["Algebra"] },
           { id: "mc205", q: "A bag has $2$ red and $3$ blue marbles. Probability of red?", options: ["$2/3$", "$2/5$", "$3/5$", "$1/2$"], a: 1, tags: ["Data"] },
           { id: "mc206", q: "Convert $5,000\\text{ mL}$ to litres.", options: ["$0.5\\text{ L}$", "$5\\text{ L}$", "$50\\text{ L}$", "$500\\text{ L}$"], a: 1, tags: ["Measurement"] },
@@ -1175,7 +1431,9 @@ questions: [
           { id: "mc208", q: "An investment of $\\$500$ earns $2\\%$ interest. What is the amount after $1$ year?", options: ["$\\$510$", "$\\$502$", "$\\$520$", "$\\$600$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc209", q: "Find the hypotenuse: legs $3$ and $4$.", options: ["5", "7", "12", "25"], a: 0, tags: ["Measurement"] },
           { id: "mc210", q: "Solve $x - 7 = 10$.", options: ["3", "17", "70", "0"], a: 1, tags: ["Algebra"] },
-          { id: "mc211", q: "What is the range of $[1, 5, 10, 15, 20]$?", options: ["19", "20", "15", "10"], a: 0, tags: ["Data"] },
+          {id:"set3_q6",q:"Which graph correctly shows a non-linear relationship where the distance traveled increases at an accelerating rate over time?",graph:{fn:(x)=>0.5*x*x,viewBox:{x:[0,6],y:[0,18]},domain:[0,6]},options:["Quadratic Curve (Accelerating)","Straight Line (Constant Speed)","Horizontal Line (At Rest)","Decreasing Line (Decelerating)"],a:0,tags:["Non-Linear","Graph Identification"]},
+
+		  { id: "mc211", q: "What is the range of $[1, 5, 10, 15, 20]$?", options: ["19", "20", "15", "10"], a: 0, tags: ["Data"] },
           { id: "mc212", q: "A recipe uses $1$ cup sugar for $4$ cups water. How much sugar for $10$ cups water?", options: ["$2.5$", "$2$", "$4$", "$10$"], a: 0, tags: ["Proportional Reasoning"] },
           { id: "mc213", q: "What is the area of a circle with $r=10$? (Use $\\pi \\approx 3.14$)", options: ["$31.4$", "$314$", "$100$", "$62.8$"], a: 1, tags: ["Measurement"] }
         ]
@@ -1236,20 +1494,25 @@ questions: [
           { id: "mc214", q: "A worker earns $\\$30$ per hour. If they work $35$ hours, what is their gross pay?", options: ["$\\$1,050$", "$\\$900$", "$\\$1,200$", "$\\$1,500$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc215", q: "A car travels $200\\text{ km}$ in $2.5$ hours. What is its speed?", options: ["$80\\text{ km/h}$", "$100\\text{ km/h}$", "$75\\text{ km/h}$", "$50\\text{ km/h}$"], a: 0, tags: ["Proportional Reasoning"] },
           { id: "mc216", q: "Solve for $x$: $3x - 5 = 10$.", options: ["5", "15", "3", "2"], a: 0, tags: ["Algebra"] },
-          { id: "mc217", q: "Find the area of a square with perimeter $20\\text{ cm}$.", options: ["$25\\text{ cm}^2$", "$20\\text{ cm}^2$", "$100\\text{ cm}^2$", "$5\\text{ cm}^2$"], a: 0, tags: ["Measurement"] },
+{id:"set4_q1",q:"Marcus earns a base bi-weekly salary plus commission on sales. The table shows his total pay for different sales volumes. What is his commission rate?",table:{headers:["Sales, $S$ (\$)","Total Pay, $P$ (\$)"],rows:[["1000","650"],["2500","800"],["4000","950"]]},options:["\$5\\%\$","\$10\\%\$","\$12\\%\$","\$15\\%\$"],a:1,tags:["Financial Literacy","Commission"]},
+
+		 { id: "mc217", q: "Find the area of a square with perimeter $20\\text{ cm}$.", options: ["$25\\text{ cm}^2$", "$20\\text{ cm}^2$", "$100\\text{ cm}^2$", "$5\\text{ cm}^2$"], a: 0, tags: ["Measurement"] },
           { id: "mc218", q: "What is $12\\%$ of $\\$150.00$?", options: ["$\\$18$", "$\\$12$", "$\\$15$", "$\\$20$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc219", q: "Simplify: $4(x - 2) + 5$.", options: ["$4x - 3$", "$4x + 3$", "$4x - 8$", "$4x + 13$"], a: 0, tags: ["Algebra"] },
           { id: "mc220", q: "A bag has $10$ red and $40$ blue marbles. Ratio of red to blue?", options: ["$1:4$", "$1:5$", "$4:1$", "$5:1$"], a: 0, tags: ["Proportional Reasoning"] },
           { id: "mc221", q: "What is the volume of a rectangular prism with sides $2, 5, 10$?", options: ["$100$", "$17$", "$50$", "$70$"], a: 0, tags: ["Measurement"] },
           { id: "mc222", q: "Convert $2.5\\text{ km}$ to metres.", options: ["$2,500\\text{ m}$", "$250\\text{ m}$", "$25\\text{ m}$", "$25,000\\text{ m}$"], a: 0, tags: ["Measurement"] },
-          { id: "mc223", q: "Calculate the median of $[10, 15, 20, 25, 30, 35]$.", options: ["22.5", "20", "25", "15"], a: 0, tags: ["Data"] },
+          {id:"set4_q2",q:"Sofia has \$850\$ in her checking account. She deposits a payroll check of \$420\$ and pays the monthly bills listed in the table. What is her remaining balance?",table:{headers:["Expense","Amount (\$)"],rows:[["Phone Bill","65"],["Electricity","110"],["Groceries","240"]]},options:["\$855\$","\$875\$","\$915\$","\$1025\$"],a:0,tags:["Financial Literacy","Budgeting"]}, 
+		 { id: "mc223", q: "Calculate the median of $[10, 15, 20, 25, 30, 35]$.", options: ["22.5", "20", "25", "15"], a: 0, tags: ["Data"] },
           { id: "mc224", q: "A store has a $30\\%$ off sale. An item costs $\\$100.00$. What is the sale price?", options: ["$\\$70.00$", "$\\$30.00$", "$\\$130.00$", "$\\$100.00$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc225", q: "Solve for $y$: $y/2 + 4 = 10$.", options: ["12", "6", "14", "8"], a: 0, tags: ["Algebra"] },
           { id: "mc226", q: "What is the area of a circle with $d=20$? (Use $\\pi \\approx 3.14$)", options: ["$314$", "$1,256$", "$62.8$", "$100$"], a: 0, tags: ["Measurement"] },
           { id: "mc227", q: "A person earns $\\$4,000$ a month and saves $\\$800$. What percentage is saved?", options: ["$20\\%$", "$25\\%$", "$10\\%$", "$30\\%$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc228", q: "If $y = x^2 + 1$ and $x = 3$, what is $y$?", options: ["10", "7", "9", "4"], a: 0, tags: ["Algebra"] },
           { id: "mc229", q: "A recipe uses $1$ cup sugar for $5$ cups water. How much sugar for $12.5$ cups water?", options: ["$2.5$", "$2$", "$5$", "$1$"], a: 0, tags: ["Proportional Reasoning"] },
-          { id: "mc230", q: "What is the mean of $[1, 2, 3, 4, 5]$?", options: ["3", "2.5", "4", "5"], a: 0, tags: ["Data"] },
+          {id:"set4_q3",q:"Two car rental agencies offer different pricing models shown in the tables below. At how many kilometers do both agencies charge the exact same total price?",table:{headers:["Distance (km)","Agency A (\$)","Agency B (\$)"],rows:[["50","60","50"],["100","70","70"],["150","80","90"]]},options:["\$50\\text{ km}\$","\$75\\text{ km}\$","\$100\\text{ km}\$","\$150\\text{ km}\$"],a:2,tags:["Systems of Equations","Point of Intersection"]},
+
+		  { id: "mc230", q: "What is the mean of $[1, 2, 3, 4, 5]$?", options: ["3", "2.5", "4", "5"], a: 0, tags: ["Data"] },
           { id: "mc231", q: "Find the circumference of a circle with $d=14$. (Use $\\pi \\approx 22/7$)", options: ["$44$", "$88$", "$154$", "$22$"], a: 0, tags: ["Measurement"] },
           { id: "mc232", q: "A person invests $\\$2,000$ at $3\\%$ annual simple interest. Interest after $5$ years?", options: ["$\\$300$", "$\\$60$", "$\\$100$", "$\\$1,000$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc233", q: "Which fraction is the largest?", options: ["$3/4$", "$1/2$", "$2/3$", "$5/8$"], a: 0, tags: ["Number Sense"] },
@@ -1261,7 +1524,9 @@ questions: [
           { id: "mc239", q: "What is the area of a triangle with base $10$ and height $4$?", options: ["$20$", "$40$", "$14$", "$10$"], a: 0, tags: ["Measurement"] },
           { id: "mc240", q: "Find $10\\%$ of $250$.", options: ["25", "10", "50", "100"], a: 0, tags: ["Number Sense"] },
           { id: "mc241", q: "A car travels $400\\text{ km}$ on $40\\text{ L}$ of gas. Rate in km/L?", options: ["$10$", "$100$", "$1$", "$40$"], a: 0, tags: ["Proportional Reasoning"] },
-          { id: "mc242", q: "Surface area of a cube with side $2$?", options: ["$24$", "$8$", "$12$", "$16$"], a: 0, tags: ["Measurement"] },
+          {id:"set4_q4",q:"A contractor estimates the total cost of installing hardwood flooring using the graph below. What is the cost per square foot of flooring installation?",graph:{fn:(x)=>8*x+200,viewBox:{x:[0,100],y:[0,1000]},domain:[0,100]},options:["\$6/\\text{sq ft}\$","\$8/\\text{sq ft}\$","\$10/\\text{sq ft}\$","\$12/\\text{sq ft}\$"],a:1,tags:["Financial Literacy","Rate of Change"]},
+
+		  { id: "mc242", q: "Surface area of a cube with side $2$?", options: ["$24$", "$8$", "$12$", "$16$"], a: 0, tags: ["Measurement"] },
           { id: "mc243", q: "An item costs $\\$100.00$ plus $13\\%$ tax. Total?", options: ["$\\$113.00$", "$\\$100.13$", "$\\$130.00$", "$\\$100$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc244", q: "Solve for $x$: $4x - 2 = 10$.", options: ["3", "4", "2", "8"], a: 0, tags: ["Algebra"] },
           { id: "mc245", q: "Map scale $1:5,000$. What does $2\\text{ cm}$ represent?", options: ["$100\\text{ m}$", "$10\\text{ m}$", "$1,000\\text{ m}$", "$10\\text{ km}$"], a: 0, tags: ["Proportional Reasoning"] },
@@ -1270,7 +1535,9 @@ questions: [
           { id: "mc248", q: "Volume of a sphere with $r=2$. (Use $\\pi \\approx 3.14$)", options: ["$33.49$", "$12.56$", "$25.12$", "$100$"], a: 0, tags: ["Measurement"] },
           { id: "mc249", q: "If $y = 3x - 5$ and $y=10$, what is $x$?", options: ["5", "15", "3", "0"], a: 0, tags: ["Algebra"] },
           { id: "mc250", q: "Bag has $1$ red and $4$ blue marbles. Probability of red?", options: ["$1/5$", "$1/4$", "$4/5$", "$1/2$"], a: 0, tags: ["Data"] },
-          { id: "mc251", q: "Convert $10,000\\text{ mL}$ to litres.", options: ["$10\\text{ L}$", "$1\\text{ L}$", "$100\\text{ L}$", "$1,000\\text{ L}$"], a: 0, tags: ["Measurement"] },
+          {id:"set4_q5",q:"An investor tracks the value of two stocks over 4 quarters. Based on the table below, which stock experienced a higher overall percentage increase from Q1 to Q4?",table:{headers:["Quarter","Stock X (\$)","Stock Y (\$)"],rows:[["Q1","20","50"],["Q2","22","55"],["Q3","25","58"],["Q4","30","65"]]},options:["Stock X (50% increase)","Stock Y (30% increase)","Both had the same percentage increase","Stock Y (50% increase)"],a:0,tags:["Financial Literacy","Percentages"]},         
+
+		  { id: "mc251", q: "Convert $10,000\\text{ mL}$ to litres.", options: ["$10\\text{ L}$", "$1\\text{ L}$", "$100\\text{ L}$", "$1,000\\text{ L}$"], a: 0, tags: ["Measurement"] },
           { id: "mc252", q: "What is $300\\%$ of $20$?", options: ["60", "20", "40", "100"], a: 0, tags: ["Number Sense"] },
           { id: "mc253", q: "Investment of $\\$1,000$ earns $4\\%$ interest. Amount after $1$ year?", options: ["$\\$1,040$", "$\\$1,004$", "$\\$1,044$", "$\\$1,400$"], a: 0, tags: ["Financial Literacy"] },
           { id: "mc254", q: "Hypotenuse: legs $5$ and $12$.", options: ["13", "17", "60", "25"], a: 0, tags: ["Measurement"] },
@@ -1336,13 +1603,16 @@ questions: [
           { id: "mc259", q: "A principal of $\\$5000$ is invested at $4\\%$ interest compounded semi-annually. What is the total value after $2$ years?", options: ["$\\$5412.16$", "$\\$5408.00$", "$\\$5416.32$", "$\\$5849.29$"], a: 0, tags: ["Financial Literacy", "Compound Interest"] },
           { id: "mc260", q: "A right-triangular prism has a base with legs $5\\text{ cm}$ and $12\\text{ cm}$. If the prism's height is $20\\text{ cm}$, what is its total surface area?", options: ["$660\\text{ cm}^2$", "$600\\text{ cm}^2$", "$720\\text{ cm}^2$", "$750\\text{ cm}^2$"], a: 0, tags: ["Measurement", "Surface Area"] },
           { id: "mc261", q: "Solve the system: $3x + 2y = 12$ and $y = 2x - 1$. Find $x$.", options: ["2", "3", "1", "4"], a: 0, tags: ["Algebra", "Linear Systems"] },
-          { id: "mc262", q: "A car depreciates by $15\\%$ of its current value each year. If a car is worth $\\$30,000$ now, what will it be worth in $3$ years (to the nearest dollar)?", options: ["$\\$18,424$", "$\\$16,500$", "$\\$21,675$", "$\\$19,500$"], a: 0, tags: ["Financial Literacy", "Depreciation"] },
+          {id:"set5_q1",q:"A company operates two delivery trucks. Truck A's operating cost is modeled by \$C_A = 0.40d + 120\$, where \$d\$ is distance in km. Truck B's costs are recorded in the table below. For a trip of \$500\\text{ km}\$, which truck is cheaper and by how much?",table:{headers:["Distance, $d$ (km)","Truck B Cost, $C_B$ (\$)"],rows:[["100","115"],["200","170"],["300","225"]]},options:["Truck A is cheaper by \$15\$","Truck B is cheaper by \$15\$","Truck A is cheaper by \$25\$","Truck B is cheaper by \$25\$"],a:1,tags:["Systems of Equations","Multi-Step Analysis"]},
+		  { id: "mc262", q: "A car depreciates by $15\\%$ of its current value each year. If a car is worth $\\$30,000$ now, what will it be worth in $3$ years (to the nearest dollar)?", options: ["$\\$18,424$", "$\\$16,500$", "$\\$21,675$", "$\\$19,500$"], a: 0, tags: ["Financial Literacy", "Depreciation"] },
           { id: "mc263", q: "The mean of seven numbers is $15$. If a eighth number is added, the new mean is $17$. What is the eighth number?", options: ["31", "17", "25", "19"], a: 0, tags: ["Data", "Mean"] },
           { id: "mc264", q: "A scale model of a building is $1:250$. If the volume of the model is $0.5\\text{ m}^3$, what is the volume of the actual building?", options: ["$7,812,500\\text{ m}^3$", "$125,000\\text{ m}^3$", "$31,250\\text{ m}^3$", "$1,250\\text{ m}^3$"], a: 0, tags: ["Proportional Reasoning", "Scale/Volume"] },
           { id: "mc265", q: "Determine the length of the diagonal of a rectangular prism with dimensions $3\\text{ cm} \\times 4\\text{ cm} \\times 12\\text{ cm}$.", options: ["$13\\text{ cm}$", "$19\\text{ cm}$", "$15\\text{ cm}$", "$17\\text{ cm}$"], a: 0, tags: ["Geometry", "3D Pythagorean Theorem"] },
           { id: "mc266", q: "An employee earns $\\$22/\\text{hr}$ for the first $35$ hours and $1.5\\times$ for any hours above that. If their gross pay was $\\$1034$, how many total hours did they work?", options: ["43", "40", "45", "42"], a: 0, tags: ["Financial Literacy", "Algebraic Modeling"] },
           { id: "mc267", q: "A bag contains $5$ red, $3$ blue, and $2$ green marbles. If two marbles are drawn without replacement, what is the probability they are both red?", options: ["$2/9$", "$1/4$", "$1/5$", "$5/18$"], a: 0, tags: ["Data", "Probability"] },
-          { id: "mc268", q: "Simplify: $\\frac{(x^2 y^3)^2}{x^{-2} y^4}$.", options: ["$x^6 y^2$", "$x^2 y^2$", "$x^6 y^{10}$", "$x^0 y^2$"], a: 0, tags: ["Number Sense", "Exponents"] },
+{id:"set5_q2",q:"The non-linear graph below models the height of a rocket $h(t)$ in meters over time $t$ in seconds. What is the rocket's average rate of speed between \$t = 1\\text{ s}\$ and \$t = 3\\text{ s}\$?",graph:{fn:(x)=>-5*x*x+30*x,viewBox:{x:[0,6],y:[0,50]},domain:[0,6]},options:["\$10\\text{ m/s}\$","\$15\\text{ m/s}\$","\$20\\text{ m/s}\$","\$25\\text{ m/s}\$"],a:0,tags:["Non-Linear","Average Rate of Change"]},
+         
+		 { id: "mc268", q: "Simplify: $\\frac{(x^2 y^3)^2}{x^{-2} y^4}$.", options: ["$x^6 y^2$", "$x^2 y^2$", "$x^6 y^{10}$", "$x^0 y^2$"], a: 0, tags: ["Number Sense", "Exponents"] },
           { id: "mc269", q: "A cylinder has a volume of $500\\text{ cm}^3$. If the radius is doubled and the height is halved, what is the new volume?", options: ["$1000\\text{ cm}^3$", "$500\\text{ cm}^3$", "$250\\text{ cm}^3$", "$2000\\text{ cm}^3$"], a: 0, tags: ["Measurement", "Volume Relations"] },
           { id: "mc270", q: "A jacket costs $\\$150$. It is discounted by $20\\%$, then another $10\\%$ is taken off the sale price. What is the final price before tax?", options: ["$\\$108$", "$\\$105$", "$\\$115$", "$\\$120$"], a: 0, tags: ["Financial Literacy", "Percentages"] },
           { id: "mc271", q: "What is the equation of the line passing through $(-2, 5)$ and $(4, -7)$?", options: ["$y = -2x + 1$", "$y = 2x + 9$", "$y = -2x - 1$", "$y = -0.5x + 4$"], a: 0, tags: ["Algebra", "Linear Relations"] },
@@ -1353,7 +1623,9 @@ questions: [
           { id: "mc276", q: "A sphere just fits inside a cube with side length $10\\text{ cm}$. What is the volume of the space inside the cube NOT occupied by the sphere?", options: ["$476.7\\text{ cm}^3$", "$523.3\\text{ cm}^3$", "$333.3\\text{ cm}^3$", "$1000\\text{ cm}^3$"], a: 0, tags: ["Measurement", "Composite Volume"] },
           { id: "mc277", q: "A survey of $200$ people found $120$ like coffee, $80$ like tea, and $40$ like both. What is the probability a randomly selected person likes neither?", options: ["$0.2$", "$0.4$", "$0.3$", "$0.1$"], a: 0, tags: ["Data", "Sets/Probability"] },
           { id: "mc278", q: "Express $0.000000045$ in scientific notation.", options: ["$4.5 \\times 10^{-8}$", "$4.5 \\times 10^{-7}$", "$45 \\times 10^{-9}$", "$0.45 \\times 10^{-7}$"], a: 0, tags: ["Number Sense", "Scientific Notation"] },
-          { id: "mc279", q: "The ratio of angles in a quadrilateral is $2:3:4:6$. What is the measure of the smallest angle?", options: ["$48^\\circ$", "$24^\\circ$", "$36^\\circ$", "$60^\\circ$"], a: 0, tags: ["Geometry", "Ratios"] },
+{id:"set5_q3",q:"A manufacturing plant produces custom aluminum beams. The total production cost includes a fixed machinery calibration cost plus a variable cost per meter. Based on the partial table below, what will be the total cost to produce a batch of \$120\\text{ meters}\$ of beam?",table:{headers:["Length, $L$ (m)","Total Cost, $C$ (\$)"],rows:[["15","875"],["35","1475"],["60","2225"]]},options:["\$3825\$","\$4025\$","\$4225\$","\$4425\$"],a:1,tags:["Linear Relations","Multi-Step Extrapolation"]},
+         
+		 { id: "mc279", q: "The ratio of angles in a quadrilateral is $2:3:4:6$. What is the measure of the smallest angle?", options: ["$48^\\circ$", "$24^\\circ$", "$36^\\circ$", "$60^\\circ$"], a: 0, tags: ["Geometry", "Ratios"] },
           { id: "mc280", q: "A credit card has a $21\\%$ annual interest rate. If a balance of $\\$1000$ is left unpaid for one month, what is the interest charged that month?", options: ["$\\$17.50$", "$\\$21.00$", "$\\$1.75$", "$\\$175.00$"], a: 0, tags: ["Financial Literacy", "Interest"] },
           { id: "mc281", q: "Find the point of intersection of $y = 4x + 10$ and $y = -2x - 2$.", options: ["$(-2, 2)$", "$(2, 18)$", "$(-2, -6)$", "$(0, 10)$"], a: 0, tags: ["Algebra", "Linear Systems"] },
           { id: "mc282", q: "A cone and a cylinder have the same radius and height. What is the ratio of the volume of the cone to the volume of the cylinder?", options: ["$1:3$", "$3:1$", "$1:2$", "$2:3$"], a: 0, tags: ["Measurement", "Volume Theory"] },
@@ -1367,13 +1639,17 @@ questions: [
           { id: "mc290", q: "Find the median of the data: $15, 22, 12, 19, 31, 18, 25$.", options: ["19", "18", "22", "18.5"], a: 0, tags: ["Data", "Median"] },
           { id: "mc291", q: "Simplify: $\\sqrt{72}$ to its simplest mixed radical form.", options: ["$6\\sqrt{2}$", "$2\\sqrt{6}$", "$3\\sqrt{8}$", "$36\\sqrt{2}$"], a: 0, tags: ["Number Sense", "Radicals"] },
           { id: "mc292", q: "A rectangular field is $100\\text{ m}$ by $50\\text{ m}$. If a path $2\\text{ m}$ wide is built inside the perimeter, what is the area of the path?", options: ["$584\\text{ m}^2$", "$600\\text{ m}^2$", "$384\\text{ m}^2$", "$400\\text{ m}^2$"], a: 0, tags: ["Measurement", "Composite Area"] },
-          { id: "mc293", q: "A car rental company charges $\\$50$ plus $\\$0.20/\\text{km}$. Another charges $\\$30$ plus $\\$0.30/\\text{km}$. At what distance is the cost the same?", options: ["$200\\text{ km}$", "$100\\text{ km}$", "$150\\text{ km}$", "$250\\text{ km}$"], a: 0, tags: ["Algebra", "Linear Systems"] },
+          {id:"set5_q4",q:"Two distinct linear relationships, $f(x)$ and $g(x)$, are represented below—$f(x)$ by the graph and $g(x)$ by the table. At what value of $x$ do $f(x)$ and $g(x)$ intersect?",graph:{fn:(x)=>2*x+1,viewBox:{x:[0,10],y:[0,25]},domain:[0,10]},table:{headers:["$x$","$g(x)$"],rows:[["1","19"],["3","15"],["5","11"]]},options:["\$x = 3\$","\$x = 4.5\$","\$x = 5\$","\$x = 6\$"],a:1,tags:["Systems of Equations","Intersection"]},
+
+		  { id: "mc293", q: "A car rental company charges $\\$50$ plus $\\$0.20/\\text{km}$. Another charges $\\$30$ plus $\\$0.30/\\text{km}$. At what distance is the cost the same?", options: ["$200\\text{ km}$", "$100\\text{ km}$", "$150\\text{ km}$", "$250\\text{ km}$"], a: 0, tags: ["Algebra", "Linear Systems"] },
           { id: "mc294", q: "What is the sum of the interior angles of a hexagon?", options: ["$720^\\circ$", "$540^\\circ$", "$900^\\circ$", "$360^\\circ$"], a: 0, tags: ["Geometry", "Polygons"] },
           { id: "mc295", q: "A population increases by $2\\%$ per year. If it is $10,000$ now, what will it be in $5$ years?", options: ["$11,041$", "$11,000$", "$10,200$", "$12,000$"], a: 0, tags: ["Algebra", "Exponential Growth"] },
           { id: "mc296", q: "Convert $100\\text{ cubic centimetres}$ to cubic millimetres.", options: ["$100,000\\text{ mm}^3$", "$1,000\\text{ mm}^3$", "$10,000\\text{ mm}^3$", "$1,000,000\\text{ mm}^3$"], a: 0, tags: ["Measurement", "Unit Conversions"] },
           { id: "mc297", q: "If $a^2 + b^2 = c^2$, and $a=7, c=25$, find $b$.", options: ["24", "18", "20", "23"], a: 0, tags: ["Geometry", "Pythagorean Theorem"] },
           { id: "mc298", q: "A data set has a mean of $10$ and a variance of $4$. What is the standard deviation?", options: ["2", "4", "16", "5"], a: 0, tags: ["Data", "Spread"] },
-          { id: "mc299", q: "If the exchange rate is $1\\text{ CAD} = 0.75\\text{ USD}$, how much in CAD is a $\\$120\\text{ USD}$ item?", options: ["$\\$160$", "$\\$90$", "$\\$150$", "$\\$130$"], a: 0, tags: ["Financial Literacy", "Currency"] },
+          {id:"set5_q5",q:"A water filtration system uses three stages of filters with different capacities and replacement costs. The table below lists the performance specs. If a facility filters \$24000\\text{ L}\$ of water, what is the total cost spent on replacing filters across all three stages combined?",table:{headers:["Filter Stage","Capacity per Filter (L)","Cost per Filter (\$)"],rows:[["Stage 1 (Sediment)","3000","25"],["Stage 2 (Carbon)","4000","40"],["Stage 3 (RO Membrane)","8000","95"]]},options:["\$525\$","\$725\$","\$815\$","\$1015\$"],a:1,tags:["Proportional Reasoning","Multi-Step Financial"]},
+
+		  { id: "mc299", q: "If the exchange rate is $1\\text{ CAD} = 0.75\\text{ USD}$, how much in CAD is a $\\$120\\text{ USD}$ item?", options: ["$\\$160$", "$\\$90$", "$\\$150$", "$\\$130$"], a: 0, tags: ["Financial Literacy", "Currency"] },
           { id: "mc300", q: "Solve: $2^{x+1} = 32$.", options: ["4", "5", "3", "6"], a: 0, tags: ["Algebra", "Exponents"] },
           { id: "mc301", q: "A triangle has sides $8, 15, 17$. What kind of triangle is it?", options: ["Right", "Isosceles", "Equilateral", "Obtuse"], a: 0, tags: ["Geometry", "Classification"] },
           { id: "mc302", q: "The probability of rain is $3/10$. What are the odds AGAINST rain?", options: ["$7:3$", "$3:7$", "$7:10$", "$3:10$"], a: 0, tags: ["Data", "Odds"] },

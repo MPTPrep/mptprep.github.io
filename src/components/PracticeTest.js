@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Latex from 'react-latex-next';
+import { Mafs, Coordinates, Plot, Theme, Point } from "mafs";
 
 export default function PracticeTest({ testData, onComplete, onExit, darkMode, reviewData, french }) {
   const activeTest = testData;  
@@ -121,6 +122,97 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
     }
     return style;
   };
+function QuestionGraph({ config }) {
+  if (!config || typeof config.fn !== 'function') {
+    return null;
+  }
+
+  // Mafs natively expects viewBox as an object: { x: [min, max], y: [min, max] }
+  const viewBox = config.viewBox || { x: [-5, 5], y: [-5, 5] };
+  const graphWidth = config.width || 400;
+  const graphHeight = config.height || 300;
+  
+  return (
+    <div style={{ 
+      width: `${graphWidth}px`, 
+      height: `${graphHeight}px`, 
+      margin: '20px 0', 
+      border: '1px solid #e5e5e5', 
+      borderRadius: '12px', 
+      overflow: 'hidden',
+      backgroundColor: '#1a1a1a',
+      display: 'inline-block'
+    }}>
+      {/* Use dynamic graphWidth and graphHeight here */}
+      <Mafs viewBox={viewBox} width={graphWidth} height={graphHeight} pan={false} zoom={false} preserveAspectRatio={false}>
+        <Coordinates.Cartesian xAxis={{ labels: false }} yAxis={{ labels: false }} />
+        <Plot.OfX 
+          y={config.fn} 
+          color={Theme.blue} 
+          weight={2}
+          domain={config.domain || viewBox.x} 
+        />
+      </Mafs>
+    </div>
+  );
+}
+
+function QuestionTable({ config }) {
+  if (!config || !config.rows) {
+    return null;
+  }
+
+  return (
+    <div style={{ 
+      margin: '20px 0', 
+      overflowX: 'auto',
+      borderRadius: '10px',
+      border: '1px solid #3c3c3c',
+      maxWidth: '400px', 
+    }}>
+      <table style={{ 
+        width: '100%', 
+        borderCollapse: 'collapse', 
+        textAlign: 'center',
+        fontSize: '1rem'
+      }}>
+        {config.headers && (
+          <thead>
+            <tr>
+              {config.headers.map((header, idx) => (
+                <th key={idx} style={{ 
+                  padding: '10px 14px', 
+                  borderBottom: '1px solid #3c3c3c',
+                  backgroundColor: '#252525',
+				  color:'#ffffff',
+                  fontWeight: '600'
+                }}>
+                  {/* Safely coerce headers to string */}
+                  <Latex>{header != null ? String(header) : ''}</Latex>
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody>
+          {config.rows.map((row, rIdx) => (
+            <tr key={rIdx}>
+              {row.map((cell, cIdx) => (
+                <td key={cIdx} style={{ 
+                  padding: '10px 14px', 
+                  borderBottom: rIdx < config.rows.length - 1 ? '1px solid #2a2a2a' : 'none'
+                }}>
+                  {/* Safely coerce cell values to string (handles numbers like 0 perfectly) */}
+                  <Latex>{cell != null ? String(cell) : ''}</Latex>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
   return (
     <div className="practice-test-container" style={{ display: 'flex', height: '100vh', backgroundColor: darkMode ? '#1a1a1a' : '#fff', color: darkMode ? '#fff' : '#000' }}>
@@ -273,14 +365,27 @@ export default function PracticeTest({ testData, onComplete, onExit, darkMode, r
               {currentQuestion.tags.map(t => <span key={t} style={{ fontSize: '0.7rem', backgroundColor: '#f0f0f0', padding: '2px 8px', borderRadius: '10px', color: '#666' }}>#{t}</span>)}
             </div>
             <div style={{ fontSize: '1.5rem', marginBottom: '30px' }}><Latex>{currentQuestion.q}</Latex></div>
-			
+			<QuestionGraph config={currentQuestion.graph}/>
+			<QuestionTable config={currentQuestion.table} />
             {currentQuestion.options.map((opt, i) => (
               <div key={i} onClick={() => viewMode === 'test' && setUserAnswers({...userAnswers, [currentQuestion.id]: i})} style={getOptionStyle(i)}>
                 <div style={{ position: 'absolute', left: '-35px', fontWeight: 'bold' }}>
                   {viewMode === 'review' && currentQuestion.a === i && <span style={{ color: '#2ecc71' }}>✓</span>}
                   {viewMode === 'review' && userAnswers[currentQuestion.id] === i && currentQuestion.a !== i && <span style={{ color: '#ff4b4b' }}>✕</span>}
                 </div>
-                <Latex>{opt}</Latex>
+                {typeof opt === 'object' && opt.graph ? (
+      <div style={{ pointerEvents: 'none' }}>
+        <QuestionGraph config={{ ...opt.graph, width: 300, height: 200 }} />
+      </div>
+    ) : 
+    typeof opt === 'object' && opt.table ? (
+      <div style={{ pointerEvents: 'none' }}>
+        <QuestionTable config={opt.table} />
+      </div>
+    ) : (
+      /* Standard Text Option */
+      <Latex>{typeof opt === 'string' ? opt : String(opt)}</Latex>
+    )}
               </div>
             ))}
             {(viewMode === 'review' || viewMode === 'summary') && userAnswers[currentQuestion.id] === undefined && (

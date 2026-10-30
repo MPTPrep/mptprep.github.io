@@ -19,6 +19,8 @@ import Study from './components/Study';
 import Resources from './components/Resources';
 import { MOCK_TESTS } from './data/tests';
 import { MOCK_TESTS as MOCK_TESTS_FR } from './data/testsFR';
+import "mafs/core.css";
+import "mafs/font.css";
 
 export default function App() {
   const [french, setFrench] = useState(null); 

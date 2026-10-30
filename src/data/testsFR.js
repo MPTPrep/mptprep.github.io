@@ -250,7 +250,8 @@ export const MOCK_TESTS = {
             a: 3, 
             tags: ["Raisonnement proportionnel", "Taux"] 
           },
-          { 
+		  { id: "mc5", q: "Les températures à 2 h et à 4 h sont consignées dans ce tableau. Si la relation entre la température et le temps est linéaire, quelles sont les températures à 3 h et à 5 h ?", table: { headers: ["Temps", "Température ($^\\circ C$)"], rows: [["2 h", "$-8$"], ["3 h", ""], ["4 h", "$-2$"], ["5 h", ""]] }, options: ["$-4^\\circ C$ et $0^\\circ C$", "$-4^\\circ C$ et $2^\\circ C$", "$-5^\\circ C$ et $1^\\circ C$", "$-5^\\circ C$ et $5^\\circ C$"], a: 2, tags: ["Relations linéaires", "Taux de variation"] }
+         ,{ 
             id: "mc6", 
             q: "Calculez : $2 + 2 \\times 4 + 2$", 
             options: ["12", "14", "18", "24"], 
@@ -264,6 +265,10 @@ export const MOCK_TESTS = {
             a: 0, 
             tags: ["Arithmétique", "Décimaux"] 
           },
+		  { id: "mc9", q: "Trois de ces tableaux de valeurs fournissent des informations sur des relations linéaires. Quel tableau représente une relation non linéaire ?", options: [{ table: { headers: ["q", "V"], rows: [["1", "5"], ["2", "7"], ["3", "9"], ["4", "11"]] } }, { table: { headers: ["q", "V"], rows: [["1", "9"], ["2", "5"], ["3", "1"], ["4", "-3"]] } }, { table: { headers: ["q", "V"], rows: [["1", "-3"], ["2", "-3"], ["3", "-3"], ["4", "-3"]] } }, { table: { headers: ["q", "V"], rows: [["1", "-1"], ["2", "2"], ["3", "6"], ["4", "11"]] } }], a: 1, tags: ["Relations linéaires", "Relations non linéaires"] }
+
+		  ,
+		  
           { 
             id: "mc11", 
             q: "Un club compte $30$ membres, et $\\frac{4}{5}$ d'entre eux assistent à un événement. Le coût est de $10\\$$ par membre. Quel est le coût total payé par tous les membres présents ?", 
@@ -299,14 +304,18 @@ export const MOCK_TESTS = {
             a: 2, 
             tags: ["Algèbre", "Suites"] 
           },
-          { 
+		  { id: "mc16", q: "Laquelle des représentations a un taux de variation de 7 ?", options: ["Équation : $K=2n+7$", { table: { headers: ["x", "y"], rows: [["0", "65"], ["7", "66"], ["14", "67"]] } }, { graph: { fn: (x) => -x + 7, viewBox: { x: [0, 4], y: [0, 8] }, domain: [0, 4] } }, "Scénario : Le coût total pour imprimer des t-shirts est composé de frais de mise en place de $65\\$$ et d'un coût de $7\\$$ par t-shirt."], a: 3, tags: ["Relations linéaires", "Taux de variation"] }
+,{ id: "mc18", q: "Ce tableau montre des informations sur certains élèves qui marchent pour aller à l'école. Le nombre d'élèves de 6e année est manquant. Lequel est le plus proche du pourcentage d'élèves qui marchent pour aller à l'école et qui sont en 6e année ?", table: { headers: ["Niveau", "Nombre d'élèves"], rows: [["4", "18"], ["5", "10"], ["6", ""], ["Total", "65"]] }, options: ["15 %", "28 %", "43 %", "57 %"], a: 3, tags: ["Gestion des données", "Pourcentages"] }
+
+          ,{ 
             id: "mc19", 
             q: "Une équipe récolte $1650\\$$ en vendant $550$ rondelles de hockey. Si Harjot récolte $24\\$$, combien de rondelles a-t-elle vendues ?", 
             options: ["3", "8", "45", "72"], 
             a: 1, 
             tags: ["Raisonnement proportionnel", "Taux"] 
           },
-          { 
+		  { id: "mc22", q: "Ce tableau de valeurs représente la relation entre le coût, $C$, en dollars, et le nombre d'heures, $t$, pour réparer un appareil électrique. Quel est le taux horaire pour réparer cet appareil électrique ?", table: { headers: ["Temps, $t$ (h)", "Coût, $C$ ($)"], rows: [["0", "$60$"], ["3", "$228$"], ["6", "$396$"]] }, options: ["$56\\$/\\text{h}$", "$60\\$/\\text{h}$", "$76\\$/\\text{h}$", "$168\\$/\\text{h}$"], a: 0, tags: ["Relations linéaires", "Taux de variation"] }
+         ,{ 
             id: "mc23", 
             q: "Un sac contient 3 billes bleues, 9 vertes, 6 rouges et 12 jaunes. Quelle est la probabilité de NE PAS tirer une bille jaune ?", 
             options: ["0,2", "0,3", "0,4", "0,6"], 
@@ -320,7 +329,11 @@ export const MOCK_TESTS = {
             a: 2, 
             tags: ["Sens du nombre", "Fractions"] 
           },
-          { 
+		  { id: "mc24", q: "Lequel des graphiques suivants représente l'équation $y = -3x+4$ ?", options: [{ graph: { fn: (x) => 3*x - 4, viewBox: { x: [-5, 5], y: [-7, 7] } } }, { graph: { fn: (x) => -3*x + 4, viewBox: { x: [-5, 5], y: [-7, 7] } } }, { graph: { fn: (x) => -4*x - 3, viewBox: { x: [-5, 5], y: [-7, 7] } } }, { graph: { fn: (x) => 4*x - 3, viewBox: { x: [-5, 5], y: [-7, 7] } } }], a: 1, tags: ["Algèbre", "Quadratiques"] }
+,{ id: "mc27", q: "Arya plante des arbres pour un emploi d'été. Ce tableau de valeurs représente la relation entre les gains d'Arya, $E$, et le nombre d'arbres plantés, $n$. Quels sont les gains d'Arya si elle plante $1000$ arbres ?", table: { headers: ["Nombre d'arbres, $n$", "Gains, $E$ ($)"], rows: [["0", "40"], ["50", "48"], ["100", "56"], ["150", "64"], ["200", "72"]] }, options: ["$160\\$$", "$200\\$$", "$360\\$$", "$560\\$$"], a: 1, tags: ["Relations linéaires", "Taux de variation"] }
+ 
+ 
+          ,{ 
             id: "mc28", 
             q: "Quel dentifrice a le coût le plus bas par ml ?", 
             options: ["$1,35\\$$ pour 100 ml", "$1,94\\$$ pour 150 ml", "$2,40\\$$ pour 200 ml", "$3,25\\$$ pour 250 ml"], 
@@ -334,7 +347,8 @@ export const MOCK_TESTS = {
             a: 0, 
             tags: ["Algèbre", "Équations"] 
           },
-          { 
+		  { id: "mc31", q: "Un service de diffusion en ligne facture des frais d'abonnement et un coût pour chaque film diffusé. Ce tableau de valeurs montre des informations sur le coût total, $C$, et le nombre de films diffusés, $n$. Laquelle des équations suivantes représente cette relation ?", table: { headers: ["Nombre de films, $n$", "Coût total, $C$ ($)"], rows: [["1", "12"], ["2", "14"], ["3", "16"], ["4", "18"]] }, options: ["$C = 4n + 8$", "$C = 4n + 12$", "$C = 2n + 10$", "$C = 2n + 12$"], a: 2, tags: ["Relations linéaires", "Équations"] }
+, { 
             id: "mc32", 
             q: "Lequel représente le nombre $4937$ sous forme décomposée ?", 
             options: ["$4\\times100 + 9\\times10 + 3\\times10 + 7\\times1$", "$4\\times1000 + 9\\times100 + 3\\times10 + 7\\times1$", "$4\\times1 + 9\\times10 + 3\\times100 + 7\\times1000$", "$4\\times10 + 9\\times100 + 3\\times1000 + 7\\times1$"], 
@@ -355,7 +369,10 @@ export const MOCK_TESTS = {
             a: 2, 
             tags: ["Sens du nombre", "Fractions"] 
           },
-          { 
+		  { id: "mc35", q: "Si la taille moyenne de tous les sept joueurs est de $128\\text{ cm}$, quelle est la taille de Peter ?", table: { headers: ["Joueur", "Taille (cm)"], rows: [["Chinua", "138"], ["Zaki", "132"], ["Baina", "116"], ["Bohumir", "138"], ["Nura", "126"], ["Leslie", "130"], ["Peter", "?"]] }, options: ["$138\\text{ cm}$", "$131\\text{ cm}$", "$130\\text{ cm}$", "$116\\text{ cm}$"], a: 3, tags: ["Gestion des données", "Moyenne"] }
+
+         
+          ,{ 
             id: "mc36", 
             q: "Quelle équation est vraie ?", 
             options: ["$3 + 4 \\times 7 = 49$", "$17 - 3 \\times 4 = 56$", "$3 \\times 2 + 4 \\div 4 = 7$", "$3 + 3 \\div 3 \\times 2 = 4$"], 
@@ -672,7 +689,8 @@ questions: [
             a: 3,
             tags: ["Raisonnement proportionnel", "Taux unitaires"]
           },
-          {
+		  { id: "mc752", q: "Le tableau contient la quantité de pluie pour une période de six mois. Quelle valeur est la plus proche de la quantité moyenne de pluie pour cette période de six mois ?", table: { headers: ["Mois", "Quantité de pluie (mm)"], rows: [["Janvier", "23,7"], ["Février", "74,3"], ["Mars", "65,6"], ["Avril", "55,7"], ["Mai", "78,3"], ["Juin", "55,7"]] }, options: ["$55,7\\text{ mm}$", "$58,9\\text{ mm}$", "$307,0\\text{ mm}$", "$353,4\\text{ mm}$"], a: 1, tags: ["Gestion des données", "Moyenne"] },
+         {
             id: "mc50",
             q: "Quelle puissance est équivalente à $3^{-6} \\times 3^2$ ?",
             options: ["$3^{-4}$", "$3^{-12}$", "$9^{-4}$", "$9^{-12}$"],
@@ -700,6 +718,9 @@ questions: [
             a: 2,
             tags: ["Sens du nombre", "Pourcentages"]
           },
+		  { id: "mc_nonlinear_table", q: "Quel tableau de valeurs <strong>ne peut pas</strong> représenter une relation linéaire ?", options: [{ table: { headers: ["Temps (heures)", "Température (°C)"], rows: [["3", "5"], ["6", "0"], ["12", "-10"], ["15", "-15"]] } }, { table: { headers: ["Temps (heures)", "Température (°C)"], rows: [["3", "5"], ["6", "0"], ["9", "-10"], ["12", "-20"]] } }, { table: { headers: ["Temps (heures)", "Température (°C)"], rows: [["3", "5"], ["9", "-5"], ["12", "-10"], ["15", "-15"]] } }, { table: { headers: ["Temps (heures)", "Température (°C)"], rows: [["3", "5"], ["9", "-5"], ["15", "-15"], ["21", "-25"]] } }], a: 1, tags: ["Relations linéaires", "Taux de variation"] },
+{ id: "mc_peach_paint", q: "Le tableau montre la quantité de peinture rouge, blanche et jaune requise pour faire une canette de peinture couleur pêche. Le tableau montre également la quantité de peinture disponible en rouge, blanc et jaune. Combien de canettes de peinture couleur pêche peut-on fabriquer en utilisant les quantités de peinture disponibles ?", table: { headers: ["Peinture", "Quantité nécessaire pour une canette de peinture pêche", "Quantité disponible"], rows: [["Rouge", "$\\frac{1}{4}$ canette", "$5$ canettes"], ["Blanche", "$\\frac{5}{8}$ canette", "$10$ canettes"], ["Jaune", "$\\frac{1}{8}$ canette", "$\\frac{1}{2}$ canette"]] }, options: ["$4\\text{ canettes}$", "$5\\text{ canettes}$", "$16\\text{ canettes}$", "$20\\text{ canettes}$"], a: 0, tags: ["Fractions", "Quantités limitantes"] },
+ 
           {
             id: "mc54",
             q: "Quelle est la valeur de l'expression $48 + 23 \\times 9 - (65 - 3)$ ?",
@@ -749,6 +770,8 @@ questions: [
             a: 3,
             tags: ["Sens du nombre", "Fractions"]
           },
+		  { id: "mc_nathalie_bank", q: "Nathalie a $1\\,370\\$$ dans son compte bancaire. Elle dépose un chèque de $260\\$$ et paie ses dépenses énumérées dans le tableau ci-dessous. Quel sera le solde de son compte après avoir payé ses dépenses ?", table: { headers: ["Dépenses", "Montant ($)"], rows: [["Nourriture", "123"], ["Manuel", "55"], ["Loyer", "800"]] }, options: ["$652\\$$", "$718\\$$", "$1\\,238\\$$", "$2\\,088\\$$"], a: 0, tags: ["Littératie financière", "Opérations"] },
+
           {
             id: "mc61",
             q: "François lit $96$ pages en $2$ heures. Il reste $216$ pages dans le livre. S'il continue au même rythme, combien de temps supplémentaire lui faudra-t-il pour finir ?",
@@ -791,6 +814,8 @@ questions: [
             a: 3,
             tags: ["Arithmétique", "Fractions"]
           },
+		  { id: "mc_jersey_cost", q: "Une entreprise qui fabrique des uniformes d'équipes sportives facture $35,00\\$$ pour ouvrir un compte et $32,25\\$$ par chandail de hockey. Laquelle des propositions suivantes représente le coût ($C$) par rapport au nombre de chandails de hockey ($n$) ?", options: ["$C = 67,25n$", "$C = 32,25 + 35n$", { table: { headers: ["Nombre de chandails de hockey", "Coût ($)"], rows: [["5", "161,25"], ["10", "322,50"], ["15", "483,75"]] } }, { table: { headers: ["Nombre de chandails de hockey", "Coût ($)"], rows: [["7", "260,75"], ["11", "389,75"], ["18", "615,50"]] } }], a: 3, tags: ["Relations linéaires", "Modélisation"] },
+
           {
             id: "mc67",
             q: "Omar s'entraîne pour un marathon. Au cours des trois dernières semaines, il a couru $35,3\\text{ km}$ deux fois, $37,8\\text{ km}$ deux fois et $17,6\\text{ km}$ une fois. Combien de kilomètres a-t-il courus au total ?",
@@ -933,7 +958,8 @@ questions: [
         questions: [
           { id: "mc79", q: "Un magasin offre un rabais de $15\\%$ sur une veste dont le prix initial est de $120\\$$. Après le rabais, une taxe de vente de $13\\%$ est appliquée. Quel est le prix final ?", options: ["$102,00\\$$", "$115,26\\$$", "$113,10\\$$", "$122,40\\$$"], a: 1, tags: ["Littératie financière", "Pourcentages"] },
           { id: "mc80", q: "Le rapport entre les billes bleues et les billes rouges dans un sac est de $4:7$. S'il y a $36$ billes bleues, combien y a-t-il de billes rouges ?", options: ["28", "49", "63", "84"], a: 2, tags: ["Raisonnement proportionnel", "Rapports"] },
-          { id: "mc81", q: "Résolvez pour $x$ : $4(x - 3) = 2x + 10$.", options: ["1", "4", "7", "11"], a: 3, tags: ["Algèbre", "Équations"] },
+          { id: "set1_q1", q: "Un gymnase local facture des frais d'inscription et des frais de membre mensuels. Le tableau ci-dessous montre le coût total, $C$, pour $m$ mois. Quels sont les frais de membre mensuels ?", table: { headers: ["Mois, $m$", "Coût total, $C$ ($)"], rows: [["2", "110"], ["5", "215"], ["8", "320"]] }, options: ["$35\\$/\\text{mois}$", "$40\\$/\\text{mois}$", "$55\\$/\\text{mois}$", "$105\\$/\\text{mois}$"], a: 0, tags: ["Relations linéaires", "Taux de variation"] },
+		  { id: "mc81", q: "Résolvez pour $x$ : $4(x - 3) = 2x + 10$.", options: ["1", "4", "7", "11"], a: 3, tags: ["Algèbre", "Équations"] },
           { id: "mc82", q: "Un réservoir cylindrique a un rayon de $3\\text{ m}$ et une hauteur de $5\\text{ m}$. Quel est son volume ? (Utilisez $\\pi \\approx 3,14$)", options: ["$47,1\\text{ m}^3$", "$94,2\\text{ m}^3$", "$141,3\\text{ m}^3$", "$282,6\\text{ m}^3$"], a: 2, tags: ["Mesure", "Volume"] },
           { id: "mc83", q: "Une voiture parcourt $240\\text{ km}$ en $3$ heures. À ce même rythme constant, quelle distance parcourra-t-elle en $7$ heures ?", options: ["$480\\text{ km}$", "$560\\text{ km}$", "$600\\text{ km}$", "$720\\text{ km}$"], a: 1, tags: ["Raisonnement proportionnel", "Taux"] },
           { id: "mc84", q: "Déterminez la moyenne de l'ensemble de données : $[12, 15, 18, 22, 22, 31]$.", options: ["20", "22", "18,5", "21"], a: 0, tags: ["Données", "Moyenne"] },
@@ -944,7 +970,9 @@ questions: [
           { id: "mc89", q: "Une personne gagne $18,50\\$$ de l'heure. Si elle travaille $37,5$ heures par semaine, quel est son salaire hebdomadaire brut ?", options: ["$693,75\\$$", "$712,50\\$$", "$685,00\\$$", "$740,00\\$$"], a: 0, tags: ["Littératie financière", "Taux"] },
           { id: "mc90", q: "Quelle est la probabilité d'obtenir une somme de $7$ en lançant deux dés standard à six faces ?", options: ["$1/6$", "$1/12$", "$5/36$", "$1/7$"], a: 0, tags: ["Données", "Probabilité"] },
           { id: "mc91", q: "Convertissez $4500\\text{ millilitres}$ en litres.", options: ["$0,45\\text{ L}$", "$4,5\\text{ L}$", "$45\\text{ L}$", "$450\\text{ L}$"], a: 1, tags: ["Mesure", "Conversions"] },
-          { id: "mc92", q: "Une recette nécessite $2/3$ de tasse de sucre pour chaque $2$ tasses de farine. Quelle quantité de sucre est nécessaire pour $5$ tasses de farine ?", options: ["$1,5\\text{ tasse}$", "$1,67\\text{ tasse}$", "$1\\text{ tasse}$", "$1,33\\text{ tasse}$"], a: 1, tags: ["Raisonnement proportionnel", "Rapports"] },
+          { id: "set1_q2", q: "Le graphique ci-dessous montre la profondeur de l'eau dans une piscine lors de sa vidange au fil du temps. Quelle est la profondeur initiale de l'eau ?", graph: { fn: (x) => -0.5*x + 3, viewBox: { x: [0, 6], y: [0, 4] }, domain: [0, 6] }, options: ["$1,5\\text{ m}$", "$2,0\\text{ m}$", "$3,0\\text{ m}$", "$6,0\\text{ m}$"], a: 2, tags: ["Relations linéaires", "Valeur initiale"] },
+
+		  { id: "mc92", q: "Une recette nécessite $2/3$ de tasse de sucre pour chaque $2$ tasses de farine. Quelle quantité de sucre est nécessaire pour $5$ tasses de farine ?", options: ["$1,5\\text{ tasse}$", "$1,67\\text{ tasse}$", "$1\\text{ tasse}$", "$1,33\\text{ tasse}$"], a: 1, tags: ["Raisonnement proportionnel", "Rapports"] },
           { id: "mc93", q: "Lequel des éléments suivants représente une relation non linéaire ?", options: ["$y = 3x - 1$", "$y = x^2 + 4$", "$x + y = 10$", "$y = 0,5x$"], a: 1, tags: ["Algèbre", "Linéaire vs Non linéaire"] },
           { id: "mc94", q: "Évaluez $3^0 + 3^{-1}$ sous forme de fraction.", options: ["$1/3$", "$4/3$", "$0$", "$1$"], a: 1, tags: ["Sens du nombre", "Exposants"] },
           { id: "mc95", q: "Un prisme rectangulaire a pour dimensions $4\\text{ cm} \\times 5\\text{ cm} \\times 10\\text{ cm}$. Quelle est son aire de surface ?", options: ["$200\\text{ cm}^2$", "$110\\text{ cm}^2$", "$220\\text{ cm}^2$", "$180\\text{ cm}^2$"], a: 2, tags: ["Mesure", "Aire de surface"] },
@@ -957,21 +985,29 @@ questions: [
           { id: "mc102", q: "Résolvez le système linéaire graphiquement : $y = x + 1$ et $y = -x + 5$. Quel est le point d'intersection ?", options: ["$(1,2)$", "$(2,3)$", "$(3,2)$", "$(4,1)$"], a: 1, tags: ["Algèbre", "Systèmes linéaires"] },
           { id: "mc103", q: "Combien font $45\\%$ de $150,00\\$$ ?", options: ["$67,50\\$$", "$60,00\\$$", "$75,00\\$$", "$55,50\\$$"], a: 0, tags: ["Littératie financière", "Pourcentages"] },
           { id: "mc104", q: "L'aire d'un cercle est de $78,5\\text{ cm}^2$. Quel est son rayon approximatif ? (Utilisez $\\pi \\approx 3,14$)", options: ["$5\\text{ cm}$", "$10\\text{ cm}$", "$25\\text{ cm}$", "$12,5\\text{ cm}$"], a: 0, tags: ["Mesure", "Aire des cercles"] },
-          { id: "mc105", q: "Le salaire d'un travailleur passe de $20\\$/\\text{h}$ à $23\\$/\\text{h}$. Quel est le pourcentage d'augmentation ?", options: ["$3\\%$", "$15\\%$", "$13\\%$", "$20\\%$"], a: 1, tags: ["Littératie financière", "Variation en pourcentage"] },
+          { id: "set1_q3", q: "Un forfait cellulaire facture un tarif mensuel de base plus des frais par gigaoctet de données utilisées. Quelle équation modélise la relation montrée dans le tableau ?", table: { headers: ["Données, $d$ (Go)", "Facture totale, $B$ ($)"], rows: [["1", "45"], ["3", "55"], ["5", "65"]] }, options: ["$B = 5d + 40$", "$B = 10d + 35$", "$B = 45d$", "$B = 5d + 45$"], a: 0, tags: ["Relations linéaires", "Équations"] },
+	  { id: "mc105", q: "Le salaire d'un travailleur passe de $20\\$/\\text{h}$ à $23\\$/\\text{h}$. Quel est le pourcentage d'augmentation ?", options: ["$3\\%$", "$15\\%$", "$13\\%$", "$20\\%$"], a: 1, tags: ["Littératie financière", "Variation en pourcentage"] },
           { id: "mc106", q: "Quelle fraction se situe entre $1/2$ et $3/4$ ?", options: ["$2/5$", "$5/8$", "$7/8$", "$1/3$"], a: 1, tags: ["Sens du nombre", "Fractions"] },
           { id: "mc107", q: "Une voiture de location coûte $40\\$$ par jour plus $0,15\\$$ par kilomètre. Si la voiture parcourt $200\\text{ km}$ en une journée, quel est le coût total ?", options: ["$70\\$$", "$60\\$$", "$30\\$$", "$55\\$$"], a: 0, tags: ["Littératie financière", "Modélisation algébrique"] },
-          { id: "mc108", q: "Simplifiez : $5(2x - 3) - 3(x + 4)$.", options: ["$7x - 27$", "$7x - 3$", "$10x - 15$", "$13x - 3$"], a: 0, tags: ["Algèbre", "Polynômes"] },
+          { id: "set1_q4", q: "Quel tableau de valeurs représente une relation linéaire avec un taux de variation constant de $-4$ ?", options: [{ table: { headers: ["$x$", "$y$"], rows: [["0", "20"], ["1", "16"], ["2", "12"], ["3", "8"]] } }, { table: { headers: ["$x$", "$y$"], rows: [["0", "20"], ["2", "16"], ["4", "12"], ["6", "8"]] } }, { table: { headers: ["$x$", "$y$"], rows: [["0", "20"], ["1", "15"], ["2", "10"], ["3", "5"]] } }, { table: { headers: ["$x$", "$y$"], rows: [["0", "0"], ["1", "-4"], ["2", "-12"], ["3", "-24"]] } }], a: 0, tags: ["Relations linéaires", "Identification de tableau"] },
+
+	
+		  { id: "mc108", q: "Simplifiez : $5(2x - 3) - 3(x + 4)$.", options: ["$7x - 27$", "$7x - 3$", "$10x - 15$", "$13x - 3$"], a: 0, tags: ["Algèbre", "Polynômes"] },
           { id: "mc109", q: "Quel est le mode de l'ensemble de données : $[5, 8, 5, 12, 10, 8, 5]$ ?", options: ["5", "8", "10", "12"], a: 0, tags: ["Données", "Mode"] },
           { id: "mc110", q: "Une paire de chaussures est en solde à $64\\$$, ce qui représente $80\\%$ du prix original. Quel était le prix original ?", options: ["$80\\$$", "$75\\$$", "$100\\$$", "$120\\$$"], a: 0, tags: ["Littératie financière", "Pourcentages"] },
           { id: "mc111", q: "Trouvez le périmètre d'un demi-cercle d'un rayon de $10\\text{ cm}$. (Utilisez $\\pi \\approx 3,14$)", options: ["$31,4\\text{ cm}$", "$51,4\\text{ cm}$", "$41,4\\text{ cm}$", "$62,8\\text{ cm}$"], a: 1, tags: ["Mesure", "Périmètre"] },
           { id: "mc112", q: "Si $x = -3$, quelle est la valeur de $2x^2 - 5x + 1$ ?", options: ["2", "34", "4", "22"], a: 1, tags: ["Algèbre", "Substitution"] },
           { id: "mc113", q: "Un sac contient $3$ boules rouges, $5$ vertes et $2$ bleues. Quelle est la probabilité de ne PAS choisir une boule verte ?", options: ["$1/2$", "$1/5$", "$3/10$", "$7/10$"], a: 0, tags: ["Données", "Probabilité"] },
           { id: "mc114", q: "Quel taux unitaire correspond au prix le plus bas ?", options: ["$3$ pour $10,50\\$$", "$5$ pour $17,00\\$$", "$2$ pour $7,20\\$$", "$10$ pour $35,00\\$$"], a: 1, tags: ["Raisonnement proportionnel", "Taux unitaires"] },
-          { id: "mc115", q: "Exprimez $0,000042$ en notation scientifique.", options: ["$4,2 \\times 10^5$", "$4,2 \\times 10^{-5}$", "$42 \\times 10^{-6}$", "$0,42 \\times 10^{-4}$"], a: 1, tags: ["Sens du nombre", "Notation scientifique"] },
+          { id: "set1_q5", q: "La fonction linéaire représentée graphiquement ci-dessous représente les gains d'un tuteur en fonction des heures travaillées. Quel est le taux horaire ?", graph: { fn: (x) => 25*x, viewBox: { x: [0, 5], y: [0, 125] }, domain: [0, 5] }, options: ["$20\\$/\\text{h}$", "$25\\$/\\text{h}$", "$30\\$/\\text{h}$", "$50\\$/\\text{h}$"], a: 1, tags: ["Relations linéaires", "Taux de variation"] },
+
+		  { id: "mc115", q: "Exprimez $0,000042$ en notation scientifique.", options: ["$4,2 \\times 10^5$", "$4,2 \\times 10^{-5}$", "$42 \\times 10^{-6}$", "$0,42 \\times 10^{-4}$"], a: 1, tags: ["Sens du nombre", "Notation scientifique"] },
           { id: "mc116", q: "Un compte d'épargne rapporte un intérêt de $2\\%$ composé annuellement. Si $1000\\$$ sont investis, quel est le solde après $2$ ans ?", options: ["$1040,00\\$$", "$1040,40\\$$", "$1020,00\\$$", "$1200,00\\$$"], a: 1, tags: ["Littératie financière", "Intérêts composés"] },
           { id: "mc117", q: "Les angles d'un triangle sont dans le rapport $2:3:5$. Quelle est la mesure du plus grand angle ?", options: ["$36^\\circ$", "$54^\\circ$", "$90^\\circ$", "$100^\\circ$"], a: 2, tags: ["Géométrie", "Rapports"] },
           { id: "mc118", q: "Résolvez : $x/4 - 1 = 5$.", options: ["16", "24", "20", "25"], a: 1, tags: ["Algèbre", "Équations"] },
-          { id: "mc119", q: "Un cube a une aire de surface de $150\\text{ cm}^2$. Quelle est la longueur d'un côté ?", options: ["$5\\text{ cm}$", "$25\\text{ cm}$", "$6\\text{ cm}$", "$10\\text{ cm}$"], a: 0, tags: ["Mesure", "Géométrie"] },
+          { id: "set1_q6", q: "Une boulangerie suit le coût total de fabrication de gâteaux personnalisés en fonction du poids du gâteau en kilogrammes. D'après le tableau, quel est le coût fixe initial avant d'ajouter tout poids ?", table: { headers: ["Poids, $w$ (kg)", "Coût total, $C$ ($)"], rows: [["1,5", "42,50"], ["3,0", "65,00"], ["4,5", "87,50"]] }, options: ["$15,00\\$$", "$20,00\\$$", "$22,50\\$$", "$27,50\\$$"], a: 1, tags: ["Relations linéaires", "Valeur initiale"] },
+
+		  { id: "mc119", q: "Un cube a une aire de surface de $150\\text{ cm}^2$. Quelle est la longueur d'un côté ?", options: ["$5\\text{ cm}$", "$25\\text{ cm}$", "$6\\text{ cm}$", "$10\\text{ cm}$"], a: 0, tags: ["Mesure", "Géométrie"] },
           { id: "mc120", q: "Quel est le résultat d'une augmentation de $80\\$$ de $15\\%$, suivie d'une diminution de ce résultat de $15\\%$ ?", options: ["$80,00\\$$", "$78,20\\$$", "$81,80\\$$", "$75,00\\$$"], a: 1, tags: ["Littératie financière", "Pourcentages"] },
           { id: "mc121", q: "Lequel représente une vitesse de $60\\text{ km/h}$ ?", options: ["$1\\text{ km/min}$", "$600\\text{ m/s}$", "$10\\text{ km/min}$", "$360\\text{ km/jour}$"], a: 0, tags: ["Raisonnement proportionnel", "Taux"] },
           { id: "mc122", q: "Simplifiez : $(2^3)^2 \\cdot 2^{-4}$.", options: ["$2^2$", "$2^1$", "$2^6$", "$2^0$"], a: 0, tags: ["Sens du nombre", "Exposants"] },
@@ -1035,12 +1071,15 @@ questions: [
           { id: "mc124", q: "Un compte bancaire contient $1\\,200\\$$. Il rapporte un intérêt simple de $1,5\\%$ par an. Quel montant y aura-t-il sur le compte après $3$ ans ?", options: ["$1\\,254\\$$", "$1\\,218\\$$", "$1\\,245\\$$", "$1\\,300\\$$"], a: 0, tags: ["Littératie financière", "Intérêt"] },
           { id: "mc125", q: "L'échelle d'une carte est $1\\text{ cm} : 20\\text{ km}$. Si deux villes sont à $4,5\\text{ cm}$ l'une de l'autre sur la carte, quelle est la distance réelle ?", options: ["$80\\text{ km}$", "$90\\text{ km}$", "$100\\text{ km}$", "$45\\text{ km}$"], a: 1, tags: ["Raisonnement proportionnel"] },
           { id: "mc126", q: "Résolvez pour $y$ : $5y - 10 = 2y + 8$.", options: ["$y=6$", "$y=2$", "$y=18$", "$y=9$"], a: 0, tags: ["Algèbre"] },
-          { id: "mc127", q: "Trouvez l'aire de surface d'un cube dont le côté mesure $4\\text{ cm}$.", options: ["$64\\text{ cm}^2$", "$96\\text{ cm}^2$", "$16\\text{ cm}^2$", "$48\\text{ cm}^2$"], a: 1, tags: ["Mesure"] },
+          { id: "set2_q1", q: "Le tableau montre les températures maximales quotidiennes enregistrées sur une semaine en octobre. Quelle est la température moyenne pour la semaine ?", table: { headers: ["Jour", "Température (°C)"], rows: [["Lun", "12"], ["Mar", "15"], ["Mer", "11"], ["Jeu", "14"], ["Ven", "18"], ["Sam", "16"], ["Dim", "12"]] }, options: ["$12,5^\\circ\\text{C}$", "$13,0^\\circ\\text{C}$", "$14,0^\\circ\\text{C}$", "$15,5^\\circ\\text{C}$"], a: 2, tags: ["Gestion des données", "Moyenne"] },
+		  { id: "mc127", q: "Trouvez l'aire de surface d'un cube dont le côté mesure $4\\text{ cm}$.", options: ["$64\\text{ cm}^2$", "$96\\text{ cm}^2$", "$16\\text{ cm}^2$", "$48\\text{ cm}^2$"], a: 1, tags: ["Mesure"] },
           { id: "mc128", q: "Une voiture consomme $8\\text{ L}$ de carburant par $100\\text{ km}$. Quelle quantité de carburant est nécessaire pour un voyage de $350\\text{ km}$ ?", options: ["$24\\text{ L}$", "$28\\text{ L}$", "$32\\text{ L}$", "$35\\text{ L}$"], a: 1, tags: ["Raisonnement proportionnel"] },
           { id: "mc129", q: "Quelle est la médiane de cet ensemble de données : $[2, 5, 8, 12, 15, 20]$ ?", options: ["8", "10", "12", "11"], a: 1, tags: ["Données"] },
           { id: "mc130", q: "Un ordinateur portable coûte $800\\$$. La taxe de vente est de $13\\%$. Quel est le coût total ?", options: ["$904\\$$", "$813\\$$", "$880\\$$", "$913\\$$"], a: 0, tags: ["Littératie financière"] },
           { id: "mc131", q: "Simplifiez : $(a^5)^2 \\div a^3$.", options: ["$a^4$", "$a^7$", "$a^{10}$", "$a^{13}$"], a: 1, tags: ["Sens du nombre"] },
-          { id: "mc132", q: "Le rapport garçons/filles dans une classe est de $3:2$. S'il y a $30$ élèves au total, combien y a-t-il de filles ?", options: ["10", "12", "15", "18"], a: 1, tags: ["Raisonnement proportionnel"] },
+			{ id: "set2_q2", q: "Six élèves ont rapporté leurs heures d'étude hebdomadaires dans le tableau ci-dessous. Si le temps d'étude moyen pour les sept élèves du groupe est de $8\\text{ heures}$, combien d'heures Mateo a-t-il étudié ?", table: { headers: ["Élève", "Temps d'étude (h)"], rows: [["Aria", "6"], ["Bao", "9"], ["Chloe", "11"], ["Devon", "5"], ["Elena", "8"], ["Farhan", "7"], ["Mateo", "?"]] }, options: ["$8\\text{ h}$", "$10\\text{ h}$", "$12\\text{ h}$", "$13\\text{ h}$"], a: 3, tags: ["Gestion des données", "Moyenne"] },
+
+		 { id: "mc132", q: "Le rapport garçons/filles dans une classe est de $3:2$. S'il y a $30$ élèves au total, combien y a-t-il de filles ?", options: ["10", "12", "15", "18"], a: 1, tags: ["Raisonnement proportionnel"] },
           { id: "mc133", q: "Quelle est l'aire d'un cercle d'un diamètre de $10\\text{ cm}$ ? (Utilisez $\\pi \\approx 3,14$)", options: ["$314\\text{ cm}^2$", "$78,5\\text{ cm}^2$", "$15,7\\text{ cm}^2$", "$100\\text{ cm}^2$"], a: 1, tags: ["Mesure"] },
           { id: "mc134", q: "Un travailleur gagne $22\\$$ de l'heure et est payé à temps et demi pour les heures supplémentaires (au-delà de $40$ heures). S'il travaille $44$ heures, quel est son salaire brut ?", options: ["$968\\$$", "$1\\,012\\$$", "$880\\$$", "$1\\,100\\$$"], a: 1, tags: ["Littératie financière"] },
           { id: "mc135", q: "Quel point de coordonnées satisfait $y = 3x - 4$ ?", options: ["$(0, 4)$", "$(2, 2)$", "$(1, -1)$", "$(3, 6)$"], a: 1, tags: ["Algèbre"] },
@@ -1052,7 +1091,9 @@ questions: [
           { id: "mc141", q: "Une recette utilise $3$ œufs pour $12$ crêpes. Combien d'œufs faut-il pour $20$ crêpes ?", options: ["4", "5", "6", "7"], a: 1, tags: ["Raisonnement proportionnel"] },
           { id: "mc142", q: "Calculez : $2 + 3 \\times (5 - 1)^2$.", options: ["80", "50", "20", "26"], a: 1, tags: ["Sens du nombre"] },
           { id: "mc143", q: "Une carte de crédit facture un intérêt annuel de $18\\%$. Quel est le taux d'intérêt mensuel ?", options: ["$1,5\\%$", "$1,8\\%$", "$0,18\\%$", "$15\\%$"], a: 0, tags: ["Littératie financière"] },
-          { id: "mc144", q: "Quelle relation est linéaire ?", options: ["$y = x^2$", "$y = 4/x$", "$y = 2x + 1$", "$y = \sqrt{x}$"], a: 2, tags: ["Algèbre"] },
+          { id: "set2_q3", q: "Une coureuse enregistre ses contre-la-montre de 5 km sur 5 semaines consécutives. Quel est le temps médian en minutes ?", table: { headers: ["Semaine", "Temps (min)"], rows: [["1", "24,5"], ["2", "23,8"], ["3", "25,1"], ["4", "22,9"], ["5", "23,2"]] }, options: ["$22,9\\text{ min}$", "$23,8\\text{ min}$", "$23,9\\text{ min}$", "$24,5\\text{ min}$"], a: 1, tags: ["Gestion des données", "Médiane"] },
+
+		  { id: "mc144", q: "Quelle relation est linéaire ?", options: ["$y = x^2$", "$y = 4/x$", "$y = 2x + 1$", "$y = \sqrt{x}$"], a: 2, tags: ["Algèbre"] },
           { id: "mc145", q: "La moyenne de $5$ nombres est $10$. Si quatre de ces nombres sont $8, 12, 7, 13$, quel est le cinquième ?", options: ["10", "15", "5", "20"], a: 0, tags: ["Données"] },
           { id: "mc146", q: "Un rectangle a un périmètre de $40\\text{ cm}$. Si sa longueur est de $12\\text{ cm}$, quelle est sa largeur ?", options: ["$28\\text{ cm}$", "$8\\text{ cm}$", "$14\\text{ cm}$", "$10\\text{ cm}$"], a: 1, tags: ["Mesure"] },
           { id: "mc147", q: "Simplifiez : $3(x - 4) + 2x$.", options: ["$5x - 4$", "$5x - 12$", "$x - 12$", "$-x - 12$"], a: 1, tags: ["Algèbre"] },
@@ -1062,7 +1103,8 @@ questions: [
           { id: "mc151", q: "Un jean coûte $60\\$$. Il est en solde à $30\\%$ de rabais. Quel est le prix de vente ?", options: ["$18\\$$", "$42\\$$", "$30\\$$", "$50\\$$"], a: 1, tags: ["Littératie financière"] },
           { id: "mc152", q: "Résolvez pour $x$ : $x/2 + 5 = 11$.", options: ["3", "12", "6", "8"], a: 1, tags: ["Algèbre"] },
           { id: "mc153", q: "Quel est le mode de $[1, 2, 2, 3, 4, 4, 4, 5]$ ?", options: ["4", "2", "3", "5"], a: 0, tags: ["Données"] },
-          { id: "mc154", q: "Une sphère a un rayon de $3\\text{ cm}$. Quel est son volume ? (Utilisez $V = 4/3 \\pi r^3$ et $\\pi \\approx 3,14$)", options: ["$113,04\\text{ cm}^3$", "$37,68\\text{ cm}^3$", "$28,26\\text{ cm}^3$", "$100\\text{ cm}^3$"], a: 0, tags: ["Mesure"] },
+          { id: "set2_q4", q: "Quel tableau montre un ensemble de données où la moyenne et la médiane sont égales ?", options: [{ table: { headers: ["Échantillon", "Valeur"], rows: [["1", "4"], ["2", "8"], ["3", "12"], ["4", "16"], ["5", "20"]] } }, { table: { headers: ["Échantillon", "Valeur"], rows: [["1", "2"], ["2", "4"], ["3", "6"], ["4", "8"], ["5", "30"]] } }, { table: { headers: ["Échantillon", "Valeur"], rows: [["1", "10"], ["2", "10"], ["3", "10"], ["4", "20"], ["5", "50"]] } }, { table: { headers: ["Échantillon", "Valeur"], rows: [["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "100"]] } }], a: 0, tags: ["Gestion des données", "Statistiques"] },
+		  { id: "mc154", q: "Une sphère a un rayon de $3\\text{ cm}$. Quel est son volume ? (Utilisez $V = 4/3 \\pi r^3$ et $\\pi \\approx 3,14$)", options: ["$113,04\\text{ cm}^3$", "$37,68\\text{ cm}^3$", "$28,26\\text{ cm}^3$", "$100\\text{ cm}^3$"], a: 0, tags: ["Mesure"] },
           { id: "mc155", q: "Une personne économise $50\\$$ par mois pendant $2$ ans. Combien a-t-elle économisé ?", options: ["$100\\$$", "$600\\$$", "$1\\,200\\$$", "$5\\,000\\$$"], a: 2, tags: ["Littératie financière"] },
           { id: "mc156", q: "Quel est le meilleur achat ?", options: ["$500\\text{ g}$ pour $4,00\\$$", "$1\\text{ kg}$ pour $7,50\\$$", "$200\\text{ g}$ pour $2,00\\$$", "$2\\text{ kg}$ pour $16,00\\$$"], a: 1, tags: ["Raisonnement proportionnel"] },
           { id: "mc157", q: "Trouvez la pente de la droite passant par $(0,0)$ et $(2,6)$.", options: ["3", "1/3", "6", "2"], a: 0, tags: ["Algèbre"] },
@@ -1072,7 +1114,9 @@ questions: [
           { id: "mc161", q: "Résolvez pour $x$ : $2(x + 1) = 10$.", options: ["4", "5", "9", "3"], a: 0, tags: ["Algèbre"] },
           { id: "mc162", q: "Quel est le coût de $5$ articles si $2$ articles coûtent $1,50\\$$ ?", options: ["$3,75\\$$", "$3,00\\$$", "$4,00\\$$", "$7,50\\$$"], a: 0, tags: ["Raisonnement proportionnel"] },
           { id: "mc163", q: "Le salaire annuel d'un employé est de $48\\,000\\$$. Quel est son salaire mensuel brut ?", options: ["$4\\,000\\$$", "$2\\,000\\$$", "$4\\,800\\$$", "$1\\,000\\$$"], a: 0, tags: ["Littératie financière"] },
-          { id: "mc164", q: "L'étendue d'un ensemble de données est de $20$. Si le nombre le plus bas est $5$, quel est le plus élevé ?", options: ["15", "25", "20", "10"], a: 1, tags: ["Données"] },
+          { id: "set2_q5", q: "Le tableau liste les points marqués par une équipe de basketball en six matchs. Si le score de $110$ au match 6 est retiré, comment le score moyen change-t-il ?", table: { headers: ["Match", "Points"], rows: [["1", "72"], ["2", "78"], ["3", "80"], ["4", "74"], ["5", "76"], ["6", "110"]] }, options: ["Diminue de 6 points", "Diminue de 8 points", "Augmente de 6 points", "Reste le même"], a: 0, tags: ["Gestion des données", "Valeurs aberrantes"] },
+
+		  { id: "mc164", q: "L'étendue d'un ensemble de données est de $20$. Si le nombre le plus bas est $5$, quel est le plus élevé ?", options: ["15", "25", "20", "10"], a: 1, tags: ["Données"] },
           { id: "mc165", q: "Convertissez $2,5\\text{ L}$ en millilitres.", options: ["$25\\text{ mL}$", "$250\\text{ mL}$", "$2\\,500\\text{ mL}$", "$25\\,000\\text{ mL}$"], a: 2, tags: ["Mesure"] },
           { id: "mc166", q: "Combien font $150\\%$ de $80$ ?", options: ["120", "100", "150", "180"], a: 0, tags: ["Sens du nombre"] },
           { id: "mc167", q: "Un forfait de téléphone coûte $45\\$$ plus $0,10\\$$ par message texte. Si $100$ messages sont envoyés, quel est le coût ?", options: ["$45,10\\$$", "$55\\$$", "$145\\$$", "$46\\$$"], a: 1, tags: ["Littératie financière"] },
@@ -1140,7 +1184,8 @@ questions: [
           { id: "mc174", q: "Simplifiez : $2(x + 3) - 4$.", options: ["$2x + 2$", "$2x + 6$", "$2x - 1$", "$2x + 10$"], a: 0, tags: ["Algèbre"] },
           { id: "mc175", q: "Un sac contient $5$ billes rouges et $15$ billes bleues. Quel est le rapport entre les billes rouges et le total des billes ?", options: ["$1:3$", "$1:4$", "$3:1$", "$4:1$"], a: 1, tags: ["Raisonnement proportionnel"] },
           { id: "mc176", q: "Quel est le périmètre d'un carré ayant une aire de $64\\text{ cm}^2$ ?", options: ["$16\\text{ cm}$", "$32\\text{ cm}$", "$64\\text{ cm}$", "$8\\text{ cm}$"], a: 1, tags: ["Mesure"] },
-          { id: "mc177", q: "Convertissez $1,5\\text{ kg}$ en grammes.", options: ["$150\\text{ g}$", "$1\\,500\\text{ g}$", "$15\\,000\\text{ g}$", "$15\\text{ g}$"], a: 1, tags: ["Mesure"] },
+          { id: "set3_q1", q: "Pour fabriquer une nuance spécifique de peinture verte, de la peinture bleue, jaune et blanche sont mélangées ensemble. D'après les fournitures disponibles dans le tableau, combien de lots complets de peinture verte peut-on fabriquer ?", table: { headers: ["Couleur", "Quantité pour 1 lot", "Quantité disponible"], rows: [["Bleue", "\\frac{1}{3} \\text{ L}", "4 \\text{ L}"], ["Jaune", "\\frac{1}{2} \\text{ L}", "5 \\text{ L}"], ["Blanche", "\\frac{1}{6} \\text{ L}", "3 \\text{ L}"]] }, options: ["$8\\text{ lots}$", "$10\\text{ lots}$", "$12\\text{ lots}$", "$18\\text{ lots}$"], a: 1, tags: ["Fractions", "Quantités limitantes"] },
+	  { id: "mc177", q: "Convertissez $1,5\\text{ kg}$ en grammes.", options: ["$150\\text{ g}$", "$1\\,500\\text{ g}$", "$15\\,000\\text{ g}$", "$15\\text{ g}$"], a: 1, tags: ["Mesure"] },
           { id: "mc178", q: "Calculez la moyenne de $[10, 20, 30, 40, 50]$.", options: ["25", "30", "35", "40"], a: 1, tags: ["Données"] },
           { id: "mc179", q: "Un magasin offre un rabais de $20\\%$. Une chemise coûte $40,00\\$$. Quel est le prix soldé ?", options: ["$8,00\\$$", "$32,00\\$$", "$48,00\\$$", "$20,00\\$$"], a: 1, tags: ["Littératie financière"] },
           { id: "mc180", q: "Résolvez pour $y$ : $2y + 5 = 15$.", options: ["5", "10", "15", "20"], a: 0, tags: ["Algèbre"] },
@@ -1149,19 +1194,25 @@ questions: [
           { id: "mc183", q: "Si $y = 3x - 2$ et $x = 4$, quelle est la valeur de $y$ ?", options: ["10", "14", "12", "6"], a: 0, tags: ["Algèbre"] },
           { id: "mc184", q: "Une recette utilise $2$ tasses de farine pour $10$ biscuits. Combien de tasses faut-il pour $25$ biscuits ?", options: ["4", "5", "6", "10"], a: 1, tags: ["Raisonnement proportionnel"] },
           { id: "mc185", q: "Quelle est la médiane de $[1, 3, 5, 7, 9]$ ?", options: ["3", "5", "7", "4"], a: 1, tags: ["Données"] },
-          { id: "mc186", q: "Trouvez la circonférence d'un cercle avec $r=7\\text{ cm}$. (Utilisez $\\pi \\approx 22/7$)", options: ["$22\\text{ cm}$", "$44\\text{ cm}$", "$88\\text{ cm}$", "$154\\text{ cm}$"], a: 1, tags: ["Mesure"] },
+			{ id: "set3_q2", q: "Un service de traiteur pour événements facture des frais fixes de configuration de serveur plus un prix par invité. Quel tableau correspond à la règle $C = 18g + 150$ ?", options: [{ table: { headers: ["Invités, $g$", "Coût, $C$ ($)"], rows: [["10", "330"], ["20", "510"], ["30", "690"]] } }, { table: { headers: ["Invités, $g$", "Coût, $C$ ($)"], rows: [["10", "168"], ["20", "336"], ["30", "504"]] } }, { table: { headers: ["Invités, $g$", "Coût, $C$ ($)"], rows: [["10", "150"], ["20", "330"], ["30", "510"]] } }, { table: { headers: ["Invités, $g$", "Coût, $C$ ($)"], rows: [["10", "350"], ["20", "530"], ["30", "710"]] } }], a: 0, tags: ["Relations linéaires", "Modélisation"] },
+	
+		 { id: "mc186", q: "Trouvez la circonférence d'un cercle avec $r=7\\text{ cm}$. (Utilisez $\\pi \\approx 22/7$)", options: ["$22\\text{ cm}$", "$44\\text{ cm}$", "$88\\text{ cm}$", "$154\\text{ cm}$"], a: 1, tags: ["Mesure"] },
           { id: "mc187", q: "Une personne investit $1\\,000\\$$ à un intérêt simple annuel de $5\\%$. Quel est l'intérêt après $2$ ans ?", options: ["$50\\$$", "$100\\$$", "$150\\$$", "$200\\$$"], a: 1, tags: ["Littératie financière"] },
           { id: "mc188", q: "Quelle fraction est la plus petite ?", options: ["$1/2$", "$1/3$", "$1/4$", "$1/5$"], a: 3, tags: ["Sens du nombre"] },
           { id: "mc189", q: "Résolvez : $2(x - 1) = 8$.", options: ["3", "4", "5", "6"], a: 2, tags: ["Algèbre"] },
           { id: "mc190", q: "Un triangle a des angles de $40^\\circ$ et $60^\\circ$. Quel est le troisième angle ?", options: ["$80^\\circ$", "$100^\\circ$", "$120^\\circ$", "$180^\\circ$"], a: 0, tags: ["Mesure"] },
           { id: "mc191", q: "Quel est le mode de $[5, 5, 10, 10, 10, 15]$ ?", options: ["5", "10", "15", "10,5"], a: 1, tags: ["Données"] },
-          { id: "mc192", q: "Une personne épargne $20\\%$ de son chèque de paie de $400\\$$. Combien a-t-elle épargné ?", options: ["$20\\$$", "$40\\$$", "$80\\$$", "$100\\$$"], a: 2, tags: ["Littératie financière"] },
+          { id: "set3_q3", q: "Un réservoir contient de l'eau qui est vidangée à un rythme régulier. Quelle ligne représentée graphiquement ci-dessous représente un réservoir commençant à $80\\text{ litres}$ et se vidant complètement en $10\\text{ minutes}$ ?", graph: { fn: (x) => -8*x + 80, viewBox: { x: [0, 10], y: [0, 80] }, domain: [0, 10] }, options: ["$y = -8x + 80$", "$y = -10x + 80$", "$y = 8x + 80$", "$y = -0,125x + 80$"], a: 0, tags: ["Relations linéaires", "Représentation graphique"] },
+
+		  { id: "mc192", q: "Une personne épargne $20\\%$ de son chèque de paie de $400\\$$. Combien a-t-elle épargné ?", options: ["$20\\$$", "$40\\$$", "$80\\$$", "$100\\$$"], a: 2, tags: ["Littératie financière"] },
           { id: "mc193", q: "Si $x/5 + 2 = 10$, quelle est la valeur de $x$ ?", options: ["40", "50", "30", "60"], a: 0, tags: ["Algèbre"] },
           { id: "mc194", q: "Quelle est l'aire d'un triangle de base $12\\text{ cm}$ et de hauteur $5\\text{ cm}$ ?", options: ["$60\\text{ cm}^2$", "$30\\text{ cm}^2$", "$15\\text{ cm}^2$", "$20\\text{ cm}^2$"], a: 1, tags: ["Mesure"] },
           { id: "mc195", q: "Trouvez $20\\%$ de $150$.", options: ["20", "30", "40", "50"], a: 1, tags: ["Sens du nombre"] },
           { id: "mc196", q: "Une voiture parcourt $300\\text{ km}$ avec $30\\text{ L}$ d'essence. Quel est le rendement en km/L ?", options: ["$10\\text{ km/L}$", "$100\\text{ km/L}$", "$1\\text{ km/L}$", "$3\\text{ km/L}$"], a: 0, tags: ["Raisonnement proportionnel"] },
           { id: "mc197", q: "Quelle est l'aire de surface d'un prisme rectangulaire de côtés $2, 3, 4$ ?", options: ["$24$", "$52$", "$26$", "$48$"], a: 1, tags: ["Mesure"] },
-          { id: "mc198", q: "Un article coûte $50,00\\$$ plus $13\\%$ de taxe. Quel est le total ?", options: ["$56,50\\$$", "$51,30\\$$", "$63,00\\$$", "$50,13\\$$"], a: 0, tags: ["Littératie financière"] },
+          { id: "set3_q4", q: "Samuel a $500\\$$ dans un compte d'épargne. Il retire un montant fixe chaque semaine pour le transport en commun. Le tableau montre son solde au fil du temps. Combien d'argent reste-t-il après $12\\text{ semaines}$ ?", table: { headers: ["Semaine, $w$", "Solde, $B$ ($)"], rows: [["0", "500"], ["2", "440"], ["4", "380"]] }, options: ["$140\\$$", "$160\\$$", "$200\\$$", "$260\\$$"], a: 0, tags: ["Relations linéaires", "Extrapolation"] },
+
+		  { id: "mc198", q: "Un article coûte $50,00\\$$ plus $13\\%$ de taxe. Quel est le total ?", options: ["$56,50\\$$", "$51,30\\$$", "$63,00\\$$", "$50,13\\$$"], a: 0, tags: ["Littératie financière"] },
           { id: "mc199", q: "Résolvez pour $x$ : $3x + 4 = 19$.", options: ["5", "15", "6", "4"], a: 0, tags: ["Algèbre"] },
           { id: "mc200", q: "L'échelle d'une carte est $1:1\\,000$. Que représentent $5\\text{ cm}$ sur la carte ?", options: ["$50\\text{ m}$", "$5\\text{ m}$", "$500\\text{ m}$", "$5\\text{ km}$"], a: 0, tags: ["Raisonnement proportionnel"] },
           { id: "mc201", q: "Quelle est la racine carrée de $100$ ?", options: ["10", "20", "50", "5"], a: 0, tags: ["Sens du nombre"] },
@@ -1169,11 +1220,15 @@ questions: [
           { id: "mc203", q: "Trouvez le volume d'une sphère avec $r=3$. (Utilisez $\\pi \\approx 3,14$)", options: ["$113,04$", "$37,68$", "$28,26$", "$100$"], a: 0, tags: ["Mesure"] },
           { id: "mc204", q: "Si $y = -2x + 10$ et $y=0$, quelle est la valeur de $x$ ?", options: ["5", "-5", "10", "0"], a: 0, tags: ["Algèbre"] },
           { id: "mc205", q: "Un sac contient $2$ billes rouges et $3$ billes bleues. Quelle est la probabilité de tirer une rouge ?", options: ["$2/3$", "$2/5$", "$3/5$", "$1/2$"], a: 1, tags: ["Données"] },
-          { id: "mc206", q: "Convertissez $5\\,000\\text{ mL}$ en litres.", options: ["$0,5\\text{ L}$", "$5\\text{ L}$", "$50\\text{ L}$", "$500\\text{ L}$"], a: 1, tags: ["Mesure"] },
+          { id: "set3_q5", q: "Un agriculteur vend des pommes en caisses. La masse d'une caisse vide plus les pommes à l'intérieur est donnée par le graphique ci-dessous. Quelle est la masse de la caisse vide ?", graph: { fn: (x) => 15*x + 2, viewBox: { x: [0, 5], y: [0, 80] }, domain: [0, 5] }, options: ["$0\\text{ kg}$", "$2\\text{ kg}$", "$15\\text{ kg}$", "$17\\text{ kg}$"], a: 1, tags: ["Relations linéaires", "Valeur initiale"] },
+
+		  { id: "mc206", q: "Convertissez $5\\,000\\text{ mL}$ en litres.", options: ["$0,5\\text{ L}$", "$5\\text{ L}$", "$50\\text{ L}$", "$500\\text{ L}$"], a: 1, tags: ["Mesure"] },
           { id: "mc207", q: "Combien font $200\\%$ de $40$ ?", options: ["40", "80", "120", "160"], a: 1, tags: ["Sens du nombre"] },
           { id: "mc208", q: "Un investissement de $500\\$$ rapporte $2\\%$ d'intérêt. Quel est le montant après $1$ an ?", options: ["$510\\$$", "$502\\$$", "$520\\$$", "$600\\$$"], a: 0, tags: ["Littératie financière"] },
           { id: "mc209", q: "Trouvez l'hypoténuse : côtés de $3$ et $4$.", options: ["5", "7", "12", "25"], a: 0, tags: ["Mesure"] },
-          { id: "mc210", q: "Résolvez $x - 7 = 10$.", options: ["3", "17", "70", "0"], a: 1, tags: ["Algèbre"] },
+          { id: "set3_q6", q: "Quel graphique montre correctement une relation non linéaire où la distance parcourue augmente à un taux accéléré au fil du temps ?", graph: { fn: (x) => 0.5*x*x, viewBox: { x: [0, 6], y: [0, 18] }, domain: [0, 6] }, options: ["Courbe quadratique (accélération)", "Ligne droite (vitesse constante)", "Ligne horizontale (au repos)", "Ligne décroissante (décélération)"], a: 0, tags: ["Non linéaire", "Identification de graphique"] },
+
+		  { id: "mc210", q: "Résolvez $x - 7 = 10$.", options: ["3", "17", "70", "0"], a: 1, tags: ["Algèbre"] },
           { id: "mc211", q: "Quelle est l'étendue de $[1, 5, 10, 15, 20]$ ?", options: ["19", "20", "15", "10"], a: 0, tags: ["Données"] },
           { id: "mc212", q: "Une recette utilise $1$ tasse de sucre pour $4$ tasses d'eau. Combien de sucre pour $10$ tasses d'eau ?", options: ["$2,5$", "$2$", "$4$", "$10$"], a: 0, tags: ["Raisonnement proportionnel"] },
           { id: "mc213", q: "Quelle est l'aire d'un cercle avec $r=10$ ? (Utilisez $\\pi \\approx 3,14$)", options: ["$31,4$", "$314$", "$100$", "$62,8$"], a: 1, tags: ["Mesure"] }
@@ -1233,7 +1288,9 @@ questions: [
         calc: true,
         questions: [
           { id: "mc214", q: "Un travailleur gagne $30\\$$ de l'heure. S'il travaille $35$ heures, quel est son salaire brut ?", options: ["$1\\,050\\$$", "$900\\$$", "$1\\,200\\$$", "$1\\,500\\$$"], a: 0, tags: ["Littératie financière"] },
-          { id: "mc215", q: "Une voiture parcourt $200\\text{ km}$ en $2,5$ heures. Quelle est sa vitesse ?", options: ["$80\\text{ km/h}$", "$100\\text{ km/h}$", "$75\\text{ km/h}$", "$50\\text{ km/h}$"], a: 0, tags: ["Raisonnement proportionnel"] },
+          { id: "set4_q1", q: "Marcus gagne un salaire de base bihebdomadaire plus une commission sur les ventes. Le tableau montre sa rémunération totale pour différents volumes de ventes. Quel est son taux de commission ?", table: { headers: ["Ventes, $S$ ($)", "Rémunération totale, $P$ ($)"], rows: [["1000", "650"], ["2500", "800"], ["4000", "950"]] }, options: ["$5\\%$", "$10\\%$", "$12\\%$", "$15\\%$"], a: 1, tags: ["Littératie financière", "Commission"] },
+{ id: "set4_q2", q: "Sofia a $850\\$$ dans son compte chèques. Elle dépose un chèque de paie de $420\\$$ et paie les factures mensuelles énumérées dans le tableau. Quel est son solde restant ?", table: { headers: ["Dépense", "Montant ($)"], rows: [["Facture de téléphone", "65"], ["Électricité", "110"], ["Épicerie", "240"]] }, options: ["$855\\$$", "$875\\$$", "$915\\$$", "$1\\,025\\$$"], a: 0, tags: ["Littératie financière", "Budget"] },
+		  { id: "mc215", q: "Une voiture parcourt $200\\text{ km}$ en $2,5$ heures. Quelle est sa vitesse ?", options: ["$80\\text{ km/h}$", "$100\\text{ km/h}$", "$75\\text{ km/h}$", "$50\\text{ km/h}$"], a: 0, tags: ["Raisonnement proportionnel"] },
           { id: "mc216", q: "Résolvez pour $x$ : $3x - 5 = 10$.", options: ["5", "15", "3", "2"], a: 0, tags: ["Algèbre"] },
           { id: "mc217", q: "Trouvez l'aire d'un carré ayant un périmètre de $20\\text{ cm}$.", options: ["$25\\text{ cm}^2$", "$20\\text{ cm}^2$", "$100\\text{ cm}^2$", "$5\\text{ cm}^2$"], a: 0, tags: ["Mesure"] },
           { id: "mc218", q: "Combien font $12\\%$ de $150,00\\$$ ?", options: ["$18\\$$", "$12\\$$", "$15\\$$", "$20\\$$"], a: 0, tags: ["Littératie financière"] },
@@ -1241,7 +1298,9 @@ questions: [
           { id: "mc220", q: "Un sac contient $10$ billes rouges et $40$ billes bleues. Quel est le rapport rouges:bleues ?", options: ["$1:4$", "$1:5$", "$4:1$", "$5:1$"], a: 0, tags: ["Raisonnement proportionnel"] },
           { id: "mc221", q: "Quel est le volume d'un prisme rectangulaire de côtés $2, 5, 10$ ?", options: ["$100$", "$17$", "$50$", "$70$"], a: 0, tags: ["Mesure"] },
           { id: "mc222", q: "Convertissez $2,5\\text{ km}$ en mètres.", options: ["$2\\,500\\text{ m}$", "$250\\text{ m}$", "$25\\text{ m}$", "$25\\,000\\text{ m}$"], a: 0, tags: ["Mesure"] },
-          { id: "mc223", q: "Calculez la médiane de $[10, 15, 20, 25, 30, 35]$.", options: ["22,5", "20", "25", "15"], a: 0, tags: ["Données"] },
+          { id: "set4_q3", q: "Deux agences de location de voitures offrent différents modèles de tarification présentés dans les tableaux ci-dessous. À partir de combien de kilomètres les deux agences facturent-elles exactement le même prix total ?", table: { headers: ["Distance (km)", "Agence A ($)", "Agence B ($)"], rows: [["50", "60", "50"], ["100", "70", "70"], ["150", "80", "90"]] }, options: ["$50\\text{ km}$", "$75\\text{ km}$", "$100\\text{ km}$", "$150\\text{ km}$"], a: 2, tags: ["Systèmes d'équations", "Point d'intersection"] },
+
+		  { id: "mc223", q: "Calculez la médiane de $[10, 15, 20, 25, 30, 35]$.", options: ["22,5", "20", "25", "15"], a: 0, tags: ["Données"] },
           { id: "mc224", q: "Un magasin offre un rabais de $30\\%$. Un article coûte $100,00\\$$. Quel est le prix soldé ?", options: ["$70,00\\$$", "$30,00\\$$", "$130,00\\$$", "$100,00\\$$"], a: 0, tags: ["Littératie financière"] },
           { id: "mc225", q: "Résolvez pour $y$ : $y/2 + 4 = 10$.", options: ["12", "6", "14", "8"], a: 0, tags: ["Algèbre"] },
           { id: "mc226", q: "Quelle est l'aire d'un cercle de diamètre $d=20$ ? (Utilisez $\\pi \\approx 3,14$)", options: ["$314$", "$1\\,256$", "$62,8$", "$100$"], a: 0, tags: ["Mesure"] },
@@ -1253,7 +1312,9 @@ questions: [
           { id: "mc232", q: "Une personne investit $2\\,000\\$$ à un intérêt simple annuel de $3\\%$. Quel est l'intérêt après $5$ ans ?", options: ["$300\\$$", "$60\\$$", "$100\\$$", "$1\\,000\\$$"], a: 0, tags: ["Littératie financière"] },
           { id: "mc233", q: "Quelle fraction est la plus grande ?", options: ["$3/4$", "$1/2$", "$2/3$", "$5/8$"], a: 0, tags: ["Sens du nombre"] },
           { id: "mc234", q: "Résolvez : $5(x + 2) = 25$.", options: ["3", "5", "7", "10"], a: 0, tags: ["Algèbre"] },
-          { id: "mc235", q: "Un triangle a des angles de $90^\\circ$ et $45^\\circ$. Quel est le troisième angle ?", options: ["$45^\\circ$", "$90^\\circ$", "$60^\\circ$", "$180^\\circ$"], a: 0, tags: ["Mesure"] },
+          { id: "set4_q4", q: "Un entrepreneur estime le coût total de l'installation de planchers de bois franc à l'aide du graphique ci-dessous. Quel est le coût par pied carré d'installation de plancher ?", graph: { fn: (x) => 8*x + 200, viewBox: { x: [0, 100], y: [0, 1000] }, domain: [0, 100] }, options: ["$6\\$/\\text{pi carré}$", "$8\\$/\\text{pi carré}$", "$10\\$/\\text{pi carré}$", "$12\\$/\\text{pi carré}$"], a: 1, tags: ["Littératie financière", "Taux de variation"] },
+
+		  { id: "mc235", q: "Un triangle a des angles de $90^\\circ$ et $45^\\circ$. Quel est le troisième angle ?", options: ["$45^\\circ$", "$90^\\circ$", "$60^\\circ$", "$180^\\circ$"], a: 0, tags: ["Mesure"] },
           { id: "mc236", q: "Quel est le mode de $[1, 1, 2, 2, 2, 3]$ ?", options: ["2", "1", "3", "1,5"], a: 0, tags: ["Données"] },
           { id: "mc237", q: "Une personne épargne $15\\%$ de son chèque de paie de $600\\$$. Combien a-t-elle épargné ?", options: ["$90\\$$", "$15\\$$", "$60\\$$", "$100\\$$"], a: 0, tags: ["Littératie financière"] },
           { id: "mc238", q: "Si $2x + 10 = 20$, quelle est la valeur de $x$ ?", options: ["5", "10", "15", "20"], a: 0, tags: ["Algèbre"] },
@@ -1268,7 +1329,9 @@ questions: [
           { id: "mc247", q: "Une personne gagne $20\\$/\\text{h}$ et travaille $40$ heures par semaine. Quel est son salaire annuel ($52$ semaines) ?", options: ["$41\\,600\\$$", "$800\\$$", "$4\\,160\\$$", "$50\\,000\\$$"], a: 0, tags: ["Littératie financière"] },
           { id: "mc248", q: "Quel est le volume d'une sphère avec $r=2$. (Utilisez $\\pi \\approx 3,14$)", options: ["$33,49$", "$12,56$", "$25,12$", "$100$"], a: 0, tags: ["Mesure"] },
           { id: "mc249", q: "Si $y = 3x - 5$ et $y=10$, quelle est la valeur de $x$ ?", options: ["5", "15", "3", "0"], a: 0, tags: ["Algèbre"] },
-          { id: "mc250", q: "Un sac contient $1$ bille rouge et $4$ billes bleues. Quelle est la probabilité de tirer une rouge ?", options: ["$1/5$", "$1/4$", "$4/5$", "$1/2$"], a: 0, tags: ["Données"] },
+          { id: "set4_q5", q: "Un investisseur suit la valeur de deux actions sur 4 trimestres. D'après le tableau ci-dessous, quelle action a connu le pourcentage d'augmentation global le plus élevé du T1 au T4 ?", table: { headers: ["Trimester", "Action X ($)", "Action Y ($)"], rows: [["T1", "20", "50"], ["T2", "22", "55"], ["T3", "25", "58"], ["T4", "30", "65"]] }, options: ["Action X (hausse de 50 %)", "Action Y (hausse de 30 %)", "Les deux ont eu le même pourcentage d'augmentation", "Action Y (hausse de 50 %)"], a: 0, tags: ["Littératie financière", "Pourcentages"] },
+
+		  { id: "mc250", q: "Un sac contient $1$ bille rouge et $4$ billes bleues. Quelle est la probabilité de tirer une rouge ?", options: ["$1/5$", "$1/4$", "$4/5$", "$1/2$"], a: 0, tags: ["Données"] },
           { id: "mc251", q: "Convertissez $10\\,000\\text{ mL}$ en litres.", options: ["$10\\text{ L}$", "$1\\text{ L}$", "$100\\text{ L}$", "$1\\,000\\text{ L}$"], a: 0, tags: ["Mesure"] },
           { id: "mc252", q: "Combien font $300\\%$ de $20$ ?", options: ["60", "20", "40", "100"], a: 0, tags: ["Sens du nombre"] },
           { id: "mc253", q: "Un investissement de $1\\,000\\$$ rapporte $4\\%$ d'intérêt. Quel est le montant total après $1$ an ?", options: ["$1\\,040\\$$", "$1\\,004\\$$", "$1\\,044\\$$", "$1\\,400\\$$"], a: 0, tags: ["Littératie financière"] },
@@ -1335,13 +1398,16 @@ questions: [
           { id: "mc259", q: "Un capital de $5\\,000\\$$ est investi à un taux de $4\\%$ composé semi-annuellement. Quelle est la valeur totale après $2$ ans ?", options: ["$5\\,412,16\\$$", "$5\\,408,00\\$$", "$5\\,416,32\\$$", "$5\\,849,29\\$$"], a: 0, tags: ["Littératie financière", "Intérêts composés"] },
           { id: "mc260", q: "Un prisme à base triangulaire rectangle a une base dont les côtés mesurent $5\\text{ cm}$ et $12\\text{ cm}$. Si la hauteur du prisme est de $20\\text{ cm}$, quelle est son aire de surface totale ?", options: ["$660\\text{ cm}^2$", "$600\\text{ cm}^2$", "$720\\text{ cm}^2$", "$750\\text{ cm}^2$"], a: 0, tags: ["Mesure", "Aire de surface"] },
           { id: "mc261", q: "Résolvez le système : $3x + 2y = 12$ et $y = 2x - 1$. Trouvez $x$.", options: ["2", "3", "1", "4"], a: 0, tags: ["Algèbre", "Systèmes linéaires"] },
-          { id: "mc262", q: "Une voiture se déprécie de $15\\%$ de sa valeur actuelle chaque année. Si une voiture vaut $30\\,000\\$$ maintenant, combien vaudra-t-elle dans $3$ ans (à l'unité près) ?", options: ["$18\\,424\\$$", "$16\\,500\\$$", "$21\\,675\\$$", "$19\\,500\\$$"], a: 0, tags: ["Littératie financière", "Dépréciation"] },
+          { id: "set5_q1", q: "Une entreprise exploite deux camions de livraison. Le coût d'exploitation du camion A est modélisé par $C_A = 0,40d + 120$, où $d$ est la distance en km. Les coûts du camion B sont enregistrés dans le tableau ci-dessous. Pour un trajet de $500\\text{ km}$, quel camion est le moins cher et de combien ?", table: { headers: ["Distance, $d$ (km)", "Coût camion B, $C_B$ ($)"], rows: [["100", "115"], ["200", "170"], ["300", "225"]] }, options: ["Camion A est moins cher de $15\\$$", "Camion B est moins cher de $15\\$$", "Camion A est moins cher de $25\\$$", "Camion B est moins cher de $25\\$$"], a: 1, tags: ["Systèmes d'équations", "Analyse en plusieurs étapes"] },
+		  { id: "mc262", q: "Une voiture se déprécie de $15\\%$ de sa valeur actuelle chaque année. Si une voiture vaut $30\\,000\\$$ maintenant, combien vaudra-t-elle dans $3$ ans (à l'unité près) ?", options: ["$18\\,424\\$$", "$16\\,500\\$$", "$21\\,675\\$$", "$19\\,500\\$$"], a: 0, tags: ["Littératie financière", "Dépréciation"] },
           { id: "mc263", q: "La moyenne de sept nombres est $15$. Si on ajoute un huitième nombre, la nouvelle moyenne est $17$. Quel est ce huitième nombre ?", options: ["31", "17", "25", "19"], a: 0, tags: ["Données", "Moyenne"] },
           { id: "mc264", q: "Une maquette d'un bâtiment est à l'échelle $1:250$. Si le volume de la maquette est de $0,5\\text{ m}^3$, quel est le volume du bâtiment réel ?", options: ["$7\\,812\\,500\\text{ m}^3$", "$125\\,000\\text{ m}^3$", "$31\\,250\\text{ m}^3$", "$1\\,250\\text{ m}^3$"], a: 0, tags: ["Raisonnement proportionnel", "Échelle/Volume"] },
           { id: "mc265", q: "Déterminez la longueur de la diagonale d'un prisme rectangulaire de dimensions $3\\text{ cm} \\times 4\\text{ cm} \\times 12\\text{ cm}$.", options: ["$13\\text{ cm}$", "$19\\text{ cm}$", "$15\\text{ cm}$", "$17\\text{ cm}$"], a: 0, tags: ["Géométrie", "Pythagore 3D"] },
           { id: "mc266", q: "Un employé gagne $22\\$/\\text{h}$ pour les $35$ premières heures et $1,5\\times$ pour les heures supplémentaires. Si son salaire brut était de $1\\,034\\$$, combien d'heures a-t-il travaillées au total ?", options: ["43", "40", "45", "42"], a: 0, tags: ["Littératie financière", "Modélisation algébrique"] },
           { id: "mc267", q: "Un sac contient $5$ billes rouges, $3$ bleues et $2$ vertes. Si deux billes sont tirées sans remise, quelle est la probabilité qu'elles soient toutes deux rouges ?", options: ["$2/9$", "$1/4$", "$1/5$", "$5/18$"], a: 0, tags: ["Données", "Probabilité"] },
-          { id: "mc268", q: "Simplifiez : $\\frac{(x^2 y^3)^2}{x^{-2} y^4}$.", options: ["$x^6 y^2$", "$x^2 y^2$", "$x^6 y^{10}$", "$x^0 y^2$"], a: 0, tags: ["Sens du nombre", "Exposants"] },
+			{ id: "set5_q2", q: "Le graphique non linéaire ci-dessous modélise la hauteur d'une fusée $h(t)$ en mètres au fil du temps $t$ en secondes. Quelle est la vitesse moyenne de la fusée entre $t = 1\\text{ s}$ et $t = 3\\text{ s}$ ?", graph: { fn: (x) => -5*x*x + 30*x, viewBox: { x: [0, 6], y: [0, 50] }, domain: [0, 6] }, options: ["$10\\text{ m/s}$", "$15\\text{ m/s}$", "$20\\text{ m/s}$", "$25\\text{ m/s}$"], a: 0, tags: ["Non linéaire", "Taux de variation moyen"] },
+
+		 { id: "mc268", q: "Simplifiez : $\\frac{(x^2 y^3)^2}{x^{-2} y^4}$.", options: ["$x^6 y^2$", "$x^2 y^2$", "$x^6 y^{10}$", "$x^0 y^2$"], a: 0, tags: ["Sens du nombre", "Exposants"] },
           { id: "mc269", q: "Un cylindre a un volume de $500\\text{ cm}^3$. Si le rayon est doublé et la hauteur est réduite de moitié, quel est le nouveau volume ?", options: ["$1\\,000\\text{ cm}^3$", "$500\\text{ cm}^3$", "$250\\text{ cm}^3$", "$2\\,000\\text{ cm}^3$"], a: 0, tags: ["Mesure", "Relations de volume"] },
           { id: "mc270", q: "Un manteau coûte $150\\$$. On applique un rabais de $20\\%$, puis une autre réduction de $10\\%$ sur le prix soldé. Quel est le prix final avant taxes ?", options: ["$108\\$$", "$105\\$$", "$115\\$$", "$120\\$$"], a: 0, tags: ["Littératie financière", "Pourcentages"] },
           { id: "mc271", q: "Quelle est l'équation de la droite passant par $(-2, 5)$ et $(4, -7)$ ?", options: ["$y = -2x + 1$", "$y = 2x + 9$", "$y = -2x - 1$", "$y = -0,5x + 4$"], a: 0, tags: ["Algèbre", "Relations linéaires"] },
@@ -1352,7 +1418,9 @@ questions: [
           { id: "mc276", q: "Une sphère s'insère exactement dans un cube de $10\\text{ cm}$ de côté. Quel est le volume de l'espace à l'intérieur du cube NON occupé par la sphère ?", options: ["$476,7\\text{ cm}^3$", "$523,3\\text{ cm}^3$", "$333,3\\text{ cm}^3$", "$1\\,000\\text{ cm}^3$"], a: 0, tags: ["Mesure", "Volume composé"] },
           { id: "mc277", q: "Un sondage auprès de $200$ personnes révèle que $120$ aiment le café, $80$ aiment le thé et $40$ aiment les deux. Quelle est la probabilité qu'une personne choisie au hasard n'aime ni l'un ni l'autre ?", options: ["$0,2$", "$0,4$", "$0,3$", "$0,1$"], a: 0, tags: ["Données", "Ensembles/Probabilité"] },
           { id: "mc278", q: "Exprimez $0,000000045$ en notation scientifique.", options: ["$4,5 \\times 10^{-8}$", "$4,5 \\times 10^{-7}$", "$45 \\times 10^{-9}$", "$0,45 \\times 10^{-7}$"], a: 0, tags: ["Sens du nombre", "Notation scientifique"] },
-          { id: "mc279", q: "Le rapport des angles d'un quadrilatère est $2:3:4:6$. Quelle est la mesure du plus petit angle ?", options: ["$48^\\circ$", "$24^\\circ$", "$36^\\circ$", "$60^\\circ$"], a: 0, tags: ["Géométrie", "Rapports"] },
+          { id: "set5_q3", q: "Une usine de fabrication produit des poutres en aluminium personnalisées. Le coût de production total comprend des frais fixes d'étalonnage des machines plus un coût variable par mètre. D'après le tableau partiel ci-dessous, quel sera le coût total pour produire un lot de $120\\text{ mètres}$ de poutre ?", table: { headers: ["Longueur, $L$ (m)", "Coût total, $C$ ($)"], rows: [["15", "875"], ["35", "1475"], ["60", "2225"]] }, options: ["$3825\\$$", "$4025\\$$", "$4225\\$$", "$4425\\$$"], a: 1, tags: ["Relations linéaires", "Extrapolation en plusieurs étapes"] },
+
+		  { id: "mc279", q: "Le rapport des angles d'un quadrilatère est $2:3:4:6$. Quelle est la mesure du plus petit angle ?", options: ["$48^\\circ$", "$24^\\circ$", "$36^\\circ$", "$60^\\circ$"], a: 0, tags: ["Géométrie", "Rapports"] },
           { id: "mc280", q: "Une carte de crédit a un taux d'intérêt annuel de $21\\%$. Si un solde de $1\\,000\\$$ reste impayé pendant un mois, quel est l'intérêt facturé pour ce mois ?", options: ["$17,50\\$$", "$21,00\\$$", "$1,75\\$$", "$175,00\\$$"], a: 0, tags: ["Littératie financière", "Intérêt"] },
           { id: "mc281", q: "Trouvez le point d'intersection de $y = 4x + 10$ et $y = -2x - 2$.", options: ["$(-2, 2)$", "$(2, 18)$", "$(-2, -6)$", "$(0, 10)$"], a: 0, tags: ["Algèbre", "Systèmes linéaires"] },
           { id: "mc282", q: "Un cône et un cylindre ont le même rayon et la même hauteur. Quel est le rapport du volume du cône au volume du cylindre ?", options: ["$1:3$", "$3:1$", "$1:2$", "$2:3$"], a: 0, tags: ["Mesure", "Théorie des volumes"] },
@@ -1361,7 +1429,9 @@ questions: [
           { id: "mc285", q: "Lequel des éléments suivants décrit une relation « non linéaire » ?", options: ["L'aire d'un carré en fonction de son côté", "Le périmètre d'un carré en fonction de son côté", "Le coût de l'essence à un prix fixe par litre", "La distance parcourue à une vitesse constante en fonction du temps"], a: 0, tags: ["Algèbre", "Linéaire vs Non linéaire"] },
           { id: "mc286", q: "Si $f(x) = 2x^2 - 3x + 1$, trouvez $f(-2)$.", options: ["15", "3", "7", "11"], a: 0, tags: ["Algèbre", "Fonctions"] },
           { id: "mc287", q: "Une recette utilise $250\\text{ mL}$ de lait pour $12$ muffins. Quelle quantité de lait est nécessaire pour $30$ muffins ?", options: ["$625\\text{ mL}$", "$500\\text{ mL}$", "$750\\text{ mL}$", "$600\\text{ mL}$"], a: 0, tags: ["Raisonnement proportionnel"] },
-          { id: "mc288", q: "Quelle est l'aire de surface totale d'un cylindre avec $r = 3\\text{ cm}$ et $h = 7\\text{ cm}$ ? (Utilisez $\\pi \\approx 3,14$)", options: ["$188,4\\text{ cm}^2$", "$131,88\\text{ cm}^2$", "$28,26\\text{ cm}^2$", "$150,72\\text{ cm}^2$"], a: 0, tags: ["Mesure", "Aire de surface"] },
+          { id: "set5_q4", q: "Deux relations linéaires distinctes, $f(x)$ et $g(x)$, sont représentées ci-dessous — $f(x)$ par le graphique et $g(x)$ par le tableau. À quelle valeur de $x$ $f(x)$ et $g(x)$ se coupent-elles ?", graph: { fn: (x) => 2*x + 1, viewBox: { x: [0, 10], y: [0, 25] }, domain: [0, 10] }, table: { headers: ["$x$", "$g(x)$"], rows: [["1", "19"], ["3", "15"], ["5", "11"]] }, options: ["$x = 3$", "$x = 4,5$", "$x = 5$", "$x = 6$"], a: 1, tags: ["Systèmes d'équations", "Intersection"] },
+
+		  { id: "mc288", q: "Quelle est l'aire de surface totale d'un cylindre avec $r = 3\\text{ cm}$ et $h = 7\\text{ cm}$ ? (Utilisez $\\pi \\approx 3,14$)", options: ["$188,4\\text{ cm}^2$", "$131,88\\text{ cm}^2$", "$28,26\\text{ cm}^2$", "$150,72\\text{ cm}^2$"], a: 0, tags: ["Mesure", "Aire de surface"] },
           { id: "mc289", q: "Une personne achète une action pour $20\\$$ et la vend pour $25\\$$. Quel est le pourcentage de profit ?", options: ["$25\\%$", "$20\\%$", "$5\\%$", "$50\\%$"], a: 0, tags: ["Littératie financière", "Pourcentages"] },
           { id: "mc290", q: "Trouvez la médiane des données : $15, 22, 12, 19, 31, 18, 25$.", options: ["19", "18", "22", "18,5"], a: 0, tags: ["Données", "Médiane"] },
           { id: "mc291", q: "Simplifiez : $\\sqrt{72}$ sous sa forme de radical mixte la plus simple.", options: ["$6\\sqrt{2}$", "$2\\sqrt{6}$", "$3\\sqrt{8}$", "$36\\sqrt{2}$"], a: 0, tags: ["Sens du nombre", "Radicaux"] },
@@ -1370,7 +1440,9 @@ questions: [
           { id: "mc294", q: "Quelle est la somme des angles intérieurs d'un hexagone ?", options: ["$720^\\circ$", "$540^\\circ$", "$900^\\circ$", "$360^\\circ$"], a: 0, tags: ["Géométrie", "Polygones"] },
           { id: "mc295", q: "Une population augmente de $2\\%$ par an. Si elle est de $10\\,000$ maintenant, quelle sera-t-elle dans $5$ ans ?", options: ["$11\\,041$", "$11\\,000$", "$10\\,200$", "$12\\,000$"], a: 0, tags: ["Algèbre", "Croissance exponentielle"] },
           { id: "mc296", q: "Convertissez $100$ centimètres cubes en millimètres cubes.", options: ["$100\\,000\\text{ mm}^3$", "$1\\,000\\text{ mm}^3$", "$10\\,000\\text{ mm}^3$", "$1\\,000\\,000\\text{ mm}^3$"], a: 0, tags: ["Mesure", "Conversion d'unités"] },
-          { id: "mc297", q: "Si $a^2 + b^2 = c^2$, et $a=7, c=25$, trouvez $b$.", options: ["24", "18", "20", "23"], a: 0, tags: ["Géométrie", "Pythagore"] },
+          { id: "set5_q5", q: "Un système de filtration d'eau utilise trois étapes de filtres avec des capacités et des coûts de remplacement différents. Le tableau ci-dessous énumère les spécifications de performance. Si une installation filtre $24\\,000\\text{ L}$ d'eau, quel est le coût total dépensé pour remplacer les filtres combinés de toutes les trois étapes ?", table: { headers: ["Étape de filtre", "Capacité par filtre (L)", "Coût par filtre ($)"], rows: [["Étape 1 (Sédiments)", "3000", "25"], ["Étape 2 (Charbon)", "4000", "40"], ["Étape 3 (Membrane OI)", "8000", "95"]] }, options: ["$525\\$$", "$725\\$$", "$815\\$$", "$1\\,015\\$$"], a: 1, tags: ["Raisonnement proportionnel", "Financier en plusieurs étapes"] },
+
+		  { id: "mc297", q: "Si $a^2 + b^2 = c^2$, et $a=7, c=25$, trouvez $b$.", options: ["24", "18", "20", "23"], a: 0, tags: ["Géométrie", "Pythagore"] },
           { id: "mc298", q: "Un ensemble de données a une moyenne de $10$ et une variance de $4$. Quel est l'écart type ?", options: ["2", "4", "16", "5"], a: 0, tags: ["Données", "Étendue"] },
           { id: "mc299", q: "Si le taux de change est de $1\\text{ CAD} = 0,75\\text{ USD}$, combien coûte en CAD un article de $120\\text{ USD}$ ?", options: ["$160\\$$", "$90\\$$", "$150\\$$", "$130\\$$"], a: 0, tags: ["Littératie financière", "Devises"] },
           { id: "mc300", q: "Résolvez : $2^{x+1} = 32$.", options: ["4", "5", "3", "6"], a: 0, tags: ["Algèbre", "Exposants"] },
