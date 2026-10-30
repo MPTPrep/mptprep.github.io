@@ -455,7 +455,7 @@ export const MOCK_TESTS = {
   },
   "mpt-mock-2": {
     id: "mpt-mock-2",
-    title: "Practice Test #2",
+    title: "Test d'entraînement nº 2",
 	requiresBriefing: true,
 	isOfficial:true,
     sections: [
