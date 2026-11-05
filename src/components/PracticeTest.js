@@ -127,7 +127,6 @@ function QuestionGraph({ config }) {
     return null;
   }
 
-  // Mafs natively expects viewBox as an object: { x: [min, max], y: [min, max] }
   const viewBox = config.viewBox || { x: [-5, 5], y: [-5, 5] };
   const graphWidth = config.width || 400;
   const graphHeight = config.height || 300;
@@ -143,7 +142,7 @@ function QuestionGraph({ config }) {
       backgroundColor: '#1a1a1a',
       display: 'inline-block'
     }}>
-      {/* Use dynamic graphWidth and graphHeight here */}
+      
       <Mafs viewBox={viewBox} width={graphWidth} height={graphHeight} pan={false} zoom={false} preserveAspectRatio={false}>
         <Coordinates.Cartesian xAxis={{ labels: false }} yAxis={{ labels: false }} />
         <Plot.OfX 
@@ -187,7 +186,7 @@ function QuestionTable({ config }) {
 				  color:'#ffffff',
                   fontWeight: '600'
                 }}>
-                  {/* Safely coerce headers to string */}
+                  
                   <Latex>{header != null ? String(header) : ''}</Latex>
                 </th>
               ))}
@@ -202,7 +201,7 @@ function QuestionTable({ config }) {
                   padding: '10px 14px', 
                   borderBottom: rIdx < config.rows.length - 1 ? '1px solid #2a2a2a' : 'none'
                 }}>
-                  {/* Safely coerce cell values to string (handles numbers like 0 perfectly) */}
+			
                   <Latex>{cell != null ? String(cell) : ''}</Latex>
                 </td>
               ))}

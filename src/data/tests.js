@@ -283,10 +283,10 @@ questions: [
   {id: "mc9",
   q: "Three of these tables of values provide information about linear relations. Which table represents a non-linear relation?",
   options: [
-    { table: { headers: ["q", "V"], rows: [["1", "5"], ["2", "7"], ["3", "9"], ["4", "11"]] } }, // slope = 2
-    { table: { headers: ["q", "V"], rows: [["1", "9"], ["2", "5"], ["3", "1"], ["4", "-3"]] } }, // slope = 3 (Correct)
-    { table: { headers: ["q", "V"], rows: [["1", "-3"], ["2", "-3"], ["3", "-3"], ["4", "-3"]] } }, // non-linear
-    { table: { headers: ["q", "V"], rows: [["1", "-1"], ["2", "2"], ["3", "6"], ["4", "11"]] } } // slope = 5
+    { table: { headers: ["q", "V"], rows: [["1", "5"], ["2", "7"], ["3", "9"], ["4", "11"]] } },
+    { table: { headers: ["q", "V"], rows: [["1", "9"], ["2", "5"], ["3", "1"], ["4", "-3"]] } }, 
+    { table: { headers: ["q", "V"], rows: [["1", "-3"], ["2", "-3"], ["3", "-3"], ["4", "-3"]] } }, 
+    { table: { headers: ["q", "V"], rows: [["1", "-1"], ["2", "2"], ["3", "6"], ["4", "11"]] } } 
   ],  
   a:1,
   tags:["Linear Relations", "Non-linear Relations"]
@@ -433,7 +433,7 @@ questions: [
     "$\\$360$",
     "$\\$560$"
   ],
-  a: 0, // Option A is the correct earnings of $160 (E = 0.16(1000) + 40 = 200? Wait, let's check: rate is (48-40)/50 = 8/50 = 0.16 per tree. For 1000 trees: 0.16 * 1000 = 160 + 40 = 200? Let's re-verify: 0 trees = $40 base. 200 trees = 72 - 40 = 32 dollars earned for 200 trees, which is $0.16 per tree. For 1000 trees: 1000 * 0.16 = 160 + 40 base = 200. Option B is $200, so a: 1!)
+  a: 0, 
   tags: ["Linear Relations", "Rate of Change"]
 },
   { 
