@@ -154,7 +154,7 @@ useEffect(() => {
       }
     });
     return () => unsubscribe();
-  }, [french]);
+  }, []);
   
   
   useEffect(() => {
@@ -281,22 +281,22 @@ const updateProfileName = async (newName) => {
   useEffect(() => {
   const baseData = french ? nodeDataFR : nodeData;
 
-  if (user) {
-    const mergedNodes = baseData.map(localNode => {
-      const existingProgress = nodes.find(n => n.id === localNode.id);
-      if (existingProgress) {
-        return { 
-          ...localNode, 
-          mastery: existingProgress.mastery, 
-          unlocked: existingProgress.unlocked 
-        };
-      }
-      return localNode;
-    });
-    setNodes(mergedNodes);
-  } else {
-    setNodes(baseData);
-  }
+  setNodes(prevNodes =>
+    baseData.map(localNode => {
+      const existing = prevNodes.find(n => n.id === localNode.id);
+      return existing
+        ? { ...localNode, mastery: existing.mastery, unlocked: existing.unlocked }
+        : localNode;
+    })
+  );
+
+  setCurrentNode(prevCurrent => {
+    if (!prevCurrent) return null;
+    const updatedBase = baseData.find(n => n.id === prevCurrent.id);
+    return updatedBase
+      ? { ...updatedBase, mastery: prevCurrent.mastery, unlocked: prevCurrent.unlocked }
+      : prevCurrent;
+  });
 }, [french]);
 
   const currentLevel = Math.floor(xp / 500) + 1;
