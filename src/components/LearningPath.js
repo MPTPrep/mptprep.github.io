@@ -521,7 +521,7 @@ const mobileStyles = `
             {(() => {
               if (isFocusMode) {
 			  if (showResult) return <LessonResult success={lastResult.success} lessonXpBefore={lastResult.before} lessonXpAfter={lastResult.after} onReplay={handleReplay} onContinue={handleContinue} darkMode = {darkMode} french = {french}/>;
-                if (showQuiz) return <Quiz node={currentNode} onComplete={handleQuizComplete} addXp={addOverallXp} onWin={handleWin} darkMode = {darkMode} french = {french}/>;
+                if (showQuiz) return <Quiz key={`${currentNode?.id}-${french}`} node={currentNode} onComplete={handleQuizComplete} addXp={addOverallXp} onWin={handleWin} darkMode = {darkMode} french = {french}/>;
                 return <Lesson node={currentNode} onNext={handleStartQuiz} darkMode = {darkMode} french = {french} />;
               }
               
